@@ -12,6 +12,9 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        FunnelDisplayRegular: ["FunnelDisplay-Regular", "sans-serif"], // Define your custom font
+      },
     },
   },
   plugins: [],
