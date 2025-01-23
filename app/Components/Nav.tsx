@@ -11,6 +11,11 @@ import { HiMenuAlt1 } from "react-icons/hi";
 import { IoClose } from "react-icons/io5";
 import { FaArrowDown } from "react-icons/fa6";
 
+import im1 from "../../public/assets/temweb.png";
+import im2 from "../../public/assets/temsocialm.png";
+import im3 from "../../public/assets/temSocial.png";
+import im4 from "../../public/assets/tembrand.png";
+
 const Nav = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isExpertiesHovered, setExpertiesHovered] = useState(false);
@@ -173,22 +178,38 @@ const Nav = () => {
                           </Link>
                         </li>
                       </ul>
-                      <div className="w-80 h-80">
+                      <div className="w-96 h-fit">
                         {Hovered === "web" ? (
-                          <div className="w-full h-full bg-slate-400">
-                            Development
+                          <div className="w-full h-fit bg-slate-400">
+                            <Image
+                              src={im2}
+                              alt="marketing img"
+                              className="w-full h-auto"
+                            />
                           </div>
                         ) : Hovered === "marketing" ? (
                           <div className="w-full h-full bg-green-200">
-                            Social Media marketing
+                            <Image
+                              src={im1}
+                              alt="web img"
+                              className="w-full h-auto"
+                            />
                           </div>
                         ) : Hovered === "social" ? (
                           <div className="w-full h-full bg-red-400">
-                            Social Media Haandling
+                            <Image
+                              src={im3}
+                              alt="social img"
+                              className="w-full h-auto"
+                            />
                           </div>
                         ) : Hovered === "brand" ? (
                           <div className="w-full h-full bg-yellow-100">
-                            Branding and Design
+                            <Image
+                              src={im4}
+                              alt="banding and design img"
+                              className="w-full h-auto"
+                            />
                           </div>
                         ) : (
                           <div className="w-full h-full bg-transparent"></div>
