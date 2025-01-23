@@ -12,7 +12,6 @@ const FunnelDisplay = Funnel_Display({
 export const metadata: Metadata = {
   title: "WebMinds",
   description: "This is a custom Next.js app using Funnel Display.",
-  viewport: "width=device-width, initial-scale=1",
 };
 
 export default function RootLayout({
