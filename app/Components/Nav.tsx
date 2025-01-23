@@ -156,12 +156,18 @@ const Nav = () => {
                             Website Development
                           </Link>
                         </li>
-                        <li className="px-4 py-3">
+                        <li
+                          className="px-4 py-3"
+                          onMouseEnter={() => hoverHandel("social")}
+                        >
                           <Link href="/experties/socialmedia">
                             Social Media
                           </Link>
                         </li>
-                        <li className="px-4 py-3">
+                        <li
+                          className="px-4 py-3"
+                          onMouseEnter={() => hoverHandel("brand")}
+                        >
                           <Link href="/experties/branding">
                             Branding & Design
                           </Link>
@@ -169,9 +175,21 @@ const Nav = () => {
                       </ul>
                       <div className="w-80 h-80">
                         {Hovered === "web" ? (
-                          <div className="w-full h-full bg-slate-400"></div>
+                          <div className="w-full h-full bg-slate-400">
+                            Development
+                          </div>
                         ) : Hovered === "marketing" ? (
-                          <div className="w-full h-full bg-green-200"></div>
+                          <div className="w-full h-full bg-green-200">
+                            Social Media marketing
+                          </div>
+                        ) : Hovered === "social" ? (
+                          <div className="w-full h-full bg-red-400">
+                            Social Media Haandling
+                          </div>
+                        ) : Hovered === "brand" ? (
+                          <div className="w-full h-full bg-yellow-100">
+                            Branding and Design
+                          </div>
                         ) : (
                           <div className="w-full h-full bg-transparent"></div>
                         )}
