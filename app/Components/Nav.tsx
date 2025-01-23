@@ -22,7 +22,9 @@ const Nav = () => {
   const [Hovered, setHovered] = useState("marketing");
   const menuRef = useRef(null);
 
-  const handleMouseEnter = (event) => {
+  const handleMouseEnter = (
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
     const textElement = event.currentTarget.querySelector("span");
 
     gsap.to(textElement, {
@@ -138,7 +140,10 @@ const Nav = () => {
                   <div
                     className="fixed top-0 left-0 w-screen flex items-center justify-between bg-[#212121] shadow-lg opacity-100 transition-opacity duration-300 z-10"
                     ref={menuRef}
-                    style={{ transformOrigin: "top center", scaleY: 0 }}
+                    style={{
+                      transformOrigin: "top center",
+                      transform: "scaleY(0)",
+                    }}
                     onMouseEnter={() => setExpertiesHovered(true)}
                     onMouseLeave={() => toggleCloseDrop()}
                   >
