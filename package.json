@@ -12,10 +12,13 @@
     "framer-motion": "^12.0.3",
     "gsap": "^3.12.7",
     "lottie-react": "^2.4.1",
+    "lottie-web": "^5.12.2",
     "next": "^15.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-icons": "^5.4.0"
+    "react-icons": "^5.4.0",
+    "sass": "^1.83.4",
+    "scss": "^0.2.4"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
