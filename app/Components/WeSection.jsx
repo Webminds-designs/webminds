@@ -6,7 +6,7 @@ import useMousePosition from '../utils/useMousePosition';
 export default function Home() {
   const [isHovered, setIsHovered] = useState(false);
   const { x, y } = useMousePosition();
-  const size = isHovered ? 400 : 40;
+  const size = isHovered ? 500 : 40;
 
   return (
     <main className={styles.main}>
@@ -28,13 +28,20 @@ export default function Home() {
           onMouseEnter={() => setIsHovered(true)} 
           onMouseLeave={() => setIsHovered(false)}
         >
-          Blah Blah Blah a typical name
+        We’re WebMinds—innovative to the point of exhaustion. We whip up websites, 
+        babysit social media, and sprinkle in some branding and digital marketing magic. 
+        Our mission? To turn your half-baked ideas into digital wonders that mostly work. 
+        Creative? Sure. Passionate? If the Wi-Fi holds up. We’re WebMinds, and we’re here to help.
         </p>
       </motion.div>
 
       <div className={styles.body}>
         <p>
-         We Are <span>WebMinds</span>
+         We Are <span>WebMinds</span>—innovative, dynamic, and results-driven. 
+         We specialize in <span>website creation</span>,<span> social media management</span>,<span> branding</span>,<span> 
+         design</span>,<span> </span>and<span> digital marketing</span>. Our mission is to turn ideas into engaging 
+         digital experiences. From strategy to execution, we deliver with creativity 
+         and precision. We work thoughtfully, creatively, and passionately.
         </p>
       </div>
     </main>
