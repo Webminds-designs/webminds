@@ -3,6 +3,7 @@
 import Nav from "./Components/Nav";
 import ExpertiseSection from "./Components/ExpertiseSection";
 import WeSection from "./Components/WeSection";
+import Socials from "./Components/Socials";
 import WhyUs from "./Components/WhyUs";
 import Hero from "./Components/Hero";
 import Bigfontloop from "./Components/Bigfontloop";
@@ -17,6 +18,7 @@ export default function Home() {
       <WeSection />
       <ExpertiseSection />
       <WhyUs />
+      <Socials />
     </div>
   );
 }

@@ -1,8 +1,14 @@
 .main {
     height: 100vh;
-    position: relative; /* Ensures correct positioning context */
+    position: relative;
     overflow: hidden;
-  }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    background: black;
+    }
   
   .mask,
   .body {
