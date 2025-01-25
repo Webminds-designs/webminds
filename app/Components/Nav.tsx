@@ -95,7 +95,7 @@ const Nav = () => {
   }, [isMobileMenuOpen]);
 
   return (
-    <div className="w-full bg-transparent font-FunnelDisplayRegular flex justify-between items-center px-6 lg:px-20 py-4 relative">
+    <div className="w-screen bg-transparent font-FunnelDisplayRegular flex justify-between items-center px-6 lg:px-20 py-4 relative overflow-hidden">
       {/* Logo Section */}
       <div className="w-24 cursor-pointer z-30">
         <Image src={logo} alt="logo" />
@@ -131,8 +131,8 @@ const Nav = () => {
                     {item}
                   </span>
                   {item === "Experties" && (
-                    <div className="flex items-center rounded-full bg-gray-700 p-1">
-                      <FaArrowDown className="text-white w-2 h-2 " />
+                    <div className="flex items-center rounded-full bg-white bg-opacity-30 p-1">
+                      <FaArrowDown className="text-white bg-opacity-100 w-2 h-2 " />
                     </div>
                   )}
                 </Link>
@@ -149,7 +149,7 @@ const Nav = () => {
                   >
                     <div className="mt-28 px-24 mb-20 w-full flex justify-between">
                       <div>Our Experties</div>
-                      <ul className="md:text-3xl lg:text-5xl ">
+                      <ul className="md:text-3xl lg:text-4xl ">
                         <li
                           className="px-4 py-3"
                           onMouseEnter={() => hoverHandel("marketing")}

@@ -1,0 +1,50 @@
+import React, { useRef, useEffect } from "react";
+import Lottie from "lottie-react";
+import animation from "../../public/animation.json";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// Register the ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
+
+const Hero = () => {
+  const lottieRef = useRef<any>(null);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (!lottieRef.current || !containerRef.current) return;
+
+    const totalFrames = lottieRef.current.getDuration(true);
+
+    // Set up GSAP ScrollTrigger
+    ScrollTrigger.create({
+      trigger: containerRef.current, // Trigger animation when this element is in view
+      start: "top top", // Start when the top of the component hits the top of the viewport
+      end: "bottom top", // End when the bottom of the component hits the top of the viewport
+      scrub: true, // Smoothly scrub through the animation as the user scrolls
+      onUpdate: (self) => {
+        // Calculate the frame based on scroll progress
+        const frame = Math.floor(self.progress * totalFrames);
+        lottieRef.current.goToAndStop(frame, true);
+      },
+    });
+  }, []);
+
+  return (
+    <div
+      ref={containerRef}
+      className="w-screen h-screen bg-black fixed top-0 left-0 flex items-center justify-center -z-10"
+    >
+      <div className="w-full h-full">
+        <Lottie
+          lottieRef={lottieRef}
+          animationData={animation}
+          loop={false}
+          autoplay={false}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default Hero;
