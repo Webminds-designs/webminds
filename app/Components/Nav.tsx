@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import React, { useState, useRef, useEffect } from "react";
 import { gsap } from "gsap";
