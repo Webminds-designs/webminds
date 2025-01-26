@@ -4,12 +4,12 @@
     justify-content: center;
     flex-direction: column;
     height: 100vh;
-    background-color: #0f0f0f;
+    background-color: black;
   }
   
   .main .container {
     display: flex;
-    gap: 30px; /* Adds space between the icons */
+    gap: 80px; /* Adds space between the icons */
     justify-content: center; /* Ensures icons are centered horizontally */
     align-items: center; /* Ensures icons are centered vertically */
   }
@@ -21,7 +21,7 @@
     cursor: pointer;
   }
   
-  .main .container svg:hover {
+  .main .container img:hover {
     fill: #ec4e39; /* Hover color */
     transform: scale(1.1); /* Optional: Slightly scale the icon on hover */
   }
