@@ -1,8 +1,6 @@
 import { useRef, useEffect } from "react";
 import { useScroll } from "framer-motion";
-import dynamic from 'next/dynamic';
-
-const Lenis = dynamic(() => import('@studio-freight/lenis'), { ssr: false });
+import Lenis from '@studio-freight/lenis';
 
 import Section1 from "./Section1";
 import Section2 from "./Section2";
@@ -17,22 +15,24 @@ export default function Expertise() {
     });
 
     useEffect(() => {
+        if (typeof window === 'undefined') return; // Ensure code runs only on the client
+
         const lenis = new Lenis({
             smoothWheel: true,
             smoothTouch: true,
-            lerp: 0.1
+            lerp: 0.1, // Adjust smoothness
         });
 
-        // Lenis instance doesn't need explicit start() — raf is called directly
-        function animate(time) {
-            lenis.raf(time);
-            requestAnimationFrame(animate);
-        }
+        // Animation loop
+        const animate = (time) => {
+            lenis.raf(time); // Use raf to integrate Lenis with requestAnimationFrame
+            requestAnimationFrame(animate); // Recursively call animate
+        };
 
         // Start the animation loop
         requestAnimationFrame(animate);
 
-        // Cleanup on component unmount
+        // Cleanup on unmount
         return () => {
             lenis.destroy();
         };

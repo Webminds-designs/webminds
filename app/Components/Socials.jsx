@@ -6,7 +6,7 @@ export default function Socials() {
   return (
     <main className={styles.main}>
 
-      <h1 className="text-xl font-bold">Socials</h1>
+      {/* <h1 className="text-[150px] font-bold text-[#20a5e2]">SOCIALS</h1> */}
 
       <div className={styles.container}>
         <MagneticIcons>
