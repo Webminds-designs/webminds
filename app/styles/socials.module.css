@@ -1,0 +1,33 @@
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #0f0f0f;
+  }
+  
+  .main .container {
+    display: flex;
+    gap: 30px; /* Adds space between the icons */
+    justify-content: center; /* Ensures icons are centered horizontally */
+    align-items: center; /* Ensures icons are centered vertically */
+  }
+  
+  .main .container svg {
+    height: 50px; /* Adjust the icon size */
+    fill: #c8bdb0; /* Default color */
+    transition: fill 0.2s, transform 0.3s; /* Transition for hover effect */
+    cursor: pointer;
+  }
+  
+  .main .container svg:hover {
+    fill: #ec4e39; /* Hover color */
+    transform: scale(1.1); /* Optional: Slightly scale the icon on hover */
+  }
+  
+  .main p {
+    color: #494136;
+    margin-top: 20px; /* Optional: Adds space between the paragraph and icons */
+  }
+  
