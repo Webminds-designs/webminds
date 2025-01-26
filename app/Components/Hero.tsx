@@ -16,6 +16,21 @@ const Hero = () => {
 
     const totalFrames = lottieRef.current.getDuration(true);
 
+    // Reverse the animation from last frame to first on load
+    const reverseAnimation = () => {
+      let currentFrame = totalFrames - 3;
+      const interval = setInterval(() => {
+        if (currentFrame <= 0) {
+          clearInterval(interval);
+        } else {
+          currentFrame -= 1;
+          lottieRef.current.goToAndStop(currentFrame, true);
+        }
+      }, 250); // Adjust speed of reversal
+    };
+
+    reverseAnimation();
+
     // Set up GSAP ScrollTrigger
     ScrollTrigger.create({
       trigger: containerRef.current, // Trigger animation when this element is in view
