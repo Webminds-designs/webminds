@@ -1,5 +1,4 @@
 import { useScroll, useTransform, motion } from "framer-motion";
-import Pic2 from "../../public/mask.svg";
 
 const Section2 = ({scrollYProgress}) => {
 
