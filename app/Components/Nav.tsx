@@ -20,7 +20,8 @@ const Nav = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isExpertiesHovered, setExpertiesHovered] = useState(false);
   const [Hovered, setHovered] = useState("marketing");
-  const menuRef = useRef(null);
+  const menuRef = useRef(null); // Ref for the dropdown container
+  const contentRef = useRef(null); // Ref for the dropdown content
 
   const handleMouseEnter = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
@@ -33,7 +34,7 @@ const Nav = () => {
       ease: "power1.out",
       onComplete: () => {
         // After it moves up, reset to bottom position and animate back up
-        gsap.set(textElement, { y: 20 }); // Reset to below the original position
+        gsap.set(textElement, { y: 20, opacity: 1 }); // Reset to below the original position
         gsap.to(textElement, {
           y: 0, // Animate it back to its original position
           duration: 0.2,
@@ -48,7 +49,7 @@ const Nav = () => {
       // Animate closing
       gsap.to(menuRef.current, {
         scaleY: 0, // Scale down to 0
-        duration: 0.5,
+        duration: 0.8,
         ease: "power2.inOut",
         onComplete: () => setMobileMenuOpen(false), // Set state after animation
       });
@@ -59,7 +60,16 @@ const Nav = () => {
 
   const toggleCloseDrop = () => {
     if (isExpertiesHovered) {
-      // Closing the dropdown
+      // Reverse the content animation first
+      gsap.to(contentRef.current.children, {
+        y: 50,
+        opacity: 0,
+        duration: 0.3,
+        stagger: 0.1, // Stagger the animation for each child
+        ease: "power2.inOut",
+      });
+
+      // Then close the dropdown container
       gsap.to(menuRef.current, {
         scaleY: 0, // Scale down to 0
         duration: 0.5,
@@ -77,8 +87,23 @@ const Nav = () => {
         { scaleY: 0, transformOrigin: "top center" }, // Start from scaleY 0
         { scaleY: 1, duration: 0.5, ease: "power2.inOut" } // Scale to full height
       );
+
+      // Animate the content from bottom to top with different speeds
+      gsap.fromTo(
+        contentRef.current.children,
+        { y: 50, opacity: 0 }, // Start from bottom
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.5,
+          stagger: 0.1, // Stagger the animation for each child
+          ease: "power2.inOut",
+          delay: 0.2, // Slight delay for the content animation
+        }
+      );
     }
   }, [isExpertiesHovered]);
+
   const hoverHandel = (link: string) => {
     setHovered(link);
   };
@@ -147,7 +172,10 @@ const Nav = () => {
                     onMouseEnter={() => setExpertiesHovered(true)}
                     onMouseLeave={() => toggleCloseDrop()}
                   >
-                    <div className="mt-28 px-24 mb-20 w-full flex justify-between">
+                    <div
+                      className="mt-28 px-24 mb-20 w-full flex justify-between"
+                      ref={contentRef}
+                    >
                       <div>Our Experties</div>
                       <ul className="md:text-3xl lg:text-4xl ">
                         <li
