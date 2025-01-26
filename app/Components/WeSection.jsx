@@ -1,7 +1,7 @@
-import styles from '../styles/pages.module.css';
 import { useState } from 'react';  
 import { motion } from 'framer-motion';
 import useMousePosition from '../utils/useMousePosition';
+import styles from '../styles/pages.module.css';
 
 export default function Home() {
   const [isHovered, setIsHovered] = useState(false);
