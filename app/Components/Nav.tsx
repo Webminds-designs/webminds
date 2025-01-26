@@ -127,7 +127,7 @@ const Nav = () => {
 
       {/* Desktop Navigation Links */}
       <nav className="hidden lg:flex ">
-        <ul className="flex items-center space-x-16 text-sm text-white font-semibold">
+        <ul className="flex items-center space-x-16 text-sm text-text font-semibold">
           {["Home", "Works", "Experties", "Careers", "Contact"].map(
             (item, index) => (
               <li key={index} className="group">
