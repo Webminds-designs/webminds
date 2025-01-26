@@ -20,7 +20,7 @@ const Bigfontloop = () => {
           duration: 0.5, // Duration for each character
           stagger: 0.05, // Stagger animation for each character
           ease: "power2.out",
-          onStart: () => {
+          onComplete: () => {
             // Step 2: Start Infinite Slide Animation
             gsap.to(textElement, {
               x: "-100%", // Slide the text off the left
@@ -31,6 +31,33 @@ const Bigfontloop = () => {
           },
         }
       );
+
+      // GSAP hover effect
+      const handleMouseEnter = () => {
+        gsap.to(textElement, {
+          color: "transparent", // Change text color
+          webkitTextStroke: "3px white", // Add white stroke
+          duration: 0.3,
+        });
+      };
+
+      const handleMouseLeave = () => {
+        gsap.to(textElement, {
+          color: "", // Reset text color
+          webkitTextStroke: "0px", // Remove stroke
+          duration: 0.3,
+        });
+      };
+
+      // Add event listeners for hover effects
+      textElement.addEventListener("mouseenter", handleMouseEnter);
+      textElement.addEventListener("mouseleave", handleMouseLeave);
+
+      return () => {
+        // Cleanup event listeners
+        textElement.removeEventListener("mouseenter", handleMouseEnter);
+        textElement.removeEventListener("mouseleave", handleMouseLeave);
+      };
     }
   }, []);
 
@@ -39,7 +66,7 @@ const Bigfontloop = () => {
       <div className="w-screen overflow-hidden absolute bottom-0 pb-8">
         <div
           ref={textRef}
-          className="text-[180px] opacity-65 font-semibold whitespace-nowrap pl-"
+          className="text-[180px] opacity-65 font-semibold whitespace-nowrap"
           style={{ display: "inline-block" }}
         >
           {/* Wrap each character in a <span> for individual animations */}
@@ -55,7 +82,7 @@ const Bigfontloop = () => {
             ))}
         </div>
       </div>
-      {/* space for other contect */}
+      {/* space for other content */}
       <div className="w-screen h-screen"></div>
     </>
   );
