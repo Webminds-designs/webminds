@@ -1,69 +1,63 @@
 import React, { useRef, useEffect } from "react";
+import Lottie from "lottie-react";
+import animation from "../../public/animation.json";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 // Register the ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
-const Hero: React.FC = () => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+const Hero = () => {
+  const lottieRef = useRef<any>(null);
+  const containerRef = useRef(null);
 
   useEffect(() => {
-    if (typeof window === "undefined") return; // Ensure code runs only on the client
+    if (!lottieRef.current || !containerRef.current) return;
 
-    const video = videoRef.current;
-    if (!video || !containerRef.current) return;
+    const totalFrames = lottieRef.current.getDuration(true);
 
-    const handleLoadedMetadata = () => {
-      if (!isNaN(video.duration)) {
-        console.log("Video metadata loaded"); // Debug log
-        console.log("Video duration:", video.duration); // Debug log
-
-        // Set initial video state
-        video.currentTime = 0;
-        video.pause();
-
-        // Scroll-based animation
-        ScrollTrigger.create({
-          trigger: containerRef.current,
-          start: "top top", // Start when the top of the component hits the top of the viewport
-          end: "bottom top", // End when the bottom of the component hits the top of the viewport
-          scrub: true, // Smoothly scrub through the animation as the user scrolls
-          onUpdate: (self) => {
-            const time = self.progress * video.duration;
-            video.currentTime = time;
-          },
-        });
-      } else {
-        console.error("Video duration is invalid");
-      }
+    // Reverse the animation from last frame to first on load
+    const reverseAnimation = () => {
+      let currentFrame = totalFrames - 3;
+      const interval = setInterval(() => {
+        if (currentFrame <= 0) {
+          clearInterval(interval);
+        } else {
+          currentFrame -= 1;
+          lottieRef.current.goToAndStop(currentFrame, true);
+        }
+      }, 250); // Adjust speed of reversal
     };
 
-    video.addEventListener("loadedmetadata", handleLoadedMetadata);
-    video.addEventListener("error", (e) => {
-      console.error("Video error:", e); // Debug log
+    reverseAnimation();
+
+    // Set up GSAP ScrollTrigger
+    ScrollTrigger.create({
+      trigger: containerRef.current, // Trigger animation when this element is in view
+      start: "top top", // Start when the top of the component hits the top of the viewport
+      end: "bottom top", // End when the bottom of the component hits the top of the viewport
+      scrub: true, // Smoothly scrub through the animation as the user scrolls
+      onUpdate: (self) => {
+        // Calculate the frame based on scroll progress
+        const frame = Math.floor(self.progress * totalFrames);
+        lottieRef.current.goToAndStop(frame, true);
+      },
     });
-
-    return () => {
-      video.removeEventListener("loadedmetadata", handleLoadedMetadata);
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill()); // Clean up ScrollTrigger instances
-    };
   }, []);
 
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 bg-black flex items-center justify-center -z-10"
-      style={{ height: "100dvh" }} // Ensure full device height
+      className="w-screen h-screen bg-black fixed top-0 left-0 flex items-center justify-center -z-10"
     >
-      <video
-        ref={videoRef}
-        src="/assets/0124.mp4" // Ensure the file path is correct
-        className="w-full h-full object-cover"
-        muted
-        playsInline
-      />
+      <div className="w-full h-full">
+        <Lottie
+          lottieRef={lottieRef}
+          animationData={animation}
+          loop={false}
+          autoplay={false}
+        />
+      </div>
     </div>
   );
 };
