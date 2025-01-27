@@ -48,14 +48,15 @@ const Hero = () => {
   return (
     <div
       ref={containerRef}
-      className="w-screen h-screen bg-black fixed top-0 left-0 flex items-center justify-center -z-10"
+      className="w-fit h-screen bg-black fixed top-0 left-0 flex items-center justify-center -z-10 overflow-hidden"
     >
-      <div className="w-full h-full">
+      <div className="w-fit h-full overflow-hidden">
         <Lottie
           lottieRef={lottieRef}
           animationData={animation}
           loop={false}
           autoplay={false}
+          className="w-screen  object-cover overflow-hidden"
         />
       </div>
     </div>
