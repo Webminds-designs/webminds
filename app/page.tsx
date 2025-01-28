@@ -9,6 +9,7 @@ import Hero from "./Components/Hero";
 // import Artwork from "./Components/Artwork";
 import Bigfontloop from "./Components/Bigfontloop";
 import Expertise from "./Components/Expertise";
+import Works from "./Components/Works";
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
       <Hero />
       <Bigfontloop />
       <WeSection />
+      <Works />
       <Expertise />
       {/* <ExpertiseSection /> */}
       <WhyUs />

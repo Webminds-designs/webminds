@@ -11,6 +11,7 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        text: "#afa18f",
       },
       fontFamily: {
         FunnelDisplayRegular: ["FunnelDisplay-Regular", "sans-serif"], // Define your custom font

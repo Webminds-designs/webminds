@@ -36,7 +36,7 @@ const Bigfontloop = () => {
       const handleMouseEnter = () => {
         gsap.to(textElement, {
           color: "transparent", // Change text color
-          webkitTextStroke: "3px white", // Add white stroke
+          webkitTextStroke: "3px #afa18f", // Add white stroke
           duration: 0.3,
         });
       };
@@ -66,7 +66,7 @@ const Bigfontloop = () => {
       <div className="w-screen overflow-hidden absolute bottom-0 pb-8">
         <div
           ref={textRef}
-          className="text-[180px] opacity-65 font-semibold whitespace-nowrap"
+          className="text-[180px] opacity-65 text-text font-semibold whitespace-nowrap"
           style={{ display: "inline-block" }}
         >
           {/* Wrap each character in a <span> for individual animations */}
