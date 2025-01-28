@@ -11,7 +11,7 @@ const Section4 = ({scrollYProgress}) => {
         <div className="flex gap-4">
           <div className="relative w-full h-full">
           <img
-            src="/Website.jpg"
+            src="/Social-Media2.jpg"
             alt="img"
             className="w-full h-full object-cover"
           />
