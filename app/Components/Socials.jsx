@@ -14,7 +14,7 @@ export default function Socials() {
             <img src="/facebook.svg" alt="Facebook" />
           </a>
         </MagneticIcons>
-        
+
         <MagneticIcons>
           <a href="https://www.tiktok.com/@webminds_?_t=ZS-8tOO77I5S35&_r=1" target="_blank" rel="noopener noreferrer">
             <img src="/tik-tok.svg" alt="TikTok" />
@@ -32,7 +32,7 @@ export default function Socials() {
             <img src="/instagram.svg" alt="Instagram" />
           </a>
         </MagneticIcons>
-        
+
       </div>
     </main>
   );
