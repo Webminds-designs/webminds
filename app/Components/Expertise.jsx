@@ -5,7 +5,7 @@ import Lenis from '@studio-freight/lenis';
 import Section1 from "./Section1";
 import Section2 from "./Section2";
 import Section3 from "./Section3";
-import Section4 from "./Section4";
+import Section4 from "./Section5";
 
 export default function Expertise() {
     const container = useRef(null);

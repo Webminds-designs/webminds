@@ -2,7 +2,7 @@ import { useScroll, useTransform, motion } from "framer-motion";
 
 const Section2 = ({ scrollYProgress }) => {
   // Define transforms based on scrollYProgress
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.6]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
   const rotate = useTransform(scrollYProgress, [0, 1], [0, 5]);
 
   return (
@@ -15,7 +15,7 @@ const Section2 = ({ scrollYProgress }) => {
       >Digital Marketing</p>
 
       <img
-        src="/Social-Media2.jpg"
+        src="/Brand3.jpg"
         alt="img"
         className="w-full h-full object-cover"
       />
