@@ -37,7 +37,7 @@ export default function Home() {
 
       <div className={styles.body}>
         <p>
-         <span>Why Us</span>—At WebMinds, we combine innovation, creativity, and expertise 
+         <span style={{ fontFamily: 'eight, sans-serif', fontWeight: 400, fontStyle: 'normal' }} >Why Us</span>—At WebMinds, we combine innovation, creativity, and expertise 
          to bring your vision to life. From strategy to execution, we deliver tailored digital 
          solutions that drive results and make an impact. With a commitment to precision and 
          excellence, we’re here to help you succeed.

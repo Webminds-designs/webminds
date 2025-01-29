@@ -37,9 +37,9 @@ export default function Home() {
 
       <div className={styles.body}>
         <p>
-         We Are <span>WebMinds</span>—innovative, dynamic, and results-driven. 
-         We specialize in <span>website creation</span>,<span> social media management</span>,<span> branding</span>,<span> 
-         design</span>,<span> </span>and<span> digital marketing</span>. Our mission is to turn ideas into engaging 
+         We Are <span style={{ fontFamily: 'eight, sans-serif', fontWeight: 400, fontStyle: 'normal' }} >WebMinds</span>—innovative, dynamic, and results-driven. 
+         We specialize in <span style={{ fontFamily: 'eight, sans-serif', fontWeight: 400, fontStyle: 'normal' }}>website creation</span>,<span style={{ fontFamily: 'eight, sans-serif', fontWeight: 400, fontStyle: 'normal' }}> social media management</span>,<span style={{ fontFamily: 'eight, sans-serif', fontWeight: 400, fontStyle: 'normal' }}> branding</span>,<span style={{ fontFamily: 'eight, sans-serif', fontWeight: 400, fontStyle: 'normal' }}> 
+         design</span>,<span> </span>and<span style={{ fontFamily: 'eight, sans-serif', fontWeight: 400, fontStyle: 'normal' }}> digital marketing</span>. Our mission is to turn ideas into engaging 
          digital experiences. From strategy to execution, we deliver with creativity 
          and precision. We work thoughtfully, creatively, and passionately.
         </p>
