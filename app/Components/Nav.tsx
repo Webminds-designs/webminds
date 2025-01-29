@@ -10,9 +10,9 @@ import { HiMenuAlt1 } from "react-icons/hi";
 import { IoClose } from "react-icons/io5";
 import { FaArrowDown } from "react-icons/fa6";
 
-import im1 from "../../public/assets/temweb.png";
-import im2 from "../../public/assets/temsocialm.png";
-import im3 from "../../public/assets/temSocial.png";
+import im1 from "../../public/assets/DigitalMarketing.jpg";
+import im2 from "../../public/assets/Website.jpg";
+import im3 from "../../public/assets/Social-Media.jpg";
 import im4 from "../../public/assets/tembrand.png";
 
 const Nav = () => {
@@ -29,14 +29,14 @@ const Nav = () => {
 
     gsap.to(textElement, {
       y: -10, // Move the text up
-      duration: 0.2,
+      duration: 0.1,
       ease: "power1.out",
       onComplete: () => {
         // After it moves up, reset to bottom position and animate back up
         gsap.set(textElement, { y: 20, opacity: 1 }); // Reset to below the original position
         gsap.to(textElement, {
           y: 0, // Animate it back to its original position
-          duration: 0.2,
+          duration: 0.1,
           ease: "power1.in",
         });
       },
@@ -59,45 +59,45 @@ const Nav = () => {
 
   const toggleCloseDrop = () => {
     if (isExpertiesHovered) {
-      // Reverse the content animation first
+      // Move all content down quickly before closing
       gsap.to(contentRef.current.children, {
-        y: 50,
+        y: 100, // Move down quickly
         opacity: 0,
-        duration: 0.3,
-        stagger: 0.1, // Stagger the animation for each child
-        ease: "power2.inOut",
+        duration: 0.2, // Fast closing speed
+        stagger: -0.05, // Make all items disappear together
+        ease: "power2.in",
       });
 
       // Then close the dropdown container
       gsap.to(menuRef.current, {
-        scaleY: 0, // Scale down to 0
-        duration: 0.5,
+        scaleY: 0,
+        duration: 0.6, // Faster closing
         ease: "power2.inOut",
-        onComplete: () => setExpertiesHovered(false), // Set state after animation
+        onComplete: () => setExpertiesHovered(false),
       });
     }
   };
 
   useEffect(() => {
     if (isExpertiesHovered) {
-      // Opening the dropdown
+      // Open the dropdown container
       gsap.fromTo(
         menuRef.current,
-        { scaleY: 0, transformOrigin: "top center" }, // Start from scaleY 0
-        { scaleY: 1, duration: 0.5, ease: "power2.inOut" } // Scale to full height
+        { scaleY: 0, transformOrigin: "top center" },
+        { scaleY: 1, duration: 0.5, ease: "power2.inOut" }
       );
 
-      // Animate the content from bottom to top with different speeds
+      // Animate each child separately with different speeds
       gsap.fromTo(
         contentRef.current.children,
-        { y: 50, opacity: 0 }, // Start from bottom
+        { y: 80, opacity: 0 }, // Start from bottom
         {
           y: 0,
           opacity: 1,
-          duration: 0.5,
-          stagger: 0.1, // Stagger the animation for each child
-          ease: "power2.inOut",
-          delay: 0.2, // Slight delay for the content animation
+          duration: 0.8, // Default duration
+          stagger: 0.2, // Stagger the animation for each child
+          ease: "power2.out",
+          delay: 0.1, // Slight delay
         }
       );
     }
