@@ -67,7 +67,8 @@ const Bigfontloop = () => {
         <div
           ref={textRef}
           className="text-[180px] opacity-65 text-text font-semibold whitespace-nowrap"
-          style={{ display: "inline-block" }}
+          style={{ display: "inline-block", fontFamily: "eight, sans-serif" }}
+          // style={{ fontFamily: 'eight, sans-serif', fontWeight: 400, fontStyle: 'normal' }}
         >
           {/* Wrap each character in a <span> for individual animations */}
           {"Crafting Beyond Ordinary Minds - Crafting Beyond Ordinary Minds - Crafting Beyond Ordinary Minds -"

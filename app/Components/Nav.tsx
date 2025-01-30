@@ -176,7 +176,13 @@ const Nav = () => {
                       ref={contentRef}
                     >
                       <div>Our Experties</div>
-                      <ul className="md:text-3xl lg:text-4xl ">
+                      <ul
+                        className="md:text-3xl lg:text-4xl "
+                        style={{
+                          display: "inline-block",
+                          fontFamily: "eight, sans-serif",
+                        }}
+                      >
                         <li
                           className="px-4 py-3"
                           onMouseEnter={() => hoverHandel("marketing")}
