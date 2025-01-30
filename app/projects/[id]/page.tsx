@@ -32,7 +32,7 @@ const ProjectPage = () => {
 
   if (!project) {
     return (
-      <div className="flex items-center justify-center h-screen text-white text-xl">
+      <div className="flex items-center justify-center min-h-screen text-white text-xl">
         Project not found.
       </div>
     );
@@ -40,7 +40,7 @@ const ProjectPage = () => {
 
   return (
     <motion.div
-      className="min-h-screen flex flex-col items-center justify-center bg-black text-white p-8"
+      className="min-h-screen flex flex-col items-center justify-start bg-black text-white p-8 overflow-auto"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -56,7 +56,7 @@ const ProjectPage = () => {
         transition={{ duration: 0.5 }}
       >
         <Image
-          src={project.imageUrl} // ✅ Fixed image source
+          src={project.imageUrl} // ✅ Now dynamically loads the correct image
           alt={project.name}
           width={800}
           height={500}
@@ -70,7 +70,7 @@ const ProjectPage = () => {
       </p>
 
       {/* Technologies Used */}
-      <div className="mt-6">
+      <div className="mt-6 w-full max-w-3xl">
         <h3 className="text-xl font-semibold mb-2">Technologies Used:</h3>
         <div className="flex flex-wrap gap-3">
           {Object.entries(project.technology).map(([category, techList]) => (
@@ -98,7 +98,7 @@ const ProjectPage = () => {
       </div>
 
       {/* Services */}
-      <div className="mt-6">
+      <div className="mt-6 w-full max-w-3xl">
         <h3 className="text-xl font-semibold mb-2">Services:</h3>
         <ul className="list-disc list-inside text-gray-300">
           {project.services.map((service, index) => (
