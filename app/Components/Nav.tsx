@@ -121,7 +121,7 @@ const Nav = () => {
   return (
     <div className="w-screen bg-transparent font-FunnelDisplayRegular flex justify-between items-center px-6 lg:px-20 py-4 relative overflow-hidden">
       {/* Logo Section */}
-      <div className="w-24 cursor-pointer z-30">
+      <div className="w-24 cursor-pointer z-40">
         <Image src={logo} alt="logo" />
       </div>
 
@@ -132,7 +132,7 @@ const Nav = () => {
             (item, index) => (
               <li key={index} className="group">
                 <Link
-                  href={`/${item.toLowerCase()}`}
+                  href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
                   onMouseEnter={(e) => {
                     handleMouseEnter(e);
                     if (item === "Experties") setExpertiesHovered(true);
@@ -142,7 +142,7 @@ const Nav = () => {
                       setExpertiesHovered(false);
                     }
                   }}
-                  className="relative overflow-hidden flex items-center hover:opacity-50 gap-2 z-30"
+                  className="relative overflow-hidden flex items-center hover:opacity-50 gap-2 z-40"
                   style={{ perspective: "1000px" }}
                 >
                   <span
@@ -162,7 +162,7 @@ const Nav = () => {
                 </Link>
                 {item === "Experties" && isExpertiesHovered && (
                   <div
-                    className="fixed top-0 left-0 w-screen flex items-center justify-between bg-[#212121] shadow-lg opacity-100 transition-opacity duration-300 z-10"
+                    className="fixed top-0 left-0 w-screen flex items-center justify-between bg-[#212121] shadow-lg opacity-100 transition-opacity duration-300 z-30"
                     ref={menuRef}
                     style={{
                       transformOrigin: "top center",
@@ -263,7 +263,7 @@ const Nav = () => {
       </nav>
 
       {/* Mobile Menu Button */}
-      <div className="lg:hidden z-20">
+      <div className="lg:hidden z-40">
         <button
           onClick={toggleMenu}
           className="text-white text-2xl focus:outline-none transition-transform duration-300"
@@ -280,7 +280,7 @@ const Nav = () => {
       {isMobileMenuOpen && (
         <div
           ref={menuRef}
-          className="fixed top-0 left-0 w-full h-full bg-[#212121] flex flex-col items-start justify-center z-10 px-8"
+          className="fixed top-0 left-0 w-full h-full bg-[#212121] flex flex-col items-start justify-center z-30 px-8"
           style={{ transformOrigin: "top center", scaleY: 0 }} // Ensure scale starts from top
         >
           <ul className="space-y-3 text-white text-4xl font-bold text-start">
