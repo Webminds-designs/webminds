@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import Lottie from "lottie-react";
-import animation from "../../public/animation.json";
+import animation from "../../public/animation2.json";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -18,15 +18,15 @@ const Hero = () => {
 
     // Reverse the animation from last frame to first on load
     const reverseAnimation = () => {
-      let currentFrame = totalFrames - 3;
+      let currentFrame = totalFrames - 1;
       const interval = setInterval(() => {
-        if (currentFrame <= 0) {
+        if (currentFrame <= 5) {
           clearInterval(interval);
         } else {
           currentFrame -= 1;
           lottieRef.current.goToAndStop(currentFrame, true);
         }
-      }, 250); // Adjust speed of reversal
+      }, 100); // Adjust speed of reversal
     };
 
     reverseAnimation();
