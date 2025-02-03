@@ -81,9 +81,9 @@ const ProjectPage = () => {
         transition={{ duration: 1 }}
       >
         {/* Project Title & Text Overlay with GSAP Parallax */}
-        <div className="w-screen h-fit relative top-0">
+        <div className="w-fit h-fit relative top-0">
           <div
-            className="w-screen h-fit absolute bottom-1/3 pl-8 lg:pl-24 z-10"
+            className="w-fit h-fit absolute bottom-1/3 pl-8 lg:pl-24 z-10"
             ref={overlayRef} // GSAP reference
           >
             <p className="text-xl md:text-2xl lg:text-4xl mb-4 px-2 font-bold">

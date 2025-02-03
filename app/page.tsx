@@ -10,6 +10,7 @@ import Hero from "./Components/Hero";
 import Bigfontloop from "./Components/Bigfontloop";
 import Expertise from "./Components/Expertise";
 import Works from "./Components/Works";
+import Footer from "./Components/Footer";
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
       <WhyUs />
       <Socials />
       {/* <Artwork /> */}
+      <Footer />
     </div>
   );
 }
