@@ -119,7 +119,7 @@ const Nav = () => {
   }, [isMobileMenuOpen]);
 
   return (
-    <div className="w-screen bg-transparent font-FunnelDisplayRegular flex justify-between items-center px-6 lg:px-20 py-4 relative overflow-hidden">
+    <div className="w-screen bg-transparent font-FunnelDisplayRegular flex justify-between items-center px-6 lg:px-20 py-4 fixed top-0 z-10 overflow-hidden">
       {/* Logo Section */}
       <div className="w-24 cursor-pointer z-40">
         <Image src={logo} alt="logo" />
