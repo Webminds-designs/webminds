@@ -18,9 +18,9 @@ const Hero = () => {
 
     // Reverse the animation from last frame to first on load
     const reverseAnimation = () => {
-      let currentFrame = totalFrames - 1;
+      let currentFrame = totalFrames;
       const interval = setInterval(() => {
-        if (currentFrame <= 5) {
+        if (currentFrame <= 0) {
           clearInterval(interval);
         } else {
           currentFrame -= 1;
