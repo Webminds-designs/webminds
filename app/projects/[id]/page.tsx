@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import Nav from "@/app/Components/Nav";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Footer from "@/app/Components/Footer";
 
 // Register GSAP ScrollTrigger Plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -168,6 +169,7 @@ const ProjectPage = () => {
             </div>
           </div>
         </div>
+        <Footer bgColor={" bg-green-950"} />
       </motion.div>
     </>
   );

@@ -4,9 +4,14 @@ import Image from "next/image";
 
 import logo from "../../public/assets/WebMinds Logo_WebMinds Blue.png";
 import ParallaxText from "./ParallaxText";
-const Footer = () => {
+
+interface FooterProp {
+  bgColor: string;
+}
+
+const Footer: React.FC<FooterProp> = ({ bgColor }) => {
   return (
-    <div className="w-screen h-fit bg-[#212121] ">
+    <div className={`w-screen h-fit ${bgColor} `}>
       <div className="w-screen h-fit flex md:flex-row justify-between md:p-24">
         <div className="w-fit h-fit">
           <div className="w-24 cursor-pointer z-40">

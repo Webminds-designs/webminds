@@ -25,7 +25,7 @@ export default function Home() {
       <WhyUs />
       <Socials />
       {/* <Artwork /> */}
-      <Footer />
+      <Footer bgColor={"bg-[#212121]"} />
     </div>
   );
 }
