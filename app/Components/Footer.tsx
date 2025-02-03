@@ -1,6 +1,5 @@
 import React from "react";
-import Bigfontloop from "./Bigfontloop";
-import BigFotterText from "./BigFotterText";
+
 import Image from "next/image";
 
 import logo from "../../public/assets/WebMinds Logo_WebMinds Blue.png";
@@ -8,7 +7,7 @@ import ParallaxText from "./ParallaxText";
 const Footer = () => {
   return (
     <div className="w-screen h-fit bg-[#212121] ">
-      <div className="w-screen h-[450px] flex md:flex-row justify-between md:p-24">
+      <div className="w-screen h-fit flex md:flex-row justify-between md:p-24">
         <div className="w-fit h-fit">
           <div className="w-24 cursor-pointer z-40">
             <Image src={logo} alt="logo" />
@@ -54,9 +53,12 @@ const Footer = () => {
         </div>
       </div>
 
-      <main className="flex flex-col items-center justify-center h-fit  bg-transparent text-text">
-        <ParallaxText baseVelocity={-2}>
-          Get In Touch - Contanct Us -
+      <main className="flex flex-col items-center justify-center h-[510px]  bg-transparent text-text md:pb-24">
+        <ParallaxText baseVelocity={-2} fontSize="text-[200px]">
+          Get In Touch -
+        </ParallaxText>
+        <ParallaxText baseVelocity={2} fontSize="text-[200px]">
+          Contanct Us -
         </ParallaxText>
       </main>
     </div>

@@ -16,11 +16,13 @@ import { gsap } from "gsap";
 interface ParallaxProps {
   children: string;
   baseVelocity?: number;
+  fontSize: string;
 }
 
 const ParallaxText: React.FC<ParallaxProps> = ({
   children,
   baseVelocity = 100,
+  fontSize,
 }) => {
   const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
@@ -88,7 +90,7 @@ const ParallaxText: React.FC<ParallaxProps> = ({
       ref={containerRef}
     >
       <motion.div
-        className="flex text-[250px] font-bold uppercase gap-6"
+        className={`flex ${fontSize} font-bold uppercase gap-2`}
         style={{ x, display: "inline-block", fontFamily: "eight, sans-serif" }}
         ref={textRef}
       >
