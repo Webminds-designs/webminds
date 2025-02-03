@@ -83,6 +83,7 @@ const Bigfontloop = () => {
             ))}
         </div>
       </div>
+
       {/* space for other content */}
       <div className="w-screen h-screen"></div>
     </>
