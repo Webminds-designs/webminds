@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import {
   motion,
   useScroll,
@@ -11,6 +11,7 @@ import {
   useAnimationFrame,
 } from "framer-motion";
 import { wrap } from "@motionone/utils";
+import { gsap } from "gsap";
 
 interface ParallaxProps {
   children: string;
@@ -43,18 +44,53 @@ const ParallaxText: React.FC<ParallaxProps> = ({
     }
 
     moveBy += directionFactor.current * moveBy * velocityFactor.get();
-
     baseX.set(baseX.get() + moveBy);
   });
 
   const x = useTransform(baseX, (v) => `${wrap(-20, -45, v)}%`);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const textElement = textRef.current;
+
+    if (container && textElement) {
+      const handleMouseEnter = () => {
+        gsap.to(textElement, {
+          color: "transparent",
+          webkitTextStroke: "3px #afa18f",
+          duration: 0.3,
+        });
+      };
+
+      const handleMouseLeave = () => {
+        gsap.to(textElement, {
+          color: "#afa18f", // Use your original text color here
+          webkitTextStroke: "0px",
+          duration: 0.3,
+        });
+      };
+
+      container.addEventListener("mouseenter", handleMouseEnter);
+      container.addEventListener("mouseleave", handleMouseLeave);
+
+      return () => {
+        container.removeEventListener("mouseenter", handleMouseEnter);
+        container.removeEventListener("mouseleave", handleMouseLeave);
+      };
+    }
+  }, []);
 
   return (
-    <div className="relative w-screen overflow-hidden whitespace-nowrap flex">
+    <div
+      className="relative w-screen overflow-hidden whitespace-nowrap flex"
+      ref={containerRef}
+    >
       <motion.div
         className="flex text-[250px] font-bold uppercase gap-6"
-        // style={{ x }}
         style={{ x, display: "inline-block", fontFamily: "eight, sans-serif" }}
+        ref={textRef}
       >
         <span>{children}</span>
         <span>{children}</span>

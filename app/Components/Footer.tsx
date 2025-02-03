@@ -55,7 +55,9 @@ const Footer = () => {
       </div>
 
       <main className="flex flex-col items-center justify-center h-fit  bg-transparent text-text">
-        <ParallaxText baseVelocity={-5}>Framer Motion</ParallaxText>
+        <ParallaxText baseVelocity={-2}>
+          Get In Touch - Contanct Us -
+        </ParallaxText>
       </main>
     </div>
   );
