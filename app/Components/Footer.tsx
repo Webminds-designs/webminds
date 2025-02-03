@@ -4,6 +4,7 @@ import BigFotterText from "./BigFotterText";
 import Image from "next/image";
 
 import logo from "../../public/assets/WebMinds Logo_WebMinds Blue.png";
+import ParallaxText from "./ParallaxText";
 const Footer = () => {
   return (
     <div className="w-screen h-fit bg-[#212121] ">
@@ -53,7 +54,9 @@ const Footer = () => {
         </div>
       </div>
 
-      <BigFotterText />
+      <main className="flex flex-col items-center justify-center h-fit  bg-transparent text-text">
+        <ParallaxText baseVelocity={-5}>Framer Motion</ParallaxText>
+      </main>
     </div>
   );
 };
