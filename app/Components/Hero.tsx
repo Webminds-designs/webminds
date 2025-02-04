@@ -1,6 +1,7 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Lottie from "lottie-react";
-import animation from "../../public/animation2.json";
+import animationweb from "../../public/animation2.json";
+import animationmob from "../../public/animation2mobi.json";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -8,6 +9,21 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
+  const [isPotrait, setIsPotrait] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsPotrait(window.innerWidth < window.innerHeight);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const lottieRef = useRef<any>(null);
   const containerRef = useRef(null);
 
@@ -48,12 +64,14 @@ const Hero = () => {
   return (
     <div
       ref={containerRef}
-      className="w-fit h-screen bg-black fixed top-0 left-0 flex items-center justify-center -z-10 overflow-hidden"
+      className="w-screen h-screen bg-black fixed top-0 left-0 flex items-center justify-center -z-10 overflow-hidden"
     >
-      <div className="w-fit h-full overflow-hidden">
+      <div className="w-screen h-full overflow-hidden">
         <Lottie
           lottieRef={lottieRef}
-          animationData={animation}
+          // animationData={animation}
+
+          animationData={isPotrait ? animationmob : animationweb}
           loop={false}
           autoplay={false}
           className="w-screen  object-cover overflow-hidden"
