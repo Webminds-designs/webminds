@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Funnel_Display } from "next/font/google";
 import "./globals.css";
 import LiveNoise from "./Components/LiveNoise";
+import ScrollToTop from "./Components/ScrollToTop";
 
 const FunnelDisplay = Funnel_Display({
   variable: "--font-geist-sans",
@@ -39,6 +40,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${FunnelDisplay.variable} antialiased`}>
+        <ScrollToTop />
         <LiveNoise />
         {children}
       </body>
