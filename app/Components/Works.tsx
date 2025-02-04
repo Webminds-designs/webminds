@@ -12,6 +12,7 @@ interface WorkItem {
 }
 
 const Works: React.FC = () => {
+  // ... existing state and handlers ...
   const [hovering, setHovering] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -64,10 +65,9 @@ const Works: React.FC = () => {
   };
 
   const handleMouseEnter = () => setHovering(true); // Show cursor
-
   return (
-    <div className="relative w-screen h-fit flex items-center justify-center p-12 bg-black">
-      {/* Custom Cursor */}
+    <div className="relative w-screen min-h-screen flex items-center justify-center p-4 md:p-8 lg:p-12 bg-black">
+      {/* Custom Cursor - Hide on mobile */}
       <CustomCursor hovering={hovering} />
 
       {/* Image Modal */}
@@ -77,12 +77,12 @@ const Works: React.FC = () => {
         onClose={() => setModalOpen(false)}
       />
 
-      <div className="w-fit grid grid-cols-4 gap-20">
+      <div className="w-full max-w-[1920px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
         {worksData.map((item: WorkItem, index: number) => (
           <div
             key={item.id}
             id={`card-${index}`}
-            className="w-[320px] h-fit bg-gray-900 rounded-md shadow-md p-8 flex flex-col transition-transform duration-150 items-center"
+            className="w-full max-w-[400px] mx-auto bg-gray-900 rounded-md shadow-md p-4 md:p-6 lg:p-8 flex flex-col transition-transform duration-150 items-center"
             onMouseMove={(e) => handleMouseMove(e, index)}
             onMouseLeave={() => handleMouseLeave(index)}
             onMouseEnter={handleMouseEnter}
@@ -92,24 +92,23 @@ const Works: React.FC = () => {
             }}
           >
             <div
-              className="card-image-wrapper"
+              className="card-image-wrapper w-full"
               style={{ transformStyle: "preserve-3d" }}
             >
-              <h3 className="text-lg text-white font-bold mb-2">{item.name}</h3>
-              <p className="text-sm text-gray-400 mb-8">{item.textOverlay}</p>
+              <h3 className="text-base md:text-lg lg:text-xl text-white font-bold mb-2">
+                {item.name}
+              </h3>
+              <p className="text-sm md:text-base text-gray-400 mb-4 md:mb-6">
+                {item.textOverlay}
+              </p>
 
-              {/* Image with cursor effect */}
-              <div
-                className="relative"
-                onMouseEnter={() => setHovering(true)}
-                onMouseLeave={() => setHovering(false)}
-              >
+              {/* Responsive image container */}
+              <div className="relative aspect-square w-full">
                 <Image
                   src="/assets/image.png"
                   alt="img"
-                  width={400}
-                  height={300}
-                  className="card-image transition-transform duration-150 rounded cursor-none"
+                  fill
+                  className="card-image object-cover transition-transform duration-150 rounded cursor-none"
                   onClick={() => handleImageClick("/assets/image.png", item.id)}
                 />
               </div>
