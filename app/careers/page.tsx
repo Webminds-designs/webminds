@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import bg from "../asserts/careerBg.png"; // Ensure the path is correct
 import bg2 from "../asserts/careerBg3.png"; // Ensure the path is correct
 import Image from "next/image";
