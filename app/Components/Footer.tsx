@@ -11,7 +11,7 @@ interface FooterProp {
 
 const Footer: React.FC<FooterProp> = ({ bgColor }) => {
   return (
-    <div className={`w-screen h-fit ${bgColor} `}>
+    <div className={`w-screen h-fit ${bgColor} z-10 relative`}>
       <div className="w-screen h-fit flex md:flex-row justify-between md:p-24">
         <div className="w-fit h-fit">
           <div className="w-24 cursor-pointer z-40">
