@@ -9,6 +9,8 @@ import vacancyData from "./vacancyData";
 import { IoArrowForwardCircleOutline } from "react-icons/io5";
 // import CustomCursor from "../Components/CustomCursor";
 
+import { motion } from "framer-motion";
+
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
@@ -25,7 +27,7 @@ const CareersPage = () => {
   const text1Ref = useRef(null);
   const text2Ref = useRef(null);
 
-  // const cardContainerRef = useRef(null);
+  const cardContainerRef = useRef(null);
 
   useEffect(() => {
     let ctx = gsap.context(() => {
@@ -37,7 +39,7 @@ const CareersPage = () => {
           trigger: mainTitleRef.current,
           start: "top 30%",
           end: "top 40%",
-          scrub: 3, // Moves faster
+          scrub: 2, // Moves faster
         },
       });
       gsap.to(image1Ref.current, {
@@ -57,14 +59,14 @@ const CareersPage = () => {
           trigger: text1Ref.current,
           start: "top 30%",
           end: "bottom 40%",
-          scrub: 3,
+          scrub: 2,
         },
       });
     }, containerRef);
 
     let ctx2 = gsap.context(() => {
       gsap.to(image2Ref.current, {
-        y: "30vh", // Moves text up more
+        y: "60vh", // Moves text up more
         ease: "power1.out",
         scrollTrigger: {
           trigger: image2Ref.current,
@@ -83,6 +85,16 @@ const CareersPage = () => {
           scrub: 3,
         },
       });
+      gsap.to(cardContainerRef.current, {
+        y: "-30vh", // Moves text up more
+        ease: "power1.out",
+        scrollTrigger: {
+          trigger: cardContainerRef.current,
+          start: "bottom bottom",
+          end: "bottom 40%",
+          scrub: 3,
+        },
+      });
     });
 
     return () => {
@@ -95,8 +107,11 @@ const CareersPage = () => {
     <>
       <Nav />
       {/* <CustomCursor hovering={hovering} /> */}
-      <div
+      <motion.div
         className="relative bg-black md:w-screen h-screen md:h-fit"
+        initial={{ opacity: 1, y: 1000 }}
+        animate={{ opacity: 1, y: 10 }}
+        transition={{ duration: 1 }}
         ref={containerRef}
       >
         <Image
@@ -140,7 +155,7 @@ const CareersPage = () => {
           websites, and craft campaigns that leave an impression. We don’t just
           follow trends—we create them.
         </div>
-      </div>
+      </motion.div>
       <div
         className="relative bg-black md:w-screen h-screen md:h-fit"
         /// <reference path="" />
@@ -173,7 +188,10 @@ const CareersPage = () => {
           we think outside of them. As a team, we aren’t just building
           websites—we’re shaping the digital landscape of tomorrow, today.
         </div>
-        <div className="flex flex-wrap gap-8 justify-center p-4 md:p-24 absolute bottom-0 md:bottom-60">
+        <div
+          className="flex flex-wrap gap-8 justify-center p-4 md:p-24 absolute bottom-0 md:bottom-60"
+          ref={cardContainerRef}
+        >
           {vacancyData.map((vacancy) => (
             <div
               key={vacancy.id}
