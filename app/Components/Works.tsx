@@ -9,6 +9,7 @@ interface WorkItem {
   id: number;
   name: string;
   textOverlay: string;
+  imgPor: string;
 }
 
 const Works: React.FC = () => {
@@ -105,7 +106,7 @@ const Works: React.FC = () => {
                 onMouseLeave={() => setHovering(false)}
               >
                 <Image
-                  src="/assets/image.png"
+                  src={item.imgPor}
                   alt="img"
                   width={400}
                   height={300}
