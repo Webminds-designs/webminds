@@ -39,7 +39,7 @@ const CareersPage = () => {
           trigger: mainTitleRef.current,
           start: "top 30%",
           end: "top 40%",
-          scrub: 2, // Moves faster
+          scrub: 1, // Moves faster
         },
       });
       gsap.to(image1Ref.current, {
@@ -49,7 +49,7 @@ const CareersPage = () => {
           trigger: image1Ref.current,
           start: "top 30%",
           end: "bottom 40%",
-          scrub: 3,
+          scrub: 1,
         },
       });
       gsap.to(text1Ref.current, {
@@ -59,7 +59,7 @@ const CareersPage = () => {
           trigger: text1Ref.current,
           start: "top 30%",
           end: "bottom 40%",
-          scrub: 2,
+          scrub: 1,
         },
       });
     }, containerRef);
@@ -72,7 +72,7 @@ const CareersPage = () => {
           trigger: image2Ref.current,
           start: "top top",
           end: "bottom 40%",
-          scrub: 3,
+          scrub: 1,
         },
       });
       gsap.to(text2Ref.current, {
@@ -82,7 +82,7 @@ const CareersPage = () => {
           trigger: text2Ref.current,
           start: "bottom bottom",
           end: "bottom 40%",
-          scrub: 3,
+          scrub: 1,
         },
       });
       gsap.to(cardContainerRef.current, {
@@ -92,7 +92,7 @@ const CareersPage = () => {
           trigger: cardContainerRef.current,
           start: "bottom bottom",
           end: "bottom 40%",
-          scrub: 3,
+          scrub: 1,
         },
       });
     });

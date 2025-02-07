@@ -23,6 +23,7 @@ export default function Home() {
       <Expertise />
       {/* <ExpertiseSection /> */}
       <WhyUs />
+
       <Socials />
       {/* <Artwork /> */}
       <Footer bgColor={"bg-[#212121]"} />
