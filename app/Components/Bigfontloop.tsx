@@ -11,8 +11,8 @@ const Bigfontloop = () => {
         </ParallaxText>
       </main>
       {/* space for other content */}
+      <div className="w-screen  md:h-80 bg-transparent"></div>
       <div className="w-screen h-screen"></div>
-      <div className="w-screen  md:h-96"></div>
     </>
   );
 };
