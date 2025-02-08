@@ -12,6 +12,7 @@ const Bigfontloop = () => {
       </main>
       {/* space for other content */}
       <div className="w-screen h-screen"></div>
+      <div className="w-screen h-screen"></div>
     </>
   );
 };
