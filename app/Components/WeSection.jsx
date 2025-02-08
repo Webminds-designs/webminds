@@ -44,6 +44,7 @@ export default function Home() {
          and precision. We work thoughtfully, creatively, and passionately.
         </p>
       </div>
+
     </main>
   );
 }

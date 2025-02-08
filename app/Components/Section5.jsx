@@ -12,7 +12,7 @@ const Section2 = ({ scrollYProgress }) => {
     >
       <p className="absolute left-10 bottom-0 text-[100px] font-semibold"
       style={{ fontFamily: 'eight, sans-serif', fontWeight: 400, fontStyle: 'normal' }}
-      >Digital Marketing</p>
+      >Branding & Design</p>
 
       <img
         src="/Brand3.jpg"
