@@ -12,7 +12,11 @@ interface WorkItem {
   imgPor: string;
 }
 
-const Works: React.FC = () => {
+interface WorksProps {
+  bgcolor: string;
+}
+
+const Works: React.FC<WorksProps> = ({ bgcolor }) => {
   // ... existing state and handlers ...
   const [hovering, setHovering] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -37,7 +41,7 @@ const Works: React.FC = () => {
     requestAnimationFrame(() => {
       card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
       if (image) {
-        image.style.transform = `translateZ(60px) scale(1.2)`;
+        image.style.transform = `translateZ(60px) scale(1.3)`;
       }
     });
   };
@@ -61,14 +65,15 @@ const Works: React.FC = () => {
     setModalOpen(true);
 
     setTimeout(() => {
-      router.push(`/projects/${projectId}`); // ✅ Correct navigation for App Router
+      router.push(`/projects/${projectId}`);
     }, 1000);
   };
 
   const handleMouseEnter = () => setHovering(true); // Show cursor
   return (
-    <div className="relative w-screen min-h-screen flex items-center justify-center p-4 md:p-8 lg:p-12 bg-black">
-      {/* Custom Cursor - Hide on mobile */}
+    <div
+      className={`relative w-screen min-h-screen flex items-center justify-center p-4 md:p-8 lg:p-12 ${bgcolor}`}
+    >
       <CustomCursor hovering={hovering} />
 
       {/* Image Modal */}
