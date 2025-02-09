@@ -2,7 +2,7 @@ const worksData = [
   {
     id: 1,
     img: "/assets/articianLand.png",
-    imgPor: "/assets/besPor.png",
+    imgPor: "/assets/ArtPor.png",
     name: "Artisan Antiques",
     textOverlay: "Pieces that bring stories to life",
     description:
@@ -45,7 +45,7 @@ const worksData = [
   {
     id: 3,
     img: "/assets/bioLand.png",
-    imgPor: "/assets/besPor.png",
+    imgPor: "/assets/bioPor.png",
     name: "BioZone",
     textOverlay: "Unleashing Your Potential in Biology",
     description:
@@ -69,7 +69,7 @@ const worksData = [
   {
     id: 4,
     img: "/assets/jimLand.png",
-    imgPor: "/assets/besPor.png",
+    imgPor: "/assets/jimPor.png",
     name: "Jimmu",
     textOverlay: "Empowering Journeys, One Insight at a Time",
     description:
@@ -90,7 +90,7 @@ const worksData = [
   {
     id: 5,
     img: "/assets/lolinsLand.png",
-    imgPor: "/assets/besPor.png",
+    imgPor: "/assets/lolPor.png",
     name: "Lolins",
     textOverlay: "Redefining Beauty, One Style at a Time",
     description:
@@ -111,7 +111,7 @@ const worksData = [
   {
     id: 6,
     img: "/assets/furLand.png",
-    imgPor: "/assets/besPor.png",
+    imgPor: "/assets/furPor.png",
     name: "Furnishings",
     textOverlay: "Timeless Designs, Crafted for Living",
     description:
@@ -133,7 +133,7 @@ const worksData = [
   {
     id: 7,
     img: "/assets/BijLand.png",
-    imgPor: "/assets/besPor.png",
+    imgPor: "/assets/bijPor.png",
     name: "Bijou",
     textOverlay: "Jewels That Define Elegance",
     description:
@@ -155,7 +155,7 @@ const worksData = [
   {
     id: 8,
     img: "/assets/litLand.png",
-    imgPor: "/assets/besPor.png",
+    imgPor: "/assets/litPor.png",
     name: "Little England Farm",
     textOverlay: "From Our Farm to Your Table",
     description:
