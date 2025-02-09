@@ -62,7 +62,7 @@ const Works: React.FC = () => {
 
     setTimeout(() => {
       router.push(`/projects/${projectId}`); // ✅ Correct navigation for App Router
-    }, 3000);
+    }, 1000);
   };
 
   const handleMouseEnter = () => setHovering(true); // Show cursor
@@ -78,12 +78,12 @@ const Works: React.FC = () => {
         onClose={() => setModalOpen(false)}
       />
 
-      <div className="w-full max-w-[1920px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
+      <div className="w-full max-w-[1920px] grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
         {worksData.map((item: WorkItem, index: number) => (
           <div
             key={item.id}
             id={`card-${index}`}
-            className="w-full max-w-[400px] mx-auto bg-gray-900 rounded-md shadow-md p-4 md:p-6 lg:p-8 flex flex-col transition-transform duration-150 items-center"
+            className="w-full max-w-[410px] mx-auto rounded-md shadow-md p-2 md:p-4 lg:p-6 bg-[#0a0a0a] flex flex-col transition-transform duration-150 items-center"
             onMouseMove={(e) => handleMouseMove(e, index)}
             onMouseLeave={() => handleMouseLeave(index)}
             onMouseEnter={handleMouseEnter}
@@ -110,7 +110,7 @@ const Works: React.FC = () => {
                   alt="img"
                   fill
                   className="card-image object-cover transition-transform duration-150 rounded cursor-none"
-                  onClick={() => handleImageClick("/assets/image.png", item.id)}
+                  onClick={() => handleImageClick(item.imgPor, item.id)}
                 />
               </div>
             </div>
