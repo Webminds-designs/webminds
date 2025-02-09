@@ -83,7 +83,7 @@ const Works: React.FC<WorksProps> = ({ bgcolor }) => {
         onClose={() => setModalOpen(false)}
       />
 
-      <div className="w-full max-w-[1920px] grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
+      <div className="w-full max-w-[1920px] grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-12">
         {worksData.map((item: WorkItem, index: number) => (
           <div
             key={item.id}
