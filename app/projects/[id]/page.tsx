@@ -107,12 +107,16 @@ const ProjectPage = () => {
             className="w-screen h-full overflow-hidden shadow-lg"
           >
             <Image
+              key={project.id}
               src={project.img}
               alt={project.name}
               width={0}
               height={0}
               sizes="100vw"
               className="w-full h-screen md:h-full object-cover object-right md:object-cover md:object-center"
+              loading="eager" // ✅ Remove index check, load eagerly
+              placeholder="blur" // Optional: Blur effect before loading
+              blurDataURL="/placeholder.jpg" // Placeholder image (low-quality version)
             />
           </motion.div>
         </div>
