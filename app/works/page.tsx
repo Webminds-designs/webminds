@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import Nav from "../Components/Nav";
 import Footer from "../Components/Footer";
 import worksData from "../../public/assets/data/worksData";
@@ -9,6 +9,10 @@ import Image from "next/image";
 import CustomCursor from "../Components/CustomCursor";
 import { usePathname, useRouter } from "next/navigation";
 import ImageModal from "../Components/ImageModal";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../store";
+
+import { stopAnimation, startAnimation } from "../store/animationSlice";
 
 interface WorkItem {
   id: number;
@@ -22,7 +26,6 @@ const Workspage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const router = useRouter();
-  const pathname = usePathname();
 
   const handleMouseMove = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -65,11 +68,19 @@ const Workspage = () => {
   const handleImageClick = (imageUrl: string, projectId: number) => {
     setSelectedImage(imageUrl);
     setModalOpen(true);
-
+    setTimeout(() => {
+      dispatch(startAnimation());
+    }, 800);
     setTimeout(() => {
       router.push(`/projects/${projectId}`);
     }, 500); // Match with animation duration
   };
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(stopAnimation()); // ✅ Stop animation after page load
+  }, [dispatch]);
 
   const pageVariants = {
     initial: {
@@ -80,16 +91,28 @@ const Workspage = () => {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 1,
+        duration: 0.8,
         ease: "easeInOut",
       },
     },
-    exit: {
-      y: "-100%",
+  };
+  const isAnimating = useSelector(
+    (state: RootState) => state.animation.isAnimating
+  );
+
+  const pageVariants2 = {
+    initial: {
+      y: 0,
+      scale: 1,
+      opacity: 1,
+    },
+    animate: {
+      y: "-20%",
+      scale: 0.8,
       opacity: 0,
       transition: {
-        duration: 1,
-        ease: "easeInOut",
+        duration: 1, // Changed duration to 800ms
+        ease: "easeOut",
       },
     },
   };
@@ -97,22 +120,14 @@ const Workspage = () => {
   const handleMouseEnter = () => setHovering(true);
 
   return (
-    <AnimatePresence mode="wait">
+    <motion.div
+      variants={pageVariants2}
+      initial="initial"
+      animate={isAnimating ? "animate" : "initial"} // ✅ Apply condition here
+    >
+      {/* <AnimatePresence mode="wait"> */}
       <Nav />
-      <motion.div
-        key={pathname}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        variants={pageVariants}
-        style={{
-          position: "fixed",
-          width: "100%",
-          height: "100%",
-          overflowY: "auto",
-          backgroundColor: "#0a0a0a",
-        }}
-      >
+      <motion.div initial="initial" animate="animate" variants={pageVariants}>
         <div className="w-screen h-fit md:h-96 flex justify-center items-start md:items-center">
           <div
             className="text-5xl md:text-[100px] lg:text-[250px] opacity-80"
@@ -173,7 +188,8 @@ const Workspage = () => {
         </div>
         <Footer bgColor="bg-black" />
       </motion.div>
-    </AnimatePresence>
+      {/* </AnimatePresence> */}
+    </motion.div>
   );
 };
 

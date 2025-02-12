@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@motionone/utils": "^10.18.0",
+    "@reduxjs/toolkit": "^2.5.1",
     "@splinetool/loader": "^1.9.59",
     "@splinetool/react-spline": "^4.0.0",
     "@studio-freight/lenis": "^1.0.42",
@@ -22,6 +23,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0",
+    "react-redux": "^9.2.0",
     "sass": "^1.83.4",
     "scss": "^0.2.4",
     "three": "^0.172.0"

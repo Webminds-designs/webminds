@@ -9,6 +9,10 @@ import Nav from "@/app/Components/Nav";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Footer from "@/app/Components/Footer";
+import { useDispatch, useSelector } from "react-redux";
+
+import { stopAnimation } from "../../store/animationSlice";
+import { RootState } from "../../store";
 
 // Register GSAP ScrollTrigger Plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -63,6 +67,47 @@ const ProjectPage = () => {
     }
   }, [project]);
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(stopAnimation()); // ✅ Stop animation after page load
+  }, [dispatch]);
+
+  const pageVariants = {
+    initial: {
+      y: "100%",
+      opacity: 0,
+    },
+    animate: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.8,
+        ease: "easeInOut",
+      },
+    },
+  };
+  const isAnimating = useSelector(
+    (state: RootState) => state.animation.isAnimating
+  );
+
+  const pageVariants2 = {
+    initial: {
+      y: 0,
+      scale: 1,
+      opacity: 1,
+    },
+    animate: {
+      y: "-20%",
+      scale: 0.8,
+      opacity: 0,
+      transition: {
+        duration: 0.8, // Changed duration to 800ms
+        ease: "easeOut",
+      },
+    },
+  };
+
   if (!project) {
     return (
       <div className="flex items-center justify-center min-h-screen text-text text-xl">
@@ -73,107 +118,113 @@ const ProjectPage = () => {
 
   return (
     <>
-      <Nav />
+      {" "}
       <motion.div
-        ref={containerRef}
-        className="min-h-screen flex flex-col items-center justify-start bg-black absolute top-0 text-text overflow-hidden"
-        initial={{ opacity: 1, y: 1000 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
+        variants={pageVariants2}
+        initial="initial"
+        animate={isAnimating ? "animate" : "initial"} // ✅ Apply condition here
       >
-        {/* Project Title & Text Overlay with GSAP Parallax */}
-        <div className="w-fit h-fit relative top-0">
-          <div
-            className="w-fit h-fit absolute bottom-1/3 pl-8 lg:pl-24 z-10"
-            ref={overlayRef} // GSAP reference
-          >
-            <p className="text-xl md:text-2xl lg:text-4xl mb-4 px-2 font-bold">
-              {project.textOverlay}
-            </p>
-            <h1
-              className="text-6xl lg:text-[120px] leading-none w-1/2 text-wrap text-start "
-              style={{
-                display: "inline-block",
-                fontFamily: "eight, sans-serif",
-              }}
+        <Nav />
+        <motion.div
+          initial="initial"
+          animate="animate"
+          variants={pageVariants}
+          className="min-h-screen flex flex-col items-center justify-start bg-black absolute top-0 text-text overflow-hidden"
+        >
+          {/* Project Title & Text Overlay with GSAP Parallax */}
+          <div className="w-fit h-fit relative top-0">
+            <div
+              className="w-fit  h-fit absolute bottom-1/3 pl-8 lg:pl-24 z-10"
+              ref={overlayRef} // GSAP reference
             >
-              {project.name}
-            </h1>
-          </div>
+              <p className="text-xl md:text-2xl lg:text-4xl mb-4 px-2 font-bold">
+                {project.textOverlay}
+              </p>
+              <h1
+                className="text-6xl lg:text-[120px] leading-none w-1/2 text-wrap text-start "
+                style={{
+                  display: "inline-block",
+                  fontFamily: "eight, sans-serif",
+                }}
+              >
+                {project.name}
+              </h1>
+            </div>
 
-          {/* Project Image with GSAP Parallax Effect */}
-          <motion.div
-            ref={imageRef}
-            className="w-screen h-full overflow-hidden shadow-lg"
-          >
-            <Image
-              key={project.id}
-              src={project.img}
-              alt={project.name}
-              width={0}
-              height={0}
-              sizes="100vw"
-              className="w-full h-screen md:h-full object-cover object-right md:object-cover md:object-center"
-              loading="eager" // ✅ Remove index check, load eagerly
-              placeholder="blur" // Optional: Blur effect before loading
-              blurDataURL="/placeholder.jpg" // Placeholder image (low-quality version)
-            />
-          </motion.div>
-        </div>
-        <div className="w-screen h-screen flex">
-          {/* Project Description */}
-          <div className="w-2/3 h-screen flex justify-center items-center text-start p-6  md:p-12 lg:p-24">
-            <p className="mt-6 text-xl md:text-2xl lg:text-4xl text-text  text-start font-bold leading-loose">
-              {project.description}
-            </p>
+            {/* Project Image with GSAP Parallax Effect */}
+            <motion.div
+              ref={imageRef}
+              className="w-screen h-full overflow-hidden shadow-lg"
+            >
+              <Image
+                key={project.id}
+                src={project.img}
+                alt={project.name}
+                width={0}
+                height={0}
+                sizes="100vw"
+                className="w-full h-screen md:h-full object-cover object-right md:object-cover md:object-center"
+                loading="eager" // ✅ Remove index check, load eagerly
+                placeholder="blur" // Optional: Blur effect before loading
+                blurDataURL="/placeholder.jpg" // Placeholder image (low-quality version)
+              />
+            </motion.div>
           </div>
-          <div className="w-1/3 h-screen bg-[#212121] md:p-12 flex justify-between items-center">
-            <div className="w-full h-full flex flex-col justify-center items-center">
-              {/* Technologies Used */}
-              <div className="mt-6 w-full flex-col justify-between items-center max-w-3xl bg- z-10">
-                <h3 className="text-xl font-bold mb-2">Technologies Used:</h3>
-                <div className="flex flex-col  pl-4 gap-3">
-                  {Object.entries(project.technology).map(
-                    ([category, techList]) => (
-                      <div key={category}>
-                        <h4 className="text-md font-semibold text-gray-400 mb-1">
-                          {category.replace(/([A-Z])/g, " $1").trim()}
-                        </h4>
-                        <div className="flex flex-warp gap-2 ">
-                          {techList?.map((tech, index) => (
-                            <motion.span
-                              key={index}
-                              className="px-4 py-2  bg-opacity-80 rounded-md text-sm"
-                              initial={{ scale: 0.8, opacity: 0 }}
-                              animate={{ scale: 1, opacity: 1 }}
-                              transition={{
-                                delay: 0.2 + index * 0.1,
-                                duration: 0.3,
-                              }}
-                            >
-                              {tech}
-                            </motion.span>
-                          ))}
+          <div className="w-screen h-screen flex">
+            {/* Project Description */}
+            <div className="w-2/3 h-screen flex justify-center items-center text-start p-6  md:p-12 lg:p-24">
+              <p className="mt-6 text-xl md:text-2xl lg:text-4xl text-text  text-start font-bold leading-loose">
+                {project.description}
+              </p>
+            </div>
+            <div className="w-1/3 h-screen bg-[#212121] md:p-12 flex justify-between items-center">
+              <div className="w-full h-full flex flex-col justify-center items-center">
+                {/* Technologies Used */}
+                <div className="mt-6 w-full flex-col justify-between items-center max-w-3xl bg- z-10">
+                  <h3 className="text-xl font-bold mb-2">Technologies Used:</h3>
+                  <div className="flex flex-col  pl-4 gap-3">
+                    {Object.entries(project.technology).map(
+                      ([category, techList]) => (
+                        <div key={category}>
+                          <h4 className="text-md font-semibold text-gray-400 mb-1">
+                            {category.replace(/([A-Z])/g, " $1").trim()}
+                          </h4>
+                          <div className="flex flex-warp gap-2 ">
+                            {techList?.map((tech, index) => (
+                              <motion.span
+                                key={index}
+                                className="px-4 py-2  bg-opacity-80 rounded-md text-sm"
+                                initial={{ scale: 0.8, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                transition={{
+                                  delay: 0.2 + index * 0.1,
+                                  duration: 0.3,
+                                }}
+                              >
+                                {tech}
+                              </motion.span>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    )
-                  )}
+                      )
+                    )}
+                  </div>
                 </div>
-              </div>
 
-              {/* Services */}
-              <div className="mt-6 w-full max-w-3xl">
-                <h3 className="text-xl font-bold mb-2">Services:</h3>
-                <ul className="list-none flex flex-col pl-4 list-inside text-gray-300 gap-2">
-                  {project.services.map((service, index) => (
-                    <li key={index}>{service}</li>
-                  ))}
-                </ul>
+                {/* Services */}
+                <div className="mt-6 w-full max-w-3xl">
+                  <h3 className="text-xl font-bold mb-2">Services:</h3>
+                  <ul className="list-none flex flex-col pl-4 list-inside text-gray-300 gap-2">
+                    {project.services.map((service, index) => (
+                      <li key={index}>{service}</li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <Footer bgColor={" bg-green-950"} />
+          <Footer bgColor={" bg-green-950"} />
+        </motion.div>
       </motion.div>
     </>
   );

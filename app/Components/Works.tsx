@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import worksData from "../../public/assets/data/worksData.js";
 import Image from "next/image";
 import CustomCursor from "./CustomCursor";
 import { usePathname, useRouter } from "next/navigation";
 import ImageModal from "./ImageModal";
+
+import { useDispatch } from "react-redux";
+import { startAnimation, stopAnimation } from "../store/animationSlice";
 
 interface WorkItem {
   id: number;
@@ -14,11 +17,12 @@ interface WorkItem {
 
 interface WorksProps {
   bgcolor: string;
-  setNavigationAnimation: React.Dispatch<React.SetStateAction<boolean>>;
+  // setNavigationAnimation: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Works: React.FC<WorksProps> = ({ bgcolor, setNavigationAnimation }) => {
-  // ... existing state and handlers ...
+const Works: React.FC<WorksProps> = ({ bgcolor }) => {
+  const dispatch = useDispatch();
+
   const [hovering, setHovering] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -65,15 +69,20 @@ const Works: React.FC<WorksProps> = ({ bgcolor, setNavigationAnimation }) => {
     setSelectedImage(imageUrl);
     setModalOpen(true);
     setTimeout(() => {
-      setNavigationAnimation(true);
-    }, 1000);
+      dispatch(startAnimation());
+    }, 800);
 
     setTimeout(() => {
       router.push(`/projects/${projectId}`);
-    }, 1000);
+    }, 800);
   };
 
   const handleMouseEnter = () => setHovering(true); // Show cursor
+
+  useEffect(() => {
+    dispatch(stopAnimation()); // ✅ Stop animation after page load
+  }, [dispatch]);
+
   return (
     <div
       className={`relative w-screen min-h-screen flex items-center justify-center p-4 md:p-8 lg:p-12 ${bgcolor}`}

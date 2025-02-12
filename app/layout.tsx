@@ -3,6 +3,7 @@ import { Funnel_Display } from "next/font/google";
 import "./globals.css";
 import LiveNoise from "./Components/LiveNoise";
 import ScrollToTop from "./Components/ScrollToTop";
+import Providers from "./Providers"; // ✅ Import Redux wrapper
 
 const FunnelDisplay = Funnel_Display({
   variable: "--font-geist-sans",
@@ -18,9 +19,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <head>
@@ -40,9 +39,11 @@ export default function RootLayout({
         />
       </head>
       <body className={`${FunnelDisplay.variable} antialiased`}>
-        <ScrollToTop />
-        <LiveNoise />
-        {children}
+        <Providers>
+          <ScrollToTop />
+          <LiveNoise />
+          {children}
+        </Providers>
       </body>
     </html>
   );
