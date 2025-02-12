@@ -19,6 +19,8 @@ import im2 from "../../public/assets/Website.jpg";
 import im3 from "../../public/assets/Social-Media.jpg";
 import im4 from "../../public/assets/tembrand.png";
 
+import { motion } from "framer-motion";
+
 const Nav = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isExpertiesHovered, setExpertiesHovered] = useState(false);
@@ -159,6 +161,42 @@ const Nav = () => {
                             className="w-full h-auto"
                           />
                         ) : null}
+
+                        {Hovered === "web" ? (
+                          <motion.div className="w-full h-fit">
+                            <Image
+                              src={im2}
+                              alt="marketing img"
+                              className="w-full h-auto"
+                            />
+                          </motion.div>
+                        ) : Hovered === "marketing" ? (
+                          <div className="w-full h-full">
+                            <Image
+                              src={im1}
+                              alt="web img"
+                              className="w-full h-auto"
+                            />
+                          </div>
+                        ) : Hovered === "social" ? (
+                          <div className="w-full h-full ">
+                            <Image
+                              src={im3}
+                              alt="social img"
+                              className="w-full h-auto"
+                            />
+                          </div>
+                        ) : Hovered === "brand" ? (
+                          <div className="w-full h-full ">
+                            <Image
+                              src={im4}
+                              alt="banding and design img"
+                              className="w-full h-auto"
+                            />
+                          </div>
+                        ) : (
+                          <div className="w-full h-full bg-transparent"></div>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -188,6 +226,7 @@ const Nav = () => {
         <div
           ref={menuRef}
           className="fixed top-0 left-0 w-full h-full bg-[#212121] flex flex-col items-start justify-center z-30 px-8"
+          style={{ transformOrigin: "top center", transform: "scaleY(0)" }} // Ensure scale starts from top
         >
           <ul className="space-y-3 text-white text-4xl font-bold text-start">
             {["Home", "Works", "Experties", "Careers", "Contact"].map(
