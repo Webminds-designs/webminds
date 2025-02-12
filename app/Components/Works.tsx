@@ -14,9 +14,10 @@ interface WorkItem {
 
 interface WorksProps {
   bgcolor: string;
+  setNavigationAnimation: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Works: React.FC<WorksProps> = ({ bgcolor }) => {
+const Works: React.FC<WorksProps> = ({ bgcolor, setNavigationAnimation }) => {
   // ... existing state and handlers ...
   const [hovering, setHovering] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -63,6 +64,9 @@ const Works: React.FC<WorksProps> = ({ bgcolor }) => {
   const handleImageClick = (imageUrl: string, projectId: number) => {
     setSelectedImage(imageUrl);
     setModalOpen(true);
+    setTimeout(() => {
+      setNavigationAnimation(true);
+    }, 1000);
 
     setTimeout(() => {
       router.push(`/projects/${projectId}`);
@@ -83,7 +87,7 @@ const Works: React.FC<WorksProps> = ({ bgcolor }) => {
         onClose={() => setModalOpen(false)}
       />
 
-      <div className="w-full max-w-[1920px] grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
+      <div className="w-full max-w-[1920px] grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-12">
         {worksData.map((item: WorkItem, index: number) => (
           <div
             key={item.id}
