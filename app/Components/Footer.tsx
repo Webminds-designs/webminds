@@ -18,7 +18,7 @@ const Footer: React.FC<FooterProp> = ({ bgColor }) => {
             <Image src={logo} alt="logo" />
           </div>
         </div>
-        <div className="md:w-1/2 h-fill flex flex-col md:flex-row md:justify-between items-center">
+        <div className="md:w-1/2 h-fill flex flex-col md:flex-row md:justify-between items-center md:items-start">
           <div className="w-fit h-fit flex-col justify-center items-center md:items-start mt-6">
             <div className="text-sm text-bold text-white text-center md:text-start mb-4">
               Contact Us
