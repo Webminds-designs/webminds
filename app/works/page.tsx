@@ -118,7 +118,7 @@ const Workspage = () => {
             className="text-5xl md:text-[100px] lg:text-[250px] opacity-80"
             style={{ fontFamily: "eight, sans-serif" }}
           >
-            Careers .
+            Works .
           </div>
         </div>
 
