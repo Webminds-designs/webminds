@@ -1,12 +1,8 @@
 const { FlatCompat } = require("@eslint/eslintrc");
-const { dirname } = require("path");
-const { fileURLToPath } = require("url");
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const path = require("path");
 
 const compat = new FlatCompat({
-  baseDirectory: __dirname,
+  baseDirectory: __dirname, // __dirname is fine in CommonJS
 });
 
 module.exports = {
