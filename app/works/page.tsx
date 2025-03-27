@@ -28,10 +28,12 @@ const Workspage = () => {
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
     index: number
   ) => {
+    if (typeof document === "undefined") return;
+
     const card = document.getElementById(`card-${index}`);
     if (!card) return;
 
-    const image = card.querySelector(".card-image") as HTMLElement;
+    const image = card.querySelector(".card-image") as HTMLElement | null;
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -49,16 +51,20 @@ const Workspage = () => {
   };
 
   const handleMouseLeave = (index: number) => {
+    if (typeof document === "undefined") return;
+
     const card = document.getElementById(`card-${index}`);
     if (!card) return;
 
-    const image = card.querySelector(".card-image") as HTMLElement;
+    const image = card.querySelector(".card-image") as HTMLElement | null;
+
     requestAnimationFrame(() => {
       card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
       if (image) {
         image.style.transform = `translateZ(0px) scale(1)`;
       }
     });
+
     setHovering(false);
   };
 
@@ -70,6 +76,8 @@ const Workspage = () => {
       router.push(`/projects/${projectId}`);
     }, 500); // Match with animation duration
   };
+
+  const handleMouseEnter = () => setHovering(true);
 
   const pageVariants = {
     initial: {
@@ -93,8 +101,6 @@ const Workspage = () => {
       },
     },
   };
-
-  const handleMouseEnter = () => setHovering(true);
 
   return (
     <AnimatePresence mode="wait">
