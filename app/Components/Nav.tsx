@@ -21,8 +21,9 @@ const Nav = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isExpertiesHovered, setExpertiesHovered] = useState(false);
   const [Hovered, setHovered] = useState("marketing");
-  const menuRef = useRef(null); // Ref for the dropdown container
-  const contentRef = useRef(null); // Ref for the dropdown content
+
+  const menuRef = useRef<HTMLDivElement | null>(null);
+  const contentRef = useRef<HTMLDivElement | null>(null);
 
   const handleMouseEnter = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
@@ -30,14 +31,13 @@ const Nav = () => {
     const textElement = event.currentTarget.querySelector("span");
 
     gsap.to(textElement, {
-      y: -10, // Move the text up
+      y: -10,
       duration: 0.1,
       ease: "power1.out",
       onComplete: () => {
-        // After it moves up, reset to bottom position and animate back up
-        gsap.set(textElement, { y: 20, opacity: 1 }); // Reset to below the original position
+        gsap.set(textElement, { y: 20, opacity: 1 });
         gsap.to(textElement, {
-          y: 0, // Animate it back to its original position
+          y: 0,
           duration: 0.1,
           ease: "power1.in",
         });
@@ -47,33 +47,32 @@ const Nav = () => {
 
   const toggleMenu = () => {
     if (isMobileMenuOpen) {
-      // Animate closing
-      gsap.to(menuRef.current, {
-        scaleY: 0, // Scale down to 0
-        duration: 0.8,
-        ease: "power2.inOut",
-        onComplete: () => setMobileMenuOpen(false), // Set state after animation
-      });
+      if (menuRef.current) {
+        gsap.to(menuRef.current, {
+          scaleY: 0,
+          duration: 0.8,
+          ease: "power2.inOut",
+          onComplete: () => setMobileMenuOpen(false),
+        });
+      }
     } else {
-      setMobileMenuOpen(true); // Open state
+      setMobileMenuOpen(true);
     }
   };
 
   const toggleCloseDrop = () => {
-    if (isExpertiesHovered) {
-      // Move all content down quickly before closing
+    if (isExpertiesHovered && contentRef.current && menuRef.current) {
       gsap.to(contentRef.current.children, {
-        y: 100, // Move down quickly
+        y: 100,
         opacity: 0,
-        duration: 0.2, // Fast closing speed
-        stagger: -0.05, // Make all items disappear together
+        duration: 0.2,
+        stagger: -0.05,
         ease: "power2.in",
       });
 
-      // Then close the dropdown container
       gsap.to(menuRef.current, {
         scaleY: 0,
-        duration: 0.6, // Faster closing
+        duration: 0.6,
         ease: "power2.inOut",
         onComplete: () => setExpertiesHovered(false),
       });
@@ -81,44 +80,41 @@ const Nav = () => {
   };
 
   useEffect(() => {
-    if (isExpertiesHovered) {
-      // Open the dropdown container
+    if (isExpertiesHovered && menuRef.current && contentRef.current) {
       gsap.fromTo(
         menuRef.current,
         { scaleY: 0, transformOrigin: "top center" },
         { scaleY: 1, duration: 0.5, ease: "power2.inOut" }
       );
 
-      // Animate each child separately with different speeds
       gsap.fromTo(
         contentRef.current.children,
-        { y: 80, opacity: 0 }, // Start from bottom
+        { y: 80, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: 0.8, // Default duration
-          stagger: 0.2, // Stagger the animation for each child
+          duration: 0.8,
+          stagger: 0.2,
           ease: "power2.out",
-          delay: 0.1, // Slight delay
+          delay: 0.1,
         }
       );
     }
   }, [isExpertiesHovered]);
 
-  const hoverHandel = (link: string) => {
-    setHovered(link);
-  };
-
   useEffect(() => {
-    if (isMobileMenuOpen) {
-      // Animate opening
+    if (isMobileMenuOpen && menuRef.current) {
       gsap.fromTo(
         menuRef.current,
-        { scaleY: 0, transformOrigin: "top center" }, // Scale starts from top
-        { scaleY: 1, duration: 0.5, ease: "power2.inOut" } // Full height
+        { scaleY: 0, transformOrigin: "top center" },
+        { scaleY: 1, duration: 0.5, ease: "power2.inOut" }
       );
     }
   }, [isMobileMenuOpen]);
+
+  const hoverHandel = (link: string) => {
+    setHovered(link);
+  };
 
   return (
     <div className="w-screen bg-transparent font-FunnelDisplayRegular flex justify-between items-center px-6 lg:px-20 py-4 fixed top-0 z-10 overflow-hidden">
@@ -128,7 +124,7 @@ const Nav = () => {
       </div>
 
       {/* Desktop Navigation Links */}
-      <nav className="hidden lg:flex ">
+      <nav className="hidden lg:flex">
         <ul className="flex items-center space-x-16 text-sm text-white font-semibold">
           {["Home", "Works", "Experties", "Careers", "Contact"].map(
             (item, index) => (
@@ -148,17 +144,17 @@ const Nav = () => {
                   style={{ perspective: "1000px" }}
                 >
                   <span
-                    className="block "
+                    className="block"
                     style={{
                       display: "inline-block",
-                      transformOrigin: "center center", // Center the transform origin
+                      transformOrigin: "center center",
                     }}
                   >
                     {item}
                   </span>
                   {item === "Experties" && (
                     <div className="flex items-center rounded-full bg-white bg-opacity-30 p-1">
-                      <FaArrowDown className="text-white bg-opacity-100 w-2 h-2 " />
+                      <FaArrowDown className="text-white w-2 h-2" />
                     </div>
                   )}
                 </Link>
@@ -179,7 +175,7 @@ const Nav = () => {
                     >
                       <div>Our Experties</div>
                       <ul
-                        className="md:text-3xl lg:text-4xl "
+                        className="md:text-3xl lg:text-4xl"
                         style={{
                           display: "inline-block",
                           fontFamily: "eight, sans-serif",
@@ -223,34 +219,28 @@ const Nav = () => {
                           <motion.div className="w-full h-fit">
                             <Image
                               src={im2}
-                              alt="marketing img"
+                              alt="Web"
                               className="w-full h-auto"
                             />
                           </motion.div>
                         ) : Hovered === "marketing" ? (
-                          <div className="w-full h-full">
-                            <Image
-                              src={im1}
-                              alt="web img"
-                              className="w-full h-auto"
-                            />
-                          </div>
+                          <Image
+                            src={im1}
+                            alt="Marketing"
+                            className="w-full h-auto"
+                          />
                         ) : Hovered === "social" ? (
-                          <div className="w-full h-full ">
-                            <Image
-                              src={im3}
-                              alt="social img"
-                              className="w-full h-auto"
-                            />
-                          </div>
+                          <Image
+                            src={im3}
+                            alt="Social"
+                            className="w-full h-auto"
+                          />
                         ) : Hovered === "brand" ? (
-                          <div className="w-full h-full ">
-                            <Image
-                              src={im4}
-                              alt="banding and design img"
-                              className="w-full h-auto"
-                            />
-                          </div>
+                          <Image
+                            src={im4}
+                            alt="Branding"
+                            className="w-full h-auto"
+                          />
                         ) : (
                           <div className="w-full h-full bg-transparent"></div>
                         )}
@@ -283,7 +273,7 @@ const Nav = () => {
         <div
           ref={menuRef}
           className="fixed top-0 left-0 w-full h-full bg-[#212121] flex flex-col items-start justify-center z-30 px-8"
-          style={{ transformOrigin: "top center", transform: "scaleY(0)" }} // Ensure scale starts from top
+          style={{ transformOrigin: "top center", transform: "scaleY(0)" }}
         >
           <ul className="space-y-3 text-white text-4xl font-bold text-start">
             {["Home", "Works", "Experties", "Careers", "Contact"].map(
@@ -291,7 +281,7 @@ const Nav = () => {
                 <li key={index}>
                   <Link
                     href={`/${item.toLowerCase()}`}
-                    onClick={() => toggleMenu()} // Close menu on click
+                    onClick={() => toggleMenu()}
                     className="relative inline-block overflow-hidden hover:opacity-70"
                   >
                     <span
