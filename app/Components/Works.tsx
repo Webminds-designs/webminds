@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import worksData from "../../public/assets/data/worksData.js";
 import Image from "next/image";
 import CustomCursor from "./CustomCursor";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import ImageModal from "./ImageModal";
 
 interface WorkItem {
@@ -19,19 +19,22 @@ interface WorksProps {
 }
 
 const Works: React.FC<WorksProps> = ({ bgcolor, setNavigationAnimation }) => {
-  // ... existing state and handlers ...
   const [hovering, setHovering] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const router = useRouter();
+
   const handleMouseMove = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
     index: number
   ) => {
+    // ✅ Guard document usage
+    if (typeof document === "undefined") return;
+
     const card = document.getElementById(`card-${index}`);
     if (!card) return;
 
-    const image = card.querySelector(".card-image") as HTMLElement;
+    const image = card.querySelector(".card-image") as HTMLElement | null;
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -49,22 +52,27 @@ const Works: React.FC<WorksProps> = ({ bgcolor, setNavigationAnimation }) => {
   };
 
   const handleMouseLeave = (index: number) => {
+    if (typeof document === "undefined") return;
+
     const card = document.getElementById(`card-${index}`);
     if (!card) return;
 
-    const image = card.querySelector(".card-image") as HTMLElement;
+    const image = card.querySelector(".card-image") as HTMLElement | null;
+
     requestAnimationFrame(() => {
       card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
       if (image) {
         image.style.transform = `translateZ(0px) scale(1)`;
       }
     });
-    setHovering(false); // Hide cursor
+
+    setHovering(false);
   };
 
   const handleImageClick = (imageUrl: string, projectId: number) => {
     setSelectedImage(imageUrl);
     setModalOpen(true);
+
     setTimeout(() => {
       setNavigationAnimation(true);
     }, 1000);
@@ -74,14 +82,14 @@ const Works: React.FC<WorksProps> = ({ bgcolor, setNavigationAnimation }) => {
     }, 1000);
   };
 
-  const handleMouseEnter = () => setHovering(true); // Show cursor
+  const handleMouseEnter = () => setHovering(true);
+
   return (
     <div
       className={`relative w-screen min-h-screen flex items-center justify-center p-4 md:p-8 lg:p-12 ${bgcolor}`}
     >
       <CustomCursor hovering={hovering} />
 
-      {/* Image Modal */}
       <ImageModal
         isOpen={modalOpen}
         imageUrl={selectedImage || ""}
@@ -113,7 +121,6 @@ const Works: React.FC<WorksProps> = ({ bgcolor, setNavigationAnimation }) => {
                 {item.textOverlay}
               </p>
 
-              {/* Responsive image container */}
               <div className="relative aspect-square w-full">
                 <Image
                   src={item.imgPor}
