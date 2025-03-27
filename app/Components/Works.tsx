@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import worksData from "../../public/assets/data/worksData.js";
 import Image from "next/image";
