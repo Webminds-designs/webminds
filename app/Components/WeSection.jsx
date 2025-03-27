@@ -45,6 +45,7 @@ export default function Home() {
               fontFamily: "eight, sans-serif",
               fontWeight: 400,
               fontStyle: "normal",
+              color: "#393cec",
             }}
           >
             WebMinds
@@ -55,6 +56,7 @@ export default function Home() {
               fontFamily: "eight, sans-serif",
               fontWeight: 400,
               fontStyle: "normal",
+              color: "#393cec",
             }}
           >
             website creation
@@ -65,6 +67,7 @@ export default function Home() {
               fontFamily: "eight, sans-serif",
               fontWeight: 400,
               fontStyle: "normal",
+              color: "#393cec",
             }}
           >
             {" "}
@@ -76,6 +79,7 @@ export default function Home() {
               fontFamily: "eight, sans-serif",
               fontWeight: 400,
               fontStyle: "normal",
+              color: "#393cec",
             }}
           >
             {" "}
@@ -87,16 +91,26 @@ export default function Home() {
               fontFamily: "eight, sans-serif",
               fontWeight: 400,
               fontStyle: "normal",
+              color: "#393cec",
             }}
           >
             design
           </span>
-          ,<span> </span>and
+          ,
+          <span
+            style={{
+              color: "#393cec",
+            }}
+          >
+            {" "}
+          </span>
+          and
           <span
             style={{
               fontFamily: "eight, sans-serif",
               fontWeight: 400,
               fontStyle: "normal",
+              color: "#393cec",
             }}
           >
             {" "}
