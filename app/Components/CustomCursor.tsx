@@ -25,7 +25,7 @@ const CustomCursor: React.FC<CursorProps> = ({ hovering }) => {
       ${hovering ? "opacity-100 scale-100" : "opacity-0 scale-50"}`}
       style={{
         transform: `translate(${position.x - 48}px, ${position.y - 48}px)`, // Center cursor
-        zIndex: 50, // Ensure it's above other elements
+        zIndex: 50,
       }}
     >
       <span className="text-white text-lg font-normal">View</span>

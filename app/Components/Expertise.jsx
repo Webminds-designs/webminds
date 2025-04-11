@@ -1,11 +1,14 @@
+"use client";
+
 import { useRef, useEffect, useState } from "react";
 import { useScroll } from "framer-motion";
 import Lenis from "@studio-freight/lenis";
+import { useRouter } from 'next/navigation';
+
 import Section1 from "./Section1";
 import Section2 from "./Section2";
 import Section3 from "./Section3";
 import Section4 from "./Section5";
-import CustomCursor from "./CustomCursor";
 
 export default function Expertise() {
     const container = useRef(null);
@@ -14,7 +17,7 @@ export default function Expertise() {
         offset: ["start start", "end end"],
     });
 
-    const [isHovering, setIsHovering] = useState(false);
+    const router = useRouter();
 
     useEffect(() => {
         if (typeof window === "undefined") return;
@@ -37,18 +40,17 @@ export default function Expertise() {
         };
     }, []);
 
+    const navigateTo = (path) => {
+        router.push(path);
+    };
+
     return (
         <main ref={container} className="relative h-[405vh] bg-[black]">
-            <CustomCursor isHovering={isHovering} />
-            <div
-                onMouseEnter={() => setIsHovering(true)}
-                onMouseLeave={() => setIsHovering(false)}
-            >
+
                 <Section1 scrollYProgress={scrollYProgress} />
                 <Section2 scrollYProgress={scrollYProgress} />
                 <Section3 scrollYProgress={scrollYProgress} />
                 <Section4 scrollYProgress={scrollYProgress} />
-            </div>
         </main>
     );
 }

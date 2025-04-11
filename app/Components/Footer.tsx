@@ -24,8 +24,12 @@ const Footer: React.FC<FooterProp> = ({ bgColor }) => {
               Contact Us
             </div>
             <ul className="list-none text-text flex flex-col gap-2 text-sm  items-center md:items-start ">
-              <li className="cursor-pointer">+44 7983 637117</li>
-              <li className="cursor-pointer">damian@webmindsdesign.com</li>
+            <li className="cursor-pointer">
+              <a href="tel:+94762130015">+94 76 213 0015</a>
+            </li>
+            <li className="cursor-pointer">
+              <a href="mailto:lg@webmindsdesign.com">lg@webmindsdesigns.com</a>
+            </li>
             </ul>
           </div>
           <div className="w-fit h-fit flex-col justify-center items-start mt-6">
