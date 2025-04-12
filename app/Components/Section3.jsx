@@ -14,7 +14,7 @@ const Section2 = ({scrollYProgress}) => {
   const rotate = useTransform(scrollYProgress, [0, 1], [0, -5]);
 
   return (
-    <motion.div style={{ scale, rotate }} className=" sticky top-0 relative h-screen bg-[#C723f6] text-[3.5vw] flex flex-col items-center justify-center text-white">
+    <motion.div style={{ scale, rotate }} className=" sticky top-0 relative h-screen text-[3.5vw] flex flex-col items-center justify-center text-white">
       <div
           onClick={handleClick} 
           className="relative w-full h-screen bg-[#f0f0f0] text-[3.5vw] flex flex-col items-center justify-center text-white cursor-pointer"

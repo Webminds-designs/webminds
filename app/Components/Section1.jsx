@@ -19,7 +19,7 @@ const Section1 = ({ scrollYProgress }) => {
     >
       <div className="flex gap-4">
         <div
-          onClick={handleClick} // Handle click on the container
+          onClick={handleClick} 
           className="relative w-full h-screen bg-[#f0f0f0] text-[3.5vw] flex flex-col items-center justify-center text-white cursor-pointer"
         >
           <p

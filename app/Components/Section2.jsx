@@ -16,7 +16,7 @@ const Section2 = ({ scrollYProgress }) => {
   return (
     <motion.div
       style={{ scale, rotate }}
-      className=" sticky top-0 relative h-screen bg-[#f0f0f0] text-[3.5vw] flex flex-col items-center justify-center text-white"
+      className=" sticky top-0 relative h-screen text-[3.5vw] flex flex-col items-center justify-center text-white"
     >
       <div
           onClick={handleClick} 
