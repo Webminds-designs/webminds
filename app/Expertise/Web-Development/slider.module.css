@@ -1,8 +1,12 @@
+body {
+  background: black;
+}
 .main{
     position: relative;
     display: flex;
     height: 100vh;
     /* margin-bottom: 100vh; */
+    background: black;
     overflow: hidden;
   }
   

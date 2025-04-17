@@ -9,7 +9,7 @@ const Section1 = ({ scrollYProgress }) => {
 
   const handleClick = () => {
     console.log("wada huttooo");
-    router.push("/Web-Development");
+    router.push("Expertise/Web-Development");
   };
 
   return (
