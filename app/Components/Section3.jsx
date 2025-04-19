@@ -7,7 +7,7 @@ const Section2 = ({scrollYProgress}) => {
   
     const handleClick = () => {
       console.log("wada huttooo");
-      router.push("/Social-Media-Management");
+      router.push("Expertise/Social-Media-Management");
     };
   
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.7]);
@@ -24,7 +24,7 @@ const Section2 = ({scrollYProgress}) => {
       >Social Media <br/>Management</p>
 
       <img
-        src="/DigitalMarketing.jpg"
+        src="/Social-Media2.jpg"
         alt="img"
         className="w-full h-full object-cover"
       />

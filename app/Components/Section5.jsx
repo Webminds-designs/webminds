@@ -8,7 +8,7 @@ const Section2 = ({ scrollYProgress }) => {
   
     const handleClick = () => {
       console.log("wada huttooo");
-      router.push("/Branding-n-Design");
+      router.push("Expertise//Branding-n-Design");
     };
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
   const rotate = useTransform(scrollYProgress, [0, 1], [1, 0]);

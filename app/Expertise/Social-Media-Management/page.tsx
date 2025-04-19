@@ -161,7 +161,7 @@ const Page: React.FC = () => {
           }}
         >
           <Image
-            src="/assets/LolinsMockup2.jpg"
+            src="/Social-Media2.jpg"
             alt="Web Development"
             fill
             style={{ objectFit: "cover", objectPosition: "top" }} // crop from bottom
@@ -183,8 +183,8 @@ const Page: React.FC = () => {
 
         <div className={styles.sliderContainer} ref={sliderTextRef}>
           <div className={styles.slider} ref={slider}>
-            <p ref={firstText}>Web Development - </p>
-            <p ref={secondText}>Web Development -</p>
+            <p ref={firstText}>Social Media Management - </p>
+            <p ref={secondText}>Social Media Management -</p>
           </div>
         </div>
       </main>
