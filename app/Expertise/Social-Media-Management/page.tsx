@@ -190,8 +190,6 @@ const Page: React.FC = () => {
         </div>
       </main>
 
-      {/* <WhyUs /> */}
-
       <section className="relative text-white py-20 bg-black">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start justify-between gap-20">
           <h2
