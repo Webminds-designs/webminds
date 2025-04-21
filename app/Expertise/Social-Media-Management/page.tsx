@@ -12,20 +12,20 @@ gsap.registerPlugin(ScrollTrigger);
 
 const services = [
   {
-    title: 'Conceptual Design/Wireframing',
-    description: 'We help you structure your ideas and create wireframes to visualize the website flow and layout.',
+    title: 'Content Strategy & Planning',
+    description: 'We develop monthly content calendars with engaging themes, formats, and targeted messaging that align with your goals.',
   },
   {
-    title: 'Web Design',
-    description: 'Our design approach combines aesthetics with user experience, ensuring your website stands out and functions smoothly.',
+    title: 'Social Media Design',
+    description: 'We create visually stunning graphics, stories, and reels that reflect your brand and captivate your audience.',
   },
   {
-    title: 'Web Development',
-    description: 'We bring your website to life with custom coding, responsive designs, and seamless functionality.',
+    title: 'Performance Analytics',
+    description: 'We track engagement, reach, and growth to refine strategies and ensure measurable success across platforms.',
   },
   {
-    title: 'SEO Strategies',
-    description: 'Our SEO strategies help increase your visibility, drive traffic, and improve search engine rankings.',
+    title: 'Community Management',
+    description: 'We handle DMs, comments, and brand reputation — making sure your audience feels heard and connected.',
   },
 ];
 
@@ -157,7 +157,8 @@ const Page: React.FC = () => {
             position: "relative",
             width: "100%",
             height: "120vh", // reduced height
-            overflow: "hidden"
+            overflow: "hidden",
+            overscrollBehavior: "none"
           }}
         >
           <Image
@@ -197,9 +198,9 @@ const Page: React.FC = () => {
             ref={(el) => { headingRefs.current[0] = el; }}
             className="text-lg md:text-xl font-semibold"
           >
-            Where Creativity
+            Where Strategy
             <br />
-            meets Code
+            meets Engagement
           </h2>
 
           <div
@@ -207,9 +208,9 @@ const Page: React.FC = () => {
             className="md:w-3/5 text-2xl font-light leading-relaxed"
           >
             <p>
-              At WebMinds, we don’t just build websites — we build digital experiences that work seamlessly across all devices, drive engagement, and elevate your brand. Whether you're a startup, small business, or established enterprise, we tailor every line of code to your unique needs.
+              At WebMinds, we go beyond posts — we craft digital narratives that grow audiences, spark conversations, and build lasting brand presence. Whether you're a creator, a startup, or an enterprise, we tailor your social media to resonate and convert.
             </p>
-          </div>
+        </div>
         </div>
       </section>
 
@@ -219,7 +220,8 @@ const Page: React.FC = () => {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-16">
           <div className="md:w-1/3">
             <div className="text-sm tracking-widest font-bold uppercase">
-              What we offer
+            Social Media 
+            <br/>Services
             </div>
           </div>
 

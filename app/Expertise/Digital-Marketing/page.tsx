@@ -12,20 +12,20 @@ gsap.registerPlugin(ScrollTrigger);
 
 const services = [
   {
-    title: 'Conceptual Design/Wireframing',
-    description: 'We help you structure your ideas and create wireframes to visualize the website flow and layout.',
+    title: 'Brand Strategy & Positioning',
+    description: 'We help define your brand voice and align your messaging to ensure consistency across all digital platforms.',
   },
   {
-    title: 'Web Design',
-    description: 'Our design approach combines aesthetics with user experience, ensuring your website stands out and functions smoothly.',
+    title: 'Search Engine Optimization (SEO)',
+    description: 'Drive organic traffic and improve search visibility with powerful on-page and off-page SEO strategies.',
   },
   {
-    title: 'Web Development',
-    description: 'We bring your website to life with custom coding, responsive designs, and seamless functionality.',
+    title: 'Social Media Marketing',
+    description: 'Engage with your audience through carefully crafted content and campaigns across platforms like Instagram, Facebook, and TikTok.',
   },
   {
-    title: 'SEO Strategies',
-    description: 'Our SEO strategies help increase your visibility, drive traffic, and improve search engine rankings.',
+    title: 'Paid Advertising (PPC)',
+    description: 'Maximize ROI through expertly managed ad campaigns on Google Ads, Meta Ads, and other platforms.',
   },
 ];
 
@@ -51,8 +51,7 @@ const Page: React.FC = () => {
     );
   };
 
-  useEffect( () => {
-    gsap.registerPlugin(ScrollTrigger);
+  useEffect(() => {
     gsap.to(slider.current, {
       scrollTrigger: {
         trigger: document.documentElement,
@@ -62,23 +61,21 @@ const Page: React.FC = () => {
         onUpdate: e => direction = e.direction * -1
       },
       x: "-500px",
-    })
+    });
     requestAnimationFrame(animate);
-  }, [])
-
+  }, []);
 
   const animate = () => {
-    if(xPercent < -100){
+    if (xPercent < -100) {
       xPercent = 0;
-    }
-    else if(xPercent > 0){
+    } else if (xPercent > 0) {
       xPercent = -100;
     }
-    gsap.set(firstText.current, {xPercent: xPercent})
-    gsap.set(secondText.current, {xPercent: xPercent})
+    gsap.set(firstText.current, { xPercent: xPercent });
+    gsap.set(secondText.current, { xPercent: xPercent });
     requestAnimationFrame(animate);
     xPercent += 0.1 * direction;
-  }
+  };
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -109,7 +106,7 @@ const Page: React.FC = () => {
           ease: "power2.out"
         });
       }
-      
+
       if (imageRef.current) {
         gsap.from(imageRef.current, {
           scrollTrigger: {
@@ -120,10 +117,9 @@ const Page: React.FC = () => {
           y: 50,
           duration: 1,
           ease: "power2.out",
-          delay: 0.3,  
+          delay: 0.3,
         });
       }
-      
 
       paraRefs.current.forEach((ref) => {
         if (ref) {
@@ -151,20 +147,20 @@ const Page: React.FC = () => {
 
       <main className={styles.main}>
 
-      <div
+        <div
           ref={imageRef}
           style={{
             position: "relative",
             width: "100%",
-            height: "120vh", // reduced height
+            height: "120vh",
             overflow: "hidden"
           }}
         >
           <Image
             src="/DigitalMarketing.jpg"
-            alt="Web Development"
+            alt="Digital Marketing"
             fill
-            style={{ objectFit: "cover", objectPosition: "top" }} // crop from bottom
+            style={{ objectFit: "cover", objectPosition: "top" }}
           />
           <div
             style={{
@@ -177,9 +173,7 @@ const Page: React.FC = () => {
               pointerEvents: "none"
             }}
           />
-      </div>
-
-
+        </div>
 
         <div className={styles.sliderContainer} ref={sliderTextRef}>
           <div className={styles.slider} ref={slider}>
@@ -189,17 +183,15 @@ const Page: React.FC = () => {
         </div>
       </main>
 
-      {/* <WhyUs /> */}
-
       <section className="relative text-white py-20 bg-black">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start justify-between gap-20">
           <h2
             ref={(el) => { headingRefs.current[0] = el; }}
             className="text-lg md:text-xl font-semibold"
           >
-            Where Creativity
+            Where Strategy
             <br />
-            meets Code
+            Meets Visibility
           </h2>
 
           <div
@@ -207,7 +199,7 @@ const Page: React.FC = () => {
             className="md:w-3/5 text-2xl font-light leading-relaxed"
           >
             <p>
-              At WebMinds, we don’t just build websites — we build digital experiences that work seamlessly across all devices, drive engagement, and elevate your brand. Whether you're a startup, small business, or established enterprise, we tailor every line of code to your unique needs.
+              At WebMinds, we craft marketing strategies that captivate, convert, and create lasting connections. From brand positioning to performance ads, we tailor every campaign to elevate your digital presence and make your voice heard.
             </p>
           </div>
         </div>
@@ -269,7 +261,7 @@ const Page: React.FC = () => {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-16">
           <div className="md:w-1/3">
             <div className="text-sm tracking-widest font-bold uppercase">
-            The story unfolds beneath this line.            
+              The story unfolds beneath this line.
             </div>
           </div>
         </div>
@@ -279,18 +271,11 @@ const Page: React.FC = () => {
 
       <section className="bg-black py-16 px-4">
         <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          <div className="bg-gray-800 rounded-lg shadow-md h-[600px] w-full"></div>
-          <div className="bg-gray-800 rounded-lg shadow-md h-[600px] w-full"></div>
-          <div className="bg-gray-800 rounded-lg shadow-md h-[600px] w-full"></div>
-          <div className="bg-gray-800 rounded-lg shadow-md h-[600px] w-full"></div>
-          <div className="bg-gray-800 rounded-lg shadow-md h-[600px] w-full"></div>
-          <div className="bg-gray-800 rounded-lg shadow-md h-[600px] w-full"></div>
-          <div className="bg-gray-800 rounded-lg shadow-md h-[600px] w-full"></div>
-          <div className="bg-gray-800 rounded-lg shadow-md h-[600px] w-full"></div>
+          {Array.from({ length: 8 }).map((_, i) => (
+            <div key={i} className="bg-gray-800 rounded-lg shadow-md h-[600px] w-full"></div>
+          ))}
         </div>
       </section>
-
-      {/* <hr className="border-t-2 border-gray-500 w-[80%] mx-auto" /> */}
 
       <Footer bgColor="bg-gradient-to-t from-[#0504AA] to-[#3b82f6]" />
     </>

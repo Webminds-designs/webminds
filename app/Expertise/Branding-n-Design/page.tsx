@@ -12,20 +12,20 @@ gsap.registerPlugin(ScrollTrigger);
 
 const services = [
   {
-    title: 'Conceptual Design/Wireframing',
-    description: 'We help you structure your ideas and create wireframes to visualize the website flow and layout.',
+    title: 'Brand Strategy & Identity',
+    description: 'We help define your brand’s purpose, voice, and personality, building a foundation that connects emotionally with your audience.',
   },
   {
-    title: 'Web Design',
-    description: 'Our design approach combines aesthetics with user experience, ensuring your website stands out and functions smoothly.',
+    title: 'Logo & Visual Design',
+    description: 'From logos to brand guidelines, we craft compelling visuals that communicate your essence and leave a lasting impression.',
   },
   {
-    title: 'Web Development',
-    description: 'We bring your website to life with custom coding, responsive designs, and seamless functionality.',
+    title: 'Creative Direction',
+    description: 'We shape a cohesive aesthetic across all brand touchpoints—digital or physical—ensuring your identity is consistent and powerful.',
   },
   {
-    title: 'SEO Strategies',
-    description: 'Our SEO strategies help increase your visibility, drive traffic, and improve search engine rankings.',
+    title: 'Packaging & Collateral',
+    description: 'We design packaging, brochures, and branded materials that bring your story to life and stand out in a competitive market.',
   },
 ];
 
@@ -40,6 +40,8 @@ const Page: React.FC = () => {
   const imageRef = useRef<HTMLDivElement>(null);
   const sliderTextRef = useRef<HTMLDivElement>(null);
 
+  const boxesRef = useRef<(HTMLDivElement | null)[]>([]);
+
   const [openStates, setOpenStates] = useState<boolean[]>(services.map(() => false));
 
   let xPercent = 0;
@@ -51,21 +53,28 @@ const Page: React.FC = () => {
     );
   };
 
-  useEffect( () => {
+  useEffect(() => {
+    
     gsap.registerPlugin(ScrollTrigger);
-    gsap.to(slider.current, {
-      scrollTrigger: {
-        trigger: document.documentElement,
-        scrub: 0.25,
-        start: 0,
-        end: window.innerHeight,
-        onUpdate: e => direction = e.direction * -1
-      },
-      x: "-500px",
-    })
-    requestAnimationFrame(animate);
-  }, [])
+  
+    if (slider.current) {
+      gsap.to(slider.current, {
+        scrollTrigger: {
+          trigger: document.documentElement,
+          scrub: 0.25,
+          start: "top top",
+          end: window.innerHeight,
+          onUpdate: (e) => (direction = e.direction * -1),
+        },
+        x: "-500px",
+      });
+  
+      requestAnimationFrame(animate);
+    }
 
+  }, []);
+  
+  console.log("Boxes:", boxesRef.current);
 
   const animate = () => {
     if(xPercent < -100){
@@ -197,9 +206,9 @@ const Page: React.FC = () => {
             ref={(el) => { headingRefs.current[0] = el; }}
             className="text-lg md:text-xl font-semibold"
           >
-            Where Creativity
+            Where Vision
             <br />
-            meets Code
+            Becomes Visual
           </h2>
 
           <div
@@ -207,7 +216,7 @@ const Page: React.FC = () => {
             className="md:w-3/5 text-2xl font-light leading-relaxed"
           >
             <p>
-              At WebMinds, we don’t just build websites — we build digital experiences that work seamlessly across all devices, drive engagement, and elevate your brand. Whether you're a startup, small business, or established enterprise, we tailor every line of code to your unique needs.
+              At WebMinds, we don’t just create visuals — we shape identities. Through meaningful design and strategic storytelling, we build brands that resonate and endure. Whether you're starting fresh or reimagining your brand, we turn ideas into timeless visual language.
             </p>
           </div>
         </div>
@@ -269,32 +278,34 @@ const Page: React.FC = () => {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-16">
           <div className="md:w-1/3">
             <div className="text-sm tracking-widest font-bold uppercase">
-            The story unfolds beneath this line.            
+            Every Brand Has a Story — Let's Design Yours.            
             </div>
           </div>
         </div>
       </section>
 
       <hr className="border-t-20 border-gray-800 w-[90%] mx-auto bg-black/75" />
+    
+    <section className="bg-black py-16 px-4">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {[...Array(8)].map((_, i) => (
+          <div
+            key={i}
+            ref={(el) => {
+              if (el) boxesRef.current[i] = el;
+            }}
+            className="bg-gray-800 rounded-lg shadow-md h-[600px] w-full"
+          />
+        ))}
+      </div>
+    </section>
 
-      <section className="bg-black py-16 px-4">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          <div className="bg-gray-800 rounded-lg shadow-md h-[600px] w-full"></div>
-          <div className="bg-gray-800 rounded-lg shadow-md h-[600px] w-full"></div>
-          <div className="bg-gray-800 rounded-lg shadow-md h-[600px] w-full"></div>
-          <div className="bg-gray-800 rounded-lg shadow-md h-[600px] w-full"></div>
-          <div className="bg-gray-800 rounded-lg shadow-md h-[600px] w-full"></div>
-          <div className="bg-gray-800 rounded-lg shadow-md h-[600px] w-full"></div>
-          <div className="bg-gray-800 rounded-lg shadow-md h-[600px] w-full"></div>
-          <div className="bg-gray-800 rounded-lg shadow-md h-[600px] w-full"></div>
-        </div>
-      </section>
+    <Footer bgColor="bg-gradient-to-t from-[#0504AA] to-[#3b82f6]" />
 
-      {/* <hr className="border-t-2 border-gray-500 w-[80%] mx-auto" /> */}
-
-      <Footer bgColor="bg-gradient-to-t from-[#0504AA] to-[#3b82f6]" />
     </>
+
   );
+
 };
 
 export default Page;

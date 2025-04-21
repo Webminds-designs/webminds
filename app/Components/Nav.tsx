@@ -128,17 +128,17 @@ const Nav = () => {
       {/* Desktop Navigation Links */}
       <nav className="hidden lg:flex ">
         <ul className="flex items-center space-x-16 text-sm text-white font-semibold">
-          {["Home", "Works", "Experties", "Careers", "Contact"].map(
+          {["Home", "Works", "Expertise", "Careers", "Contact"].map(
             (item, index) => (
               <li key={index} className="group">
                 <Link
                   href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
                   onMouseEnter={(e) => {
                     handleMouseEnter(e);
-                    if (item === "Experties") setExpertiesHovered(true);
+                    if (item === "Expertise") setExpertiesHovered(true);
                   }}
                   onMouseLeave={() => {
-                    if (item === "Experties") {
+                    if (item === "Expertise") {
                       setExpertiesHovered(false);
                     }
                   }}
@@ -154,13 +154,13 @@ const Nav = () => {
                   >
                     {item}
                   </span>
-                  {item === "Experties" && (
+                  {item === "Expertise" && (
                     <div className="flex items-center rounded-full bg-white bg-opacity-30 p-1">
                       <FaArrowDown className="text-white bg-opacity-100 w-2 h-2 " />
                     </div>
                   )}
                 </Link>
-                {item === "Experties" && isExpertiesHovered && (
+                {item === "Expertise" && isExpertiesHovered && (
                   <div
                     className="fixed top-0 left-0 w-screen flex items-center justify-between bg-[#212121] shadow-lg opacity-100 transition-opacity duration-300 z-30"
                     ref={menuRef}
@@ -175,7 +175,7 @@ const Nav = () => {
                       className="mt-28 px-24 mb-20 w-full flex justify-between"
                       ref={contentRef}
                     >
-                      <div>Our Experties</div>
+                      <div>Our Expertise</div>
                       <ul
                         className="md:text-3xl lg:text-4xl "
                         style={{
@@ -187,7 +187,7 @@ const Nav = () => {
                           className="px-4 py-3"
                           onMouseEnter={() => hoverHandel("marketing")}
                         >
-                          <Link href="/experties/marketing">
+                          <Link href="/Expertise/Digital-Marketing">
                             Digital Marketing
                           </Link>
                         </li>
@@ -195,7 +195,7 @@ const Nav = () => {
                           className="px-4 py-3"
                           onMouseEnter={() => hoverHandel("web")}
                         >
-                          <Link href="/experties/development">
+                          <Link href="/Expertise/Web-Development">
                             Website Development
                           </Link>
                         </li>
@@ -203,15 +203,15 @@ const Nav = () => {
                           className="px-4 py-3"
                           onMouseEnter={() => hoverHandel("social")}
                         >
-                          <Link href="/experties/socialmedia">
-                            Social Media
+                          <Link href="/Expertise/Social-Media-Management">
+                            Social Media Management
                           </Link>
                         </li>
                         <li
                           className="px-4 py-3"
                           onMouseEnter={() => hoverHandel("brand")}
                         >
-                          <Link href="/experties/branding">
+                          <Link href="/Expertise/Branding-n-Design">
                             Branding & Design
                           </Link>
                         </li>
