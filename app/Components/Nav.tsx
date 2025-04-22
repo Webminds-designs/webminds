@@ -19,8 +19,8 @@ const Nav = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isExpertiesHovered, setExpertiesHovered] = useState(false);
   const [Hovered, setHovered] = useState("marketing");
-  const menuRef = useRef(null); // Ref for the dropdown container
-  const contentRef = useRef(null); // Ref for the dropdown content
+  const menuRef = useRef(null); 
+  const contentRef = useRef(null); 
 
   const handleMouseEnter = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
@@ -28,14 +28,14 @@ const Nav = () => {
     const textElement = event.currentTarget.querySelector("span");
 
     gsap.to(textElement, {
-      y: -10, // Move the text up
+      y: -10,
       duration: 0.1,
       ease: "power1.out",
       onComplete: () => {
-        // After it moves up, reset to bottom position and animate back up
-        gsap.set(textElement, { y: 20, opacity: 1 }); // Reset to below the original position
+        
+        gsap.set(textElement, { y: 20, opacity: 1 });
         gsap.to(textElement, {
-          y: 0, // Animate it back to its original position
+          y: 0, 
           duration: 0.1,
           ease: "power1.in",
         });
@@ -61,7 +61,7 @@ const Nav = () => {
     if (isExpertiesHovered) {
       // Move all content down quickly before closing
       gsap.to(contentRef.current.children, {
-        y: 100, // Move down quickly
+        y: 100, 
         opacity: 0,
         duration: 0.2, // Fast closing speed
         stagger: -0.05, // Make all items disappear together
