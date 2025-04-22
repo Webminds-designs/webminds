@@ -15,6 +15,8 @@ import im2 from "../../public/assets/Website.jpg";
 import im3 from "../../public/assets/Social-Media.jpg";
 import im4 from "../../public/assets/tembrand.png";
 
+import { motion } from "framer-motion";
+
 const Nav = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isExpertiesHovered, setExpertiesHovered] = useState(false);
@@ -123,6 +125,7 @@ const Nav = () => {
       {/* Logo Section */}
       <div className="w-16 cursor-pointer z-40">
       <Image className="mix-blend-luminosity" src={logo} alt="logo" />
+      
       </div>
 
       {/* Desktop Navigation Links */}
@@ -218,15 +221,15 @@ const Nav = () => {
                       </ul>
                       <div className="w-96 h-fit">
                         {Hovered === "web" ? (
-                          <div className="w-full h-fit bg-slate-400">
+                          <motion.div className="w-full h-fit">
                             <Image
                               src={im2}
                               alt="marketing img"
                               className="w-full h-auto"
                             />
-                          </div>
+                          </motion.div>
                         ) : Hovered === "marketing" ? (
-                          <div className="w-full h-full bg-green-200">
+                          <div className="w-full h-full">
                             <Image
                               src={im1}
                               alt="web img"
@@ -234,7 +237,7 @@ const Nav = () => {
                             />
                           </div>
                         ) : Hovered === "social" ? (
-                          <div className="w-full h-full bg-red-400">
+                          <div className="w-full h-full ">
                             <Image
                               src={im3}
                               alt="social img"
@@ -242,7 +245,7 @@ const Nav = () => {
                             />
                           </div>
                         ) : Hovered === "brand" ? (
-                          <div className="w-full h-full bg-yellow-100">
+                          <div className="w-full h-full ">
                             <Image
                               src={im4}
                               alt="banding and design img"
@@ -281,7 +284,7 @@ const Nav = () => {
         <div
           ref={menuRef}
           className="fixed top-0 left-0 w-full h-full bg-[#212121] flex flex-col items-start justify-center z-30 px-8"
-          style={{ transformOrigin: "top center", scaleY: 0 }} // Ensure scale starts from top
+          style={{ transformOrigin: "top center", transform: "scaleY(0)" }} // Ensure scale starts from top
         >
           <ul className="space-y-3 text-white text-4xl font-bold text-start">
             {["Home", "Works", "Experties", "Careers", "Contact"].map(
