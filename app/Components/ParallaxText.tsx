@@ -90,7 +90,7 @@ const ParallaxText: React.FC<ParallaxProps> = ({
       ref={containerRef}
     >
       <motion.div
-        className={`flex ${fontSize} font-bold  gap-2 font-AlbertSans_Bold`}
+        className={`flex ${fontSize} font-bold font-AlbertSans_Bold tracking-tight`}
         style={{ x, display: "inline-block" }}
         ref={textRef}
       >
