@@ -39,11 +39,11 @@ const ParallaxText: React.FC<ParallaxProps> = ({
   useAnimationFrame((t, delta) => {
     let moveBy = directionFactor.current * baseVelocity * (delta / 1000);
 
-    // if (velocityFactor.get() < 0) {
-    //   directionFactor.current = -1;
-    // } else if (velocityFactor.get() > 0) {
-    //   directionFactor.current = 1;
-    // }
+    if (velocityFactor.get() < 0) {
+      directionFactor.current = -1;
+    } else if (velocityFactor.get() > 0) {
+      directionFactor.current = 1;
+    }
 
     moveBy += directionFactor.current * moveBy * velocityFactor.get();
     baseX.set(baseX.get() + moveBy);
@@ -86,12 +86,12 @@ const ParallaxText: React.FC<ParallaxProps> = ({
 
   return (
     <div
-      className="relative w-screen overflow-hidden whitespace-nowrap flex"
+      className="relative w-screen overflow-hidden whitespace-nowrap flex "
       ref={containerRef}
     >
       <motion.div
-        className={`flex ${fontSize} font-bold uppercase gap-2`}
-        style={{ x, display: "inline-block", fontFamily: "eight, sans-serif" }}
+        className={`flex ${fontSize} font-bold  gap-2 font-AlbertSans_Bold`}
+        style={{ x, display: "inline-block" }}
         ref={textRef}
       >
         <span>{children}</span>
