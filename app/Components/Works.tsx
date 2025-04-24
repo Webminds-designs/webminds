@@ -5,6 +5,7 @@ import worksData from "../../public/assets/data/worksData.js";
 import Image from "next/image";
 import CustomCursor from "./CustomCursor";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 
 interface WorkItem {
   id: number;
@@ -21,12 +22,10 @@ interface WorksProps {
 const Works: React.FC<WorksProps> = ({ bgcolor }) => {
   const [hovering, setHovering] = useState(false);
   const router = useRouter();
-  //handleImageClick function to naviagete
+
   const handleImageClick = (img: string, id: number) => {
     setHovering(false);
-
     router.push(`/projects/${id}`);
-    // Adjust the delay as needed
   };
 
   return (
@@ -35,18 +34,25 @@ const Works: React.FC<WorksProps> = ({ bgcolor }) => {
     >
       <CustomCursor hovering={hovering} />
 
-      <div className="w-full max-w-[1920px] h-full grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 cursor-none  ">
+      <div className="w-full max-w-[1920px] h-full grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 cursor-none">
         {worksData.map((item: WorkItem, index: number) => (
-          <div
+          <motion.div
             key={item.id}
             className="flex flex-col justify-center items-center w-full max-w-[410px] mx-auto transition-transform duration-150 cursor-none"
             onMouseEnter={() => setHovering(true)}
             onMouseLeave={() => setHovering(false)}
+            initial={{ opacity: 0, y: 100 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 1,
+              delay: index * 0.1,
+              ease: "easeInOut",
+            }}
           >
             {/* Card with Image */}
             <div
               id={`card-${index}`}
-              className="rounded-md shadow-md overflow-hidden w-fit  flex flex-col transition-transform duration-150 cursor-none"
+              className="rounded-md shadow-md overflow-hidden w-fit flex flex-col transition-transform duration-150 cursor-none"
             >
               <div
                 className="relative cursor-none hover:scale-105 transition-transform duration-450"
@@ -55,28 +61,18 @@ const Works: React.FC<WorksProps> = ({ bgcolor }) => {
                 <Image
                   src={item.imgPor}
                   alt={item.name}
-                  width={400} // or auto-controlled width
+                  width={400}
                   height={600}
                   className="object-cover cursor-none"
                 />
-                <div className="absolute inset-0 bg-white  bg-opacity-10 flex items-center justify-center transition-opacity duration-300 opacity-0 hover:opacity-100">
+                <div className="absolute inset-0 bg-white bg-opacity-10 flex items-center justify-center transition-opacity duration-300 opacity-0 hover:opacity-100">
                   <div className="text-black text-2xl font-bold cursor-none h-12 w-12 bg-white rounded-full text-center flex justify-center items-center">
                     <span className="text-lg">+</span>
                   </div>
                 </div>
               </div>
             </div>
-
-            {/* Text Below Image */}
-            {/* <div className="bg-black bg-opacity-40 py-2 flex flex-col justify-end w-full p-2 cursor-none">
-              <h3 className="text-white text-base md:text-sm lg:text font-bold">
-                {item.name}
-              </h3>
-              <p className="text-sm md:text-base text-gray-300">
-                {item.textOverlay}
-              </p>
-            </div> */}
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>

@@ -109,7 +109,7 @@ const worksData = [
     ],
   },
   {
-    id: 7,
+    id: 6,
     img: "/assets/BijLand.png",
     imgPor: "/assets/works/IGL.jpg",
     name: "Bijou",
@@ -131,7 +131,7 @@ const worksData = [
     ],
   },
   {
-    id: 9,
+    id: 7,
     img: "/assets/lolinsLand.png",
     imgPor: "/assets/works/Od.jpg",
     name: "Odyssey",
@@ -152,7 +152,7 @@ const worksData = [
     ],
   },
   {
-    id: 10,
+    id: 8,
     img: "/assets/lolinsLand.png",
     imgPor: "/assets/works/STT.jpg",
     name: "Odyssey",

@@ -73,14 +73,14 @@ const Workspage = () => {
 
   const pageVariants = {
     initial: {
-      y: "100%",
+      y: "40%",
       opacity: 0,
     },
     animate: {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 1,
+        duration: 1.2,
         ease: "easeInOut",
       },
     },
@@ -94,10 +94,8 @@ const Workspage = () => {
     },
   };
 
-  const handleMouseEnter = () => setHovering(true);
-
   return (
-    <AnimatePresence mode="wait">
+    <>
       <Nav />
       <motion.div
         key={pathname}
@@ -113,67 +111,62 @@ const Workspage = () => {
           backgroundColor: "#0a0a0a",
         }}
       >
-        <div className="w-screen h-fit md:h-96 flex justify-center items-start md:items-center">
-          <div
-            className="text-5xl md:text-[100px] lg:text-[250px] opacity-80"
-            style={{ fontFamily: "eight, sans-serif" }}
-          >
-            Works .
+        <div className="w-screen h-fit md:h-fit pt-20 md:pl-16 flex justify-center items-start md:items-center">
+          <div className="text-5xl w-full md:text-[100px] lg:text-[180px] opacity-80 font-AlbertSans_Bold text-start text-white mt-20 md:mt-0">
+            Works
           </div>
         </div>
 
-        <div className="bg-black md:w-screen mt-10 h-fit">
-          <div className="relative w-screen min-h-screen flex items-center justify-center p-4 md:p-8 lg:p-12 bg-[#0a0a0a]">
-            <CustomCursor hovering={hovering} />
+        <div
+          className={`relative w-screen min-h-screen flex items-center justify-center py-4 px-4 md:px-8 md:py-8 lg:px-12 lg:py-12 `}
+        >
+          <CustomCursor hovering={hovering} />
 
-            <ImageModal
-              isOpen={modalOpen}
-              imageUrl={selectedImage || ""}
-              onClose={() => setModalOpen(false)}
-            />
-
-            <div className="w-full max-w-[1920px] grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-12">
-              {worksData.map((item: WorkItem, index: number) => (
+          <div className="w-full max-w-[1920px] h-full grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 cursor-none">
+            {worksData.map((item: WorkItem, index: number) => (
+              <motion.div
+                key={item.id}
+                className="flex flex-col justify-center items-center w-full max-w-[410px] mx-auto transition-transform duration-150 cursor-none"
+                onMouseEnter={() => setHovering(true)}
+                onMouseLeave={() => setHovering(false)}
+                initial={{ opacity: 0, y: 100 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 1,
+                  delay: index * 0.1,
+                  ease: "easeInOut",
+                }}
+              >
+                {/* Card with Image */}
                 <div
-                  key={item.id}
                   id={`card-${index}`}
-                  className="w-full max-w-[410px] mx-auto rounded-md shadow-md p-2 md:p-4 lg:p-6 bg-[#0a0a0a] flex flex-col transition-transform duration-150 items-center"
-                  onMouseMove={(e) => handleMouseMove(e, index)}
-                  onMouseLeave={() => handleMouseLeave(index)}
-                  onMouseEnter={handleMouseEnter}
-                  style={{
-                    transformStyle: "preserve-3d",
-                    transition: "transform 0.15s ease-out",
-                  }}
+                  className="rounded-md shadow-md overflow-hidden w-fit flex flex-col transition-transform duration-150 cursor-none"
                 >
                   <div
-                    className="card-image-wrapper w-full"
-                    style={{ transformStyle: "preserve-3d" }}
+                    className="relative cursor-none hover:scale-105 transition-transform duration-450"
+                    onClick={() => handleImageClick(item.imgPor, item.id)}
                   >
-                    <h3 className="text-base md:text-lg lg:text-xl text-white font-bold mb-2">
-                      {item.name}
-                    </h3>
-                    <p className="text-sm md:text-base text-gray-400 mb-4 md:mb-6">
-                      {item.textOverlay}
-                    </p>
-                    <div className="relative aspect-square w-full">
-                      <Image
-                        src={item.imgPor}
-                        alt="img"
-                        fill
-                        className="card-image object-cover transition-transform duration-150 rounded cursor-none"
-                        onClick={() => handleImageClick(item.imgPor, item.id)}
-                      />
+                    <Image
+                      src={item.imgPor}
+                      alt={item.name}
+                      width={400}
+                      height={600}
+                      className="object-cover cursor-none"
+                    />
+                    <div className="absolute inset-0 bg-white bg-opacity-10 flex items-center justify-center transition-opacity duration-300 opacity-0 hover:opacity-100">
+                      <div className="text-black text-2xl font-bold cursor-none h-12 w-12 bg-white rounded-full text-center flex justify-center items-center">
+                        <span className="text-lg">+</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
+              </motion.div>
+            ))}
           </div>
         </div>
         <Footer bgColor="bg-black" />
       </motion.div>
-    </AnimatePresence>
+    </>
   );
 };
 
