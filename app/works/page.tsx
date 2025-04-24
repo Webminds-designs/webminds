@@ -1,14 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Nav from "../Components/Nav";
 import Footer from "../Components/Footer";
 import worksData from "../../public/assets/data/worksData";
 import Image from "next/image";
 import CustomCursor from "../Components/CustomCursor";
 import { usePathname, useRouter } from "next/navigation";
-import ImageModal from "../Components/ImageModal";
 
 interface WorkItem {
   id: number;
@@ -19,56 +18,11 @@ interface WorkItem {
 
 const Workspage = () => {
   const [hovering, setHovering] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const router = useRouter();
   const pathname = usePathname();
 
-  const handleMouseMove = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    index: number
-  ) => {
-    const card = document.getElementById(`card-${index}`);
-    if (!card) return;
-
-    const image = card.querySelector(".card-image") as HTMLElement;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = ((y - centerY) / centerY) * 20;
-    const rotateY = ((x - centerX) / centerX) * -20;
-
-    requestAnimationFrame(() => {
-      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-      if (image) {
-        image.style.transform = `translateZ(60px) scale(1.3)`;
-      }
-    });
-  };
-
-  const handleMouseLeave = (index: number) => {
-    const card = document.getElementById(`card-${index}`);
-    if (!card) return;
-
-    const image = card.querySelector(".card-image") as HTMLElement;
-    requestAnimationFrame(() => {
-      card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
-      if (image) {
-        image.style.transform = `translateZ(0px) scale(1)`;
-      }
-    });
-    setHovering(false);
-  };
-
   const handleImageClick = (imageUrl: string, projectId: number) => {
-    setSelectedImage(imageUrl);
-    setModalOpen(true);
-
-    setTimeout(() => {
-      router.push(`/projects/${projectId}`);
-    }, 500); // Match with animation duration
+    router.push(`/projects/${projectId}`); // Match with animation duration
   };
 
   const pageVariants = {
@@ -132,7 +86,7 @@ const Workspage = () => {
                 initial={{ opacity: 0, y: 100 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{
-                  duration: 1,
+                  duration: 0.5,
                   delay: index * 0.1,
                   ease: "easeInOut",
                 }}
@@ -164,7 +118,7 @@ const Workspage = () => {
             ))}
           </div>
         </div>
-        <Footer bgColor="bg-black" />
+        <Footer bgColor="bg-gradient-to-t from-[#1e222b] via-[#0a0a0a] to-#0e0e0f" />
       </motion.div>
     </>
   );
