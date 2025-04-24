@@ -20,17 +20,18 @@ const CustomCursor: React.FC<CursorProps> = ({ hovering }) => {
 
   return (
     <div
-      className={`fixed top-0 left-0 w-20 h-20 bg-transparent bg-opacity-80 rounded-full flex items-center justify-center
-      pointer-events-none transition-transform duration-150 border-2
-      ${hovering ? "opacity-100 scale-100" : "opacity-0 scale-50"}`}
+      className={`fixed top-0 left-0 w-20 h-20 rounded-full flex items-center justify-center
+        pointer-events-none transition-transform duration-150
+        border-2 border-white/80 
+        ${hovering ? "opacity-100 scale-100" : "opacity-0 scale-50"}`}
       style={{
-        transform: `translate(${position.x - 40}px, ${position.y - 40}px)`, // Center based on w-20/h-20 (80px)
+        transform: `translate(${position.x - 40}px, ${position.y - 40}px)`,
         zIndex: 50,
       }}
     >
-      <span className="text-white text-4xl leading-none text-center font-light">
+      {/* <span className="text-white/40 text-4xl leading-none text-center font-light">
         +
-      </span>
+      </span> */}
     </div>
   );
 };
