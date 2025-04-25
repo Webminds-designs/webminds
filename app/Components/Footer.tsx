@@ -32,6 +32,7 @@ const Footer: React.FC<FooterProp> = ({ bgColor }) => {
             <li className="cursor-pointer">
               <a href="mailto:lg@webmindsdesign.com">lg@webmindsdesigns.com</a>
             </li>
+            </ul>
 
           <ul className="list-none text-text flex flex-col gap-2 text-sm items-center md:items-start">
             <li>
