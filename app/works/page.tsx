@@ -21,6 +21,14 @@ const Workspage = () => {
   const router = useRouter();
   const pathname = usePathname();
 
+  const tags = [
+    "Show All",
+    "Web Development",
+    "Social Media",
+    "Digital Marketing",
+    "Branding & Desing",
+  ];
+
   const handleImageClick = (imageUrl: string, projectId: number) => {
     router.push(`/projects/${projectId}`); // Match with animation duration
   };
@@ -69,6 +77,23 @@ const Workspage = () => {
           <div className="text-5xl w-full md:text-[100px] lg:text-[180px] opacity-80 font-AlbertSans_Bold text-start text-white mt-20 md:mt-0">
             Works
           </div>
+        </div>
+        {/* tagss */}
+        <div className="w-screen h-fit md:h-fit pt-10 md:px-16 flex justify-start gap-2 items-start md:items-center">
+          {tags.map((tag, index) => (
+            <div
+              key={index}
+              className="w-fit h-fit px-8 py-1 bg-white bg-opacity-20 rounded-full"
+            >
+              {tag}
+            </div>
+          ))}
+          <div className="w-fit h-fit px-8 py-1  bg-white bg-opacity-20 rounded-full">
+            Reset
+          </div>
+        </div>
+        <div className="w-screen h-fit md:h-fit pt-10 md:px-16 flex justify-center items-start md:items-center">
+          <hr className="w-full opacity-20"></hr>
         </div>
 
         <div

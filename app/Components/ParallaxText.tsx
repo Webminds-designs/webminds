@@ -61,14 +61,14 @@ const ParallaxText: React.FC<ParallaxProps> = ({
       const handleMouseEnter = () => {
         gsap.to(textElement, {
           color: "transparent",
-          webkitTextStroke: "3px #afa18f",
+          webkitTextStroke: "3px white",
           duration: 0.3,
         });
       };
 
       const handleMouseLeave = () => {
         gsap.to(textElement, {
-          color: "#afa18f", // Use your original text color here
+          color: "white", // Use your original text color here
           webkitTextStroke: "0px",
           duration: 0.3,
         });
