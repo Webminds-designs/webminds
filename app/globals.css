@@ -31,3 +31,23 @@ body {
   overflow: hidden;
   vertical-align: top;
 }
+
+@font-face {
+  font-family: "AlberSans-Regular";
+  src: url("../public/Fonts/AlbertSans-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "AlberSans-Bold";
+  src: url("../public/Fonts/AlbertSans-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "AlberSans-Medium";
+  src: url("../public/Fonts/AlbertSans-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}

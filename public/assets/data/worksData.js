@@ -2,7 +2,7 @@ const worksData = [
   {
     id: 1,
     img: "/assets/articianLand.png",
-    imgPor: "/assets/ArtPor.png",
+    imgPor: "/assets/works/ArA.jpg",
     name: "Artisan Antiques",
     textOverlay: "Pieces that bring stories to life",
     description:
@@ -22,7 +22,7 @@ const worksData = [
   {
     id: 2,
     img: "/assets/besLand.png",
-    imgPor: "/assets/besPor.png",
+    imgPor: "/assets/works/ArB.jpg",
     name: "Bespoke Furniture",
     textOverlay: "Where Heritage Meets Elegance",
     description:
@@ -45,7 +45,7 @@ const worksData = [
   {
     id: 3,
     img: "/assets/bioLand.png",
-    imgPor: "/assets/bioPor.png",
+    imgPor: "/assets/works/BZ.jpg",
     name: "BioZone",
     textOverlay: "Unleashing Your Potential in Biology",
     description:
@@ -69,7 +69,7 @@ const worksData = [
   {
     id: 4,
     img: "/assets/jimLand.png",
-    imgPor: "/assets/jimPor.png",
+    imgPor: "/assets/works/JIM.jpg",
     name: "Jimmu",
     textOverlay: "Empowering Journeys, One Insight at a Time",
     description:
@@ -90,7 +90,7 @@ const worksData = [
   {
     id: 5,
     img: "/assets/lolinsLand.png",
-    imgPor: "/assets/lolPor.png",
+    imgPor: "/assets/works/LL.jpg",
     name: "Lolins",
     textOverlay: "Redefining Beauty, One Style at a Time",
     description:
@@ -110,30 +110,8 @@ const worksData = [
   },
   {
     id: 6,
-    img: "/assets/furLand.png",
-    imgPor: "/assets/furPor.png",
-    name: "Furnishings",
-    textOverlay: "Timeless Designs, Crafted for Living",
-    description:
-      "At Furnishings, we redefine interiors with custom-made furniture that seamlessly blends elegance and practicality. Guided by a dedication to quality and inspired by timeless styles, our handcrafted pieces reflect refined craftsmanship and attention to detail.",
-    technology: {
-      frontendDevelopment: ["React.js", "TailwindCSS"],
-      designTools: ["Figma"],
-    },
-    services: [
-      "Communication Strategy",
-      "Web Design and Development",
-      "Branding and Visual Identity",
-      "Service Showcase Structuring",
-      "SEO and Content Marketing",
-      "Social Media Integration",
-      "E-Commerce Integration",
-    ],
-  },
-  {
-    id: 7,
     img: "/assets/BijLand.png",
-    imgPor: "/assets/bijPor.png",
+    imgPor: "/assets/works/IGL.jpg",
     name: "Bijou",
     textOverlay: "Jewels That Define Elegance",
     description:
@@ -153,26 +131,45 @@ const worksData = [
     ],
   },
   {
-    id: 8,
-    img: "/assets/litLand.png",
-    imgPor: "/assets/litPor.png",
-    name: "Little England Farm",
-    textOverlay: "From Our Farm to Your Table",
+    id: 7,
+    img: "/assets/lolinsLand.png",
+    imgPor: "/assets/works/Od.jpg",
+    name: "Odyssey",
+    textOverlay: "Crafting Your Unique Diamond Jowelry",
     description:
-      "At Little England Farm, We are dedicated to delivering the purest and freshest dairy products straight from our farms to your table. With a commitment to sustainability and animal welfare, we blend traditional farming techniques with modern practices to ensure premium quality.",
+      "At Odyssey, we believe that every piece of jewelry tells a unique story of elegance and craftsmanship. Specializing in sustainable luxury, Odyssey combines timeless artistry with modern design to create exclusive collections.",
     technology: {
-      frontendDevelopment: ["React.js", "TailwindCSS"],
+      frontendDevelopment: ["Next.js", "TailwindCSS"],
       designTools: ["Figma"],
     },
     services: [
       "Communication Strategy",
       "Web Design and Development",
       "Branding and Visual Identity",
-      "Product Showcase Structuring",
+      "Service Showcase Structuring",
       "SEO and Content Marketing",
-      "Social Media Campaigning",
-      "Online Store Integration",
-      "Sustainability Awareness Campaigns",
+      "Social Media Integration",
+    ],
+  },
+  {
+    id: 8,
+    img: "/assets/lolinsLand.png",
+    imgPor: "/assets/works/STT.jpg",
+    name: "Odyssey",
+    textOverlay: "Crafting Your Unique Diamond Jowelry",
+    description:
+      "At Odyssey, we believe that every piece of jewelry tells a unique story of elegance and craftsmanship. Specializing in sustainable luxury, Odyssey combines timeless artistry with modern design to create exclusive collections.",
+    technology: {
+      frontendDevelopment: ["Next.js", "TailwindCSS"],
+      designTools: ["Figma"],
+    },
+    services: [
+      "Communication Strategy",
+      "Web Design and Development",
+      "Branding and Visual Identity",
+      "Service Showcase Structuring",
+      "SEO and Content Marketing",
+      "Social Media Integration",
     ],
   },
 ];

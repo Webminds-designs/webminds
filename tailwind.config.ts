@@ -14,7 +14,10 @@ export default {
         text: "#afa18f",
       },
       fontFamily: {
-        FunnelDisplayRegular: ["FunnelDisplay-Regular", "sans-serif"], // Define your custom font
+        FunnelDisplayRegular: ["FunnelDisplay-Regular", "sans-serif"],
+        AlbertSans_Regular: ["AlbertSans-Regular", "sans-serif"],
+        AlbertSans_Bold: ["AlberSans-Bold", "sans-serif"],
+        AlbertSans_Medium: ["AlbertSans-Medium", "sans-serif"],
       },
     },
   },
