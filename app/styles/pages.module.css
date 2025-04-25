@@ -1,51 +1,50 @@
 .main {
-    height: 100vh;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    height: 100vh;
-    background: black;
-    }
-  
-  .mask,
-  .body {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #afa18f;
-    font-size: 64px;
-    cursor: none;
-  
-    p {
-      width: 90%;
-      padding: 40px;
-    }
-  
-    span {
-      color: #393cec;
-    }
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  background: black;
   }
-  
-  .mask {
-    -webkit-mask-image: url('../../public/mask.svg');
-    mask-image: url('../../public/mask.svg');
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    mask-position: center;
-    -webkit-mask-size: contain;
-    mask-size: contain;
-    background: #393cec;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%; /* Full container width */
-    height: 100%; /* Full container height */
-    color: black;
+
+.mask,
+.body {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #afa18f;
+  font-size: 64px;
+  cursor: none;
+
+  p {
+    width: 90%;
+    padding: 40px;
   }
-  
+
+  span {
+    color: #393cec;
+  }
+}
+
+.mask {
+  -webkit-mask-image: url('../../public/mask.svg');
+  mask-image: url('../../public/mask.svg');
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  background: #393cec;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Full container width */
+  height: 100%; /* Full container height */
+  color: black;
+}
