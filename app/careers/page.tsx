@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import bg from "../asserts/careerBg.png"; // Ensure the path is correct
+import bg from "../asserts/Lbg2.jpg"; // Ensure the path is correct
 import bg2 from "../asserts/careerBg3.png"; // Ensure the path is correct
 import Image from "next/image";
 import Nav from "../Components/Nav";
