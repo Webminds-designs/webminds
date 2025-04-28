@@ -13,7 +13,7 @@ import { FaArrowDown } from "react-icons/fa6";
 import im1 from "../../public/assets/DigitalMarketing.jpg";
 import im2 from "../../public/assets/Website.jpg";
 import im3 from "../../public/assets/Social-Media.jpg";
-import im4 from "../../public/assets/tembrand.png";
+import im4 from "../../public/Branding.jpg";
 
 import { motion } from "framer-motion";
 
@@ -21,8 +21,8 @@ const Nav = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isExpertiesHovered, setExpertiesHovered] = useState(false);
   const [Hovered, setHovered] = useState("marketing");
-  const menuRef = useRef(null); 
-  const contentRef = useRef(null); 
+  const menuRef = useRef(null);
+  const contentRef = useRef(null);
 
   const handleMouseEnter = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
@@ -34,10 +34,9 @@ const Nav = () => {
       duration: 0.1,
       ease: "power1.out",
       onComplete: () => {
-        
         gsap.set(textElement, { y: 20, opacity: 1 });
         gsap.to(textElement, {
-          y: 0, 
+          y: 0,
           duration: 0.1,
           ease: "power1.in",
         });
@@ -63,7 +62,7 @@ const Nav = () => {
     if (isExpertiesHovered) {
       // Move all content down quickly before closing
       gsap.to(contentRef.current.children, {
-        y: 100, 
+        y: 100,
         opacity: 0,
         duration: 0.2, // Fast closing speed
         stagger: -0.05, // Make all items disappear together
@@ -121,16 +120,15 @@ const Nav = () => {
   }, [isMobileMenuOpen]);
 
   return (
-    <div className="w-screen bg-transparent font-FunnelDisplayRegular flex justify-between items-center px-6 lg:px-20 py-4 fixed top-0 z-10 overflow-hidden">
+    <div className="w-screen bg-transparent font-AlbertSans_Regular flex justify-between items-center px-6 lg:px-20 py-4 fixed top-0 z-10 overflow-hidden">
       {/* Logo Section */}
       <div className="w-16 cursor-pointer z-40">
-      <Image className="mix-blend-luminosity" src={logo} alt="logo" />
-      
+        <Image className="mix-blend-luminosity" src={logo} alt="logo" />
       </div>
 
       {/* Desktop Navigation Links */}
       <nav className="hidden lg:flex ">
-        <ul className="flex items-center space-x-16 text-sm text-white font-semibold">
+        <ul className="flex items-center space-x-16 text-sm text-white font-semibold tracking-wider">
           {["Home", "Works", "Expertise", "Careers", "Contact"].map(
             (item, index) => (
               <li key={index} className="group">
@@ -180,10 +178,9 @@ const Nav = () => {
                     >
                       <div>Our Expertise</div>
                       <ul
-                        className="md:text-3xl lg:text-4xl "
+                        className="md:text-3xl lg:text-4xl font-AlbertSans_Bold"
                         style={{
                           display: "inline-block",
-                          fontFamily: "eight, sans-serif",
                         }}
                       >
                         <li
