@@ -34,21 +34,20 @@ body {
 
 @font-face {
   font-family: "AlberSans-Regular";
-  src: url("../public/Fonts/helveticanowtext-black-demo.ttf") format("truetype");
+  src: url("../public/Fonts/HelveticaNowText-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: "AlberSans-Bold";
-  src: url("../public/Fonts/helveticanowtext-bold-demo.ttf") format("truetype");
+  src: url("../public/Fonts/HelveticaNowText-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
 }
 @font-face {
-  font-family: "AlberSans-italic";
-  src: url("../public/Fonts/helveticanowtext-bolditalic-demo.ttf")
-    format("truetype");
+  font-family: "AlberSans-Medium";
+  src: url("../public/Fonts/HelveticaNowText-Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
 }
