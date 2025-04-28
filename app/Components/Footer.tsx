@@ -101,10 +101,16 @@ const Footer: React.FC<FooterProp> = ({ bgColor }) => {
           </div>
         </div>
       </div>
-
-      <main className="flex flex-col items-center justify-center h-fit  bg-transparent text-text md:pb-24">
-        <ParallaxText baseVelocity={-2} fontSize="text-[200px]">
-          Get In Touch - Get In Touch -
+      <div className="w-full h-fit bg-green lg:px-24 opacity-80 flex justify-between items-center py-4 text-sm font-extralight text-text px-4 md:px-8 relative -bottom-8">
+        <div>All rights reserved 2025 © webmindsdesign</div>
+        <div className="flex justify-end gap-12 ">
+          <div className="cursor-pointer">Privacy Policy</div>
+          <div className="cursor-pointer">Terms of Service</div>
+        </div>
+      </div>
+      <main className="flex flex-col items-center justify-center h-fit  bg-transparent text-text md:pb-2">
+        <ParallaxText baseVelocity={-2} fontSize="text-[240px]">
+          - Get In Touch -
         </ParallaxText>
       </main>
     </div>
