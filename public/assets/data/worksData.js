@@ -18,6 +18,12 @@ const worksData = [
       "Social Media Marketing",
       "SEO and Content Marketing",
     ],
+    tag: [
+      "Web Development",
+      "Branding & Desing",
+      "Digital Marketing",
+      "Social Media",
+    ],
   },
   {
     id: 2,
@@ -41,6 +47,12 @@ const worksData = [
       "SEO and Content Marketing",
       "E-Commerce Integration",
     ],
+    tag: [
+      "Web Development",
+      "Branding & Desing",
+      "Digital Marketing",
+      "Social Media",
+    ],
   },
   {
     id: 3,
@@ -62,6 +74,7 @@ const worksData = [
       "SEO and Content Marketing",
       "Social Media Integration",
     ],
+    tag: ["Web Development", "Branding & Desing"],
   },
   {
     id: 4,
@@ -86,6 +99,7 @@ const worksData = [
       "Social Media Campaigning",
       "Online Resource Management",
     ],
+    tag: ["Web Development", "Branding & Desing"],
   },
   {
     id: 5,
@@ -107,6 +121,7 @@ const worksData = [
       "SEO and Content Marketing",
       "Social Media Integration",
     ],
+    tag: ["Web Development", "Branding & Desing"],
   },
   {
     id: 6,
@@ -128,6 +143,7 @@ const worksData = [
       "SEO and Content Marketing",
       "Social Media Integration",
     ],
+    tag: ["Web Development", "Branding & Desing"],
   },
 
   {
@@ -151,6 +167,7 @@ const worksData = [
       "Social Media Campaigning",
       "Virtual Try-On Integration",
     ],
+    tag: ["Web Development", "Branding & Desing", "Digital Marketing"],
   },
   {
     id: 8,
@@ -172,6 +189,7 @@ const worksData = [
       "SEO and Content Marketing",
       "Social Media Integration",
     ],
+    tag: ["Web Development", "Branding & Desing"],
   },
 ];
 
