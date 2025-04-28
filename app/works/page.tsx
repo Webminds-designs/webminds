@@ -43,6 +43,7 @@ const Workspage = () => {
     router.push(`/projects/${projectId}`); // Match with animation duration
   };
 
+  const title = "Work";
   const pageVariants = {
     initial: {
       y: "5%",
@@ -84,15 +85,39 @@ const Workspage = () => {
         }}
       >
         <div className="w-screen h-fit md:h-fit pt-20 md:pl-16 flex justify-center items-start md:items-center">
-          <div className="text-5xl w-full md:text-[100px] lg:text-[250px] opacity-80 font-AlbertSans_Bold text-start text-white mt-20 md:mt-10 ">
-            Work
+          <div
+            className="text-5xl w-full md:text-[100px] lg:text-[220px] opacity-80 font-AlbertSans_Bold text-start mt-20 md:mt-10 
+    text-transparent bg-clip-text bg-gradient-to-b from-white via-[#f5f5f5] to-[#9f9f9f] flex"
+          >
+            {title.split("").map((char, index) => (
+              <motion.span
+                key={index}
+                initial={{ opacity: 0, x: -100 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{
+                  duration: 0.8,
+                  delay: index * 0.1,
+                  ease: "easeOut",
+                }}
+                className="inline-block"
+              >
+                {char}
+              </motion.span>
+            ))}
           </div>
         </div>
         {/* tagss */}
-        <div className="w-screen h-fit md:h-fit pt-16 md:px-16 flex justify-start gap-2 items-start md:items-center flex-wrap">
+        <div className="w-screen h-fit md:h-fit pt-16 md:px-16 flex justify-start gap-2 items-start md:items-center flex-wrap font-AlbertSans_Medium">
           {tags.map((tag, index) => (
-            <div
+            <motion.div
               key={index}
+              initial={{ opacity: 0, x: -100 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{
+                duration: 0.8,
+                delay: index * 0.1,
+                ease: "easeInOut",
+              }}
               className={`w-fit h-fit px-8 py-1 rounded-full cursor-pointer ${
                 selectedTag === tag
                   ? "bg-white text-black"
@@ -101,9 +126,16 @@ const Workspage = () => {
               onClick={() => handleTagClick(tag)}
             >
               {tag}
-            </div>
+            </motion.div>
           ))}
-          <div
+          <motion.div
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.6,
+              ease: "easeInOut",
+            }}
             className={`w-fit h-fit px-8 py-1 rounded-full cursor-pointer ${
               selectedTag === "Show All"
                 ? "bg-white text-black"
@@ -112,7 +144,7 @@ const Workspage = () => {
             onClick={() => handleTagClick("Show All")}
           >
             Reset
-          </div>
+          </motion.div>
         </div>
 
         <div className="w-screen h-fit md:h-fit pt-10 md:px-16 flex justify-center items-start md:items-center md:mt-14 md:mb-14">
@@ -125,16 +157,16 @@ const Workspage = () => {
           <CustomCursor hovering={hovering} />
 
           <div className="w-full max-w-7xl h-full grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 cursor-none">
-            <AnimatePresence mode="wait">
-              {filteredWorks.map((item: WorkItem, index: number) => (
+            {filteredWorks.map((item: WorkItem, index: number) => (
+              <motion.div key={item.id} layout>
                 <motion.div
                   key={item.id}
                   className="flex flex-col justify-center items-center w-full max-w-[410px] mx-auto transition-transform duration-150 cursor-none"
                   onMouseEnter={() => setHovering(true)}
                   onMouseLeave={() => setHovering(false)}
                   initial={{ opacity: 0, y: 100 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
                   transition={{
                     duration: 0.5,
                     delay: index * 0.05,
@@ -165,8 +197,8 @@ const Workspage = () => {
                     </div>
                   </div>
                 </motion.div>
-              ))}
-            </AnimatePresence>
+              </motion.div>
+            ))}
           </div>
         </div>
         <Footer bgColor="bg-gradient-to-t from-[#1e222b] via-[#0a0a0a] to-#0e0e0f" />
