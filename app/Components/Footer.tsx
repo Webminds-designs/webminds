@@ -1,8 +1,7 @@
 import React from "react";
 
 import Image from "next/image";
-import Link from 'next/link';
-
+import Link from "next/link";
 
 import logo from "../../public/assets/WebMinds Logo_WebMinds Blue.png";
 import ParallaxText from "./ParallaxText";
@@ -26,36 +25,50 @@ const Footer: React.FC<FooterProp> = ({ bgColor }) => {
               Contact Us
             </div>
             <ul className="list-none text-text flex flex-col gap-2 text-sm  items-center md:items-start ">
-            <li className="cursor-pointer">
-              <a href="tel:+94762130015">+94 76 213 0015</a>
-            </li>
-            <li className="cursor-pointer">
-              <a href="mailto:lg@webmindsdesign.com">lg@webmindsdesigns.com</a>
-            </li>
+              <li className="cursor-pointer">
+                <a href="tel:+94762130015">+94 76 213 0015</a>
+              </li>
+              <li className="cursor-pointer">
+                <a href="mailto:lg@webmindsdesign.com">
+                  lg@webmindsdesigns.com
+                </a>
+              </li>
             </ul>
 
-          <ul className="list-none text-text flex flex-col gap-2 text-sm items-center md:items-start">
-            <li>
-              <Link href="/Expertise/Digital-Marketing" className="cursor-pointer hover:underline">
-                Digital Marketing
-              </Link>
-            </li>
-            <li>
-              <Link href="/Expertise/Web-Development" className="cursor-pointer hover:underline">
-                Website Development
-              </Link>
-            </li>
-            <li>
-              <Link href="/Expertise/Social-Media-Management" className="cursor-pointer hover:underline">
-                Social Media
-              </Link>
-            </li>
-            <li>
-              <Link href="/Expertise/Branding-n-Design" className="cursor-pointer hover:underline">
-                Branding & Design
-              </Link>
-            </li>
-          </ul>
+            <ul className="list-none text-text flex flex-col gap-2 text-sm items-center md:items-start">
+              <li>
+                <Link
+                  href="/Expertise/Digital-Marketing"
+                  className="cursor-pointer hover:underline"
+                >
+                  Digital Marketing
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/Expertise/Web-Development"
+                  className="cursor-pointer hover:underline"
+                >
+                  Website Development
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/Expertise/Social-Media-Management"
+                  className="cursor-pointer hover:underline"
+                >
+                  Social Media
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/Expertise/Branding-n-Design"
+                  className="cursor-pointer hover:underline"
+                >
+                  Branding & Design
+                </Link>
+              </li>
+            </ul>
           </div>
 
           <div className="w-fit h-fit flex-col justify-center items-start mt-6">
@@ -87,7 +100,7 @@ const Footer: React.FC<FooterProp> = ({ bgColor }) => {
 
       <main className="flex flex-col items-center justify-center h-fit  bg-transparent text-text md:pb-24">
         <ParallaxText baseVelocity={-2} fontSize="text-[200px]">
-          Get In Touch -
+          Get In Touch - Get In Touch -
         </ParallaxText>
       </main>
     </div>
