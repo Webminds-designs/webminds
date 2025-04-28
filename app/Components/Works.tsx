@@ -34,7 +34,7 @@ const Works: React.FC<WorksProps> = ({ bgcolor }) => {
     >
       <CustomCursor hovering={hovering} />
 
-      <div className="w-full max-w-[1920px] h-full grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 cursor-none">
+      <div className="w-full max-w-7xl h-full grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 cursor-none">
         {worksData.map((item: WorkItem, index: number) => (
           <motion.div
             key={item.id}
@@ -65,7 +65,7 @@ const Works: React.FC<WorksProps> = ({ bgcolor }) => {
                   height={600}
                   className="object-cover cursor-none"
                 />
-                <div className="absolute inset-0 bg-white bg-opacity-10 flex items-center justify-center transition-opacity duration-300 opacity-0 hover:opacity-100">
+                <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center transition-opacity duration-300 opacity-0 hover:opacity-100">
                   <div className="text-black text-2xl font-bold cursor-none h-12 w-12 bg-white rounded-full text-center flex justify-center items-center">
                     <span className="text-lg">+</span>
                   </div>

@@ -11,13 +11,13 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        text: "#afa18f",
+        text: "white",
       },
       fontFamily: {
         FunnelDisplayRegular: ["FunnelDisplay-Regular", "sans-serif"],
         AlbertSans_Regular: ["AlbertSans-Regular", "sans-serif"],
         AlbertSans_Bold: ["AlberSans-Bold", "sans-serif"],
-        AlbertSans_Medium: ["AlbertSans-Medium", "sans-serif"],
+        AlbertSans_Medium: ["AlberSans-Medium", "sans-serif"],
       },
     },
   },

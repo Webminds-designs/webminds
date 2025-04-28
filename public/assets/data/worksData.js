@@ -18,6 +18,12 @@ const worksData = [
       "Social Media Marketing",
       "SEO and Content Marketing",
     ],
+    tag: [
+      "Web Development",
+      "Branding & Desing",
+      "Digital Marketing",
+      "Social Media",
+    ],
   },
   {
     id: 2,
@@ -41,9 +47,37 @@ const worksData = [
       "SEO and Content Marketing",
       "E-Commerce Integration",
     ],
+    tag: [
+      "Web Development",
+      "Branding & Desing",
+      "Digital Marketing",
+      "Social Media",
+    ],
   },
   {
     id: 3,
+    img: "/assets/lolinsLand.png",
+    imgPor: "/assets/works/Od.jpg",
+    name: "Odyssey",
+    textOverlay: "Crafting Your Unique Diamond Jowelry",
+    description:
+      "At Odyssey, we believe that every piece of jewelry tells a unique story of elegance and craftsmanship. Specializing in sustainable luxury, Odyssey combines timeless artistry with modern design to create exclusive collections.",
+    technology: {
+      frontendDevelopment: ["Next.js", "TailwindCSS"],
+      designTools: ["Figma"],
+    },
+    services: [
+      "Communication Strategy",
+      "Web Design and Development",
+      "Branding and Visual Identity",
+      "Service Showcase Structuring",
+      "SEO and Content Marketing",
+      "Social Media Integration",
+    ],
+    tag: ["Web Development", "Branding & Desing"],
+  },
+  {
+    id: 4,
     img: "/assets/bioLand.png",
     imgPor: "/assets/works/BZ.jpg",
     name: "BioZone",
@@ -65,27 +99,7 @@ const worksData = [
       "Social Media Campaigning",
       "Online Resource Management",
     ],
-  },
-  {
-    id: 4,
-    img: "/assets/jimLand.png",
-    imgPor: "/assets/works/JIM.jpg",
-    name: "Jimmu",
-    textOverlay: "Empowering Journeys, One Insight at a Time",
-    description:
-      "Jimmu Global Trusted Resources is dedicated to providing unparalleled support during life’s most challenging moments. From protecting your financial interests with clear, actionable solutions to offering strategies that safeguard your wealth and reputation, we ensure you’re never navigating complexities alone.",
-    technology: {
-      frontendDevelopment: ["React.js", "TailwindCSS"],
-      designTools: ["Figma"],
-    },
-    services: [
-      "Communication Strategy",
-      "Web Design and Development",
-      "Branding and Visual Identity",
-      "Blog Content Structuring",
-      "SEO and Content Marketing",
-      "Social Media Integration",
-    ],
+    tag: ["Web Development", "Branding & Desing"],
   },
   {
     id: 5,
@@ -107,9 +121,33 @@ const worksData = [
       "SEO and Content Marketing",
       "Social Media Integration",
     ],
+    tag: ["Web Development", "Branding & Desing"],
   },
   {
     id: 6,
+    img: "/assets/lolinsLand.png",
+    imgPor: "/assets/works/STT.jpg",
+    name: "Odyssey",
+    textOverlay: "Crafting Your Unique Diamond Jowelry",
+    description:
+      "At Odyssey, we believe that every piece of jewelry tells a unique story of elegance and craftsmanship. Specializing in sustainable luxury, Odyssey combines timeless artistry with modern design to create exclusive collections.",
+    technology: {
+      frontendDevelopment: ["Next.js", "TailwindCSS"],
+      designTools: ["Figma"],
+    },
+    services: [
+      "Communication Strategy",
+      "Web Design and Development",
+      "Branding and Visual Identity",
+      "Service Showcase Structuring",
+      "SEO and Content Marketing",
+      "Social Media Integration",
+    ],
+    tag: ["Web Development", "Branding & Desing"],
+  },
+
+  {
+    id: 7,
     img: "/assets/BijLand.png",
     imgPor: "/assets/works/IGL.jpg",
     name: "Bijou",
@@ -129,48 +167,29 @@ const worksData = [
       "Social Media Campaigning",
       "Virtual Try-On Integration",
     ],
-  },
-  {
-    id: 7,
-    img: "/assets/lolinsLand.png",
-    imgPor: "/assets/works/Od.jpg",
-    name: "Odyssey",
-    textOverlay: "Crafting Your Unique Diamond Jowelry",
-    description:
-      "At Odyssey, we believe that every piece of jewelry tells a unique story of elegance and craftsmanship. Specializing in sustainable luxury, Odyssey combines timeless artistry with modern design to create exclusive collections.",
-    technology: {
-      frontendDevelopment: ["Next.js", "TailwindCSS"],
-      designTools: ["Figma"],
-    },
-    services: [
-      "Communication Strategy",
-      "Web Design and Development",
-      "Branding and Visual Identity",
-      "Service Showcase Structuring",
-      "SEO and Content Marketing",
-      "Social Media Integration",
-    ],
+    tag: ["Web Development", "Branding & Desing", "Digital Marketing"],
   },
   {
     id: 8,
-    img: "/assets/lolinsLand.png",
-    imgPor: "/assets/works/STT.jpg",
-    name: "Odyssey",
-    textOverlay: "Crafting Your Unique Diamond Jowelry",
+    img: "/assets/jimLand.png",
+    imgPor: "/assets/works/JIM.jpg",
+    name: "Jimmu",
+    textOverlay: "Empowering Journeys, One Insight at a Time",
     description:
-      "At Odyssey, we believe that every piece of jewelry tells a unique story of elegance and craftsmanship. Specializing in sustainable luxury, Odyssey combines timeless artistry with modern design to create exclusive collections.",
+      "Jimmu Global Trusted Resources is dedicated to providing unparalleled support during life’s most challenging moments. From protecting your financial interests with clear, actionable solutions to offering strategies that safeguard your wealth and reputation, we ensure you’re never navigating complexities alone.",
     technology: {
-      frontendDevelopment: ["Next.js", "TailwindCSS"],
+      frontendDevelopment: ["React.js", "TailwindCSS"],
       designTools: ["Figma"],
     },
     services: [
       "Communication Strategy",
       "Web Design and Development",
       "Branding and Visual Identity",
-      "Service Showcase Structuring",
+      "Blog Content Structuring",
       "SEO and Content Marketing",
       "Social Media Integration",
     ],
+    tag: ["Web Development", "Branding & Desing"],
   },
 ];
 
