@@ -43,6 +43,10 @@ export default function Home() {
          excellence, we’re here to help you succeed.
         </p>
       </div>
+
+      <hr className="border-t-20 border-gray-800 w-[90%] mx-auto bg-black/75" />
+
+
     </main>
   );
 }
