@@ -12,7 +12,9 @@ interface FooterProp {
 
 const Footer: React.FC<FooterProp> = ({ bgColor }) => {
   return (
-    <div className={`w-screen h-fit ${bgColor} z-10 relative`}>
+    <div
+      className={`w-screen h-fit ${bgColor} z-10 relative font-AlbertSans_Regular`}
+    >
       <div className="w-screen h-fit flex flex-col md:flex-row justify-between  md:p-24">
         <div className="w-fit h-fit">
           <div className="w-24 cursor-pointer z-40">
@@ -21,7 +23,7 @@ const Footer: React.FC<FooterProp> = ({ bgColor }) => {
         </div>
         <div className="md:w-1/2 h-fill flex flex-col md:flex-row justify-center items-center md:justify-between md:items-start">
           <div className="w-fit h-fit flex-col justify-center items-center md:items-start mt-6">
-            <div className="text-sm text-bold text-white text-center md:text-start mb-4">
+            <div className="text-sm text-bold text-white text-center md:text-start mb-4 font-bold">
               Contact Us
             </div>
             <ul className="list-none text-text flex flex-col gap-2 text-sm  items-center md:items-start ">
@@ -34,7 +36,11 @@ const Footer: React.FC<FooterProp> = ({ bgColor }) => {
                 </a>
               </li>
             </ul>
-
+          </div>
+          <div className="w-fit h-fit flex-col justify-center items-center md:items-start mt-6">
+            <div className="text-sm text-bold text-white text-center md:text-start mb-4 font-bold">
+              Experties
+            </div>
             <ul className="list-none text-text flex flex-col gap-2 text-sm items-center md:items-start">
               <li>
                 <Link
@@ -70,14 +76,12 @@ const Footer: React.FC<FooterProp> = ({ bgColor }) => {
               </li>
             </ul>
           </div>
-
           <div className="w-fit h-fit flex-col justify-center items-start mt-6">
-            <div className="text-sm text-bold text-white text-center md:text-start mb-4">
+            <div className="text-sm text-bold text-white text-center md:text-start mb-4 font-bold">
               Pages
             </div>
             <ul className="list-none text-text flex flex-col gap-2 text-lg md:text-sm items-center md:items-start">
               <li className="cursor-pointer">Home</li>
-              <li className="cursor-pointer">Experties</li>
               <li className="cursor-pointer">Works</li>
               <li className="cursor-pointer">About Us</li>
               <li className="cursor-pointer">Contact Us</li>
@@ -85,7 +89,7 @@ const Footer: React.FC<FooterProp> = ({ bgColor }) => {
             </ul>
           </div>
           <div className="w-fit h-fit flex-col justify-center items-start mt-6">
-            <div className="text-sm text-bold text-white text-center md:text-start mb-4">
+            <div className="text-sm text-bold text-white text-center md:text-start mb-4 font-bold">
               Follow Us
             </div>
             <ul className="list-none text-text flex flex-col gap-2 text-lg md:text-sm items-center md:items-start">
@@ -98,9 +102,9 @@ const Footer: React.FC<FooterProp> = ({ bgColor }) => {
         </div>
       </div>
 
-      <main className="flex flex-col items-center justify-center h-fit  bg-transparent text-text md:pb-6">
-        <ParallaxText baseVelocity={-2} fontSize="text-[250px]">
-          Get In Touch -
+      <main className="flex flex-col items-center justify-center h-fit  bg-transparent text-text md:pb-24">
+        <ParallaxText baseVelocity={-2} fontSize="text-[200px]">
+          Get In Touch - Get In Touch -
         </ParallaxText>
       </main>
     </div>
