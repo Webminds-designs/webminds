@@ -43,14 +43,12 @@ const page = () => {
                 <Image alt="logo" src={logo} width={30} height={30} />
               </div>
               <div className="w-full h-fit text-sm text-gray-300 rounded-r-xl rounded-tl-xl rounded-bl-sm ">
-                Hey there! 👋 We are WebMinds, your creative tech wizards, ready
-                to turn your ideas into reality! 🚀 Need a hand with your
-                project?
-                <span className="font-bold">
-                  {" "}
-                  Just drop us an email at info@webmindsdesigns.com,
-                </span>{" "}
-                and let's build something awesome together! 💡✨😄
+                <span>
+                  WebMinds — Your creative tech partners! 🚀 Got a project idea?
+                  Email us at{" "}
+                </span>
+                <span className="font-bold"> info@webmindsdesigns.com,</span>{" "}
+                <span>and let's make it happen! 💡✨</span>
               </div>
             </div>
             <div className="w-full flex justify-between items-center gap-4">
