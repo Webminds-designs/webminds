@@ -87,7 +87,7 @@ const Workspage = () => {
         <div className="w-screen h-fit md:h-fit pt-20 md:pl-16 flex justify-center items-start md:items-center">
           <div
             className="text-5xl w-full md:text-[100px] lg:text-[220px] opacity-80 font-AlbertSans_Bold text-start mt-20 md:mt-10 
-    text-transparent bg-clip-text bg-gradient-to-b from-white via-[#f5f5f5] to-[#9f9f9f] flex"
+    text-text flex"
           >
             {title.split("").map((char, index) => (
               <motion.span
