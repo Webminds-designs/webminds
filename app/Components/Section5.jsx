@@ -23,7 +23,7 @@ const Section2 = ({ scrollYProgress }) => {
           className="relative w-full h-screen text-[3.5vw] flex flex-col items-center justify-center text-white cursor-pointer"
         >
       <p className="absolute left-10 bottom-0 text-[100px] font-semibold"
-      style={{ fontFamily: 'eight, sans-serif', fontWeight: 400, fontStyle: 'normal' }}
+      style={{ fontFamily: 'AlberSans-Bold, sans-serif', fontWeight: 400, fontStyle: 'normal' }}
       >Branding & Design</p>
 
       <img

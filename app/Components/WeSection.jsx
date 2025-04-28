@@ -9,6 +9,9 @@ export default function Home() {
   const size = isHovered ? 500 : 40;
 
   return (
+    <>
+    <hr className="border-t-20 border-gray-800 w-[90%] mx-auto bg-black/75" />
+
     <main className={styles.main}>
       <motion.div 
         className={styles.mask}
@@ -37,14 +40,18 @@ export default function Home() {
 
       <div className={styles.body}>
         <p>
-         We Are <span style={{ fontFamily:'sans-serif', fontWeight: 400, fontStyle: 'normal' }} >WebMinds</span>—innovative, dynamic, and results-driven. 
-         We specialize in <span style={{ fontFamily:'sans-serif', fontWeight: 400, fontStyle: 'normal' }}>website creation</span>,<span style={{ fontFamily:'sans-serif', fontWeight: 400, fontStyle: 'normal' }}> social media management</span>,<span style={{ fontFamily:'sans-serif', fontWeight: 400, fontStyle: 'normal' }}> branding</span>,<span style={{ fontFamily:'sans-serif', fontWeight: 400, fontStyle: 'normal' }}> 
-         design</span>,<span> </span>and<span style={{ fontFamily:'sans-serif', fontWeight: 400, fontStyle: 'normal' }}> digital marketing</span>. Our mission is to turn ideas into engaging 
+         We Are <span style={{ fontFamily:'AlberSans-Regular', fontWeight: 400, fontStyle: 'normal' }} >WebMinds</span>—innovative, dynamic, and results-driven. 
+         We specialize in <span style={{ fontFamily:'AlberSans-Regular', fontWeight: 400, fontStyle: 'normal' }}>website creation</span>,<span style={{ fontFamily:'AlberSans-Regular', fontWeight: 400, fontStyle: 'normal' }}> social media management</span>,<span style={{ fontFamily:'AlberSans-Regular', fontWeight: 400, fontStyle: 'normal' }}> branding</span>,<span style={{ fontFamily:'AlberSans-Regular', fontWeight: 400, fontStyle: 'normal' }}> 
+         design</span>,<span> </span>and<span style={{ fontFamily:'AlberSans-Regular', fontWeight: 400, fontStyle: 'normal' }}> digital marketing</span>. Our mission is to turn ideas into engaging 
          digital experiences. From strategy to execution, we deliver with creativity 
          and precision. We work thoughtfully, creatively, and passionately.
         </p>
       </div>
 
     </main>
+
+    <hr className="border-t-20 border-gray-800 w-[90%] mx-auto bg-black/75" />
+
+    </>
   );
 }

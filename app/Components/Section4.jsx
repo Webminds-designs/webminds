@@ -31,7 +31,7 @@ const Section4 = ({ scrollYProgress }) => {
         >
         <p
           className="absolute left-10 bottom-0 text-[100px] font-semibold"
-          style={{ fontFamily: 'eight, sans-serif', fontWeight: 400, fontStyle: 'normal', lineHeight: '90px' }}
+          style={{ fontFamily: 'AlberSans-Bold, sans-serif', fontWeight: 400, fontStyle: 'normal', lineHeight: '90px' }}
         >
           Branding & Design
         </p>
