@@ -5,7 +5,7 @@ const Bigfontloop = () => {
   return (
     <>
       <main className="flex flex-col items-center justify-center h-fit  bg-transparent text-text absolute bottom-0 ">
-        <div className="flex w-full px-4 md:px-8 justify-between font-AlbertSans_Bold relative -bottom-10 tracking-tighter">
+        <div className="flex w-full px-4 md:px-8 justify-between font-AlbertSans_Regular relative -bottom-10 tracking-tighter">
           <div className=" white">beyond</div>
           <div className=" white">ordinary</div>
           <div className="white">minds</div>

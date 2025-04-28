@@ -35,7 +35,7 @@ const Workspage = () => {
 
   const pageVariants = {
     initial: {
-      y: "40%",
+      y: "5%",
       opacity: 0,
     },
     animate: {
@@ -74,8 +74,8 @@ const Workspage = () => {
         }}
       >
         <div className="w-screen h-fit md:h-fit pt-20 md:pl-16 flex justify-center items-start md:items-center">
-          <div className="text-5xl w-full md:text-[100px] lg:text-[180px] opacity-80 font-AlbertSans_Bold text-start text-white mt-20 md:mt-0">
-            Works
+          <div className="text-5xl w-full md:text-[100px] lg:text-[250px] opacity-80 font-AlbertSans_Bold text-start text-white mt-20 md:mt-10 ">
+            Work
           </div>
         </div>
         {/* tagss */}
@@ -92,7 +92,7 @@ const Workspage = () => {
             Reset
           </div>
         </div>
-        <div className="w-screen h-fit md:h-fit pt-10 md:px-16 flex justify-center items-start md:items-center">
+        <div className="w-screen h-fit md:h-fit pt-10 md:px-16 flex justify-center items-start md:items-center md:mt-10 md:mb-10">
           <hr className="w-full opacity-20"></hr>
         </div>
 
@@ -101,7 +101,7 @@ const Workspage = () => {
         >
           <CustomCursor hovering={hovering} />
 
-          <div className="w-full max-w-7xl h-full grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 cursor-none">
+          <div className="w-full max-w-7xl h-full grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 cursor-none ">
             {worksData.map((item: WorkItem, index: number) => (
               <motion.div
                 key={item.id}

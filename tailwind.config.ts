@@ -17,7 +17,7 @@ export default {
         FunnelDisplayRegular: ["FunnelDisplay-Regular", "sans-serif"],
         AlbertSans_Regular: ["AlbertSans-Regular", "sans-serif"],
         AlbertSans_Bold: ["AlberSans-Bold", "sans-serif"],
-        AlbertSans_Medium: ["AlbertSans-Medium", "sans-serif"],
+        AlbertSans_Medium: ["AlbertSans-italic", "sans-serif"],
       },
     },
   },
