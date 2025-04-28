@@ -82,7 +82,6 @@ const Footer: React.FC<FooterProp> = ({ bgColor }) => {
             </div>
             <ul className="list-none text-text flex flex-col gap-2 text-lg md:text-sm items-center md:items-start">
               <li className="cursor-pointer">Home</li>
-              <li className="cursor-pointer">Experties</li>
               <li className="cursor-pointer">Works</li>
               <li className="cursor-pointer">About Us</li>
               <li className="cursor-pointer">Contact Us</li>
