@@ -1,25 +1,51 @@
 "use client";
 
-import React from "react";
-import bg from "../asserts/Lbg2.jpg"; // Ensure the path is correct
-import bg2 from "../asserts/careerBg3.png"; // Ensure the path is correct
+import React, { useRef } from "react";
+import bg from "../asserts/Lbg2.jpg";
+import bg2 from "../asserts/careerBg3.png";
 import Image from "next/image";
 import Nav from "../Components/Nav";
 import Footer from "../Components/Footer";
 import vacancyData from "./vacancyData";
 import { IoArrowForwardCircleOutline } from "react-icons/io5";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const CareersPage = () => {
   const title = "Careers";
 
+  const containerRef = useRef(null);
+  const cardSectionRef = useRef(null);
+
+  // Scroll progress for first section
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  // Scroll progress for card section
+  const { scrollYProgress: cardScrollYProgress } = useScroll({
+    target: cardSectionRef,
+    offset: ["start start", "end end"],
+  });
+
+  // Create parallax transforms
+  const yTitle = useTransform(scrollYProgress, [0, 1], [0, -500]);
+  const yParagraph = useTransform(scrollYProgress, [0, 1], [0, -350]);
+  const ySpirit = useTransform(scrollYProgress, [0, 1], [0, -450]);
+
+  // Parallax for cards (small gentle upward move)
+  const yCards = useTransform(cardScrollYProgress, [0, 1], [0, -100]);
+
   return (
     <>
       <Nav />
+
+      {/* First Section */}
       <motion.div
+        ref={containerRef}
         className="relative bg-black md:w-screen h-screen md:h-fit"
-        initial={{ opacity: 1, y: "10%" }}
-        animate={{ opacity: 1, y: 10 }}
+        initial={{ opacity: 1 }}
+        animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
       >
         <Image
@@ -30,8 +56,11 @@ const CareersPage = () => {
           className="opacity-80 relative -top-40"
         />
 
-        <div className="w-screen h-screen flex justify-center pt-20 md:pl-16 items-start md:items-start absolute top-24 md:top-0">
-          <div className="text-5xl w-full h-screen md:text-[100px] lg:text-[220px]  font-AlbertSans_Bold text-start mt-20 md:mt-10 text-text flex">
+        <motion.div
+          style={{ y: yTitle }}
+          className="w-fit h-screen flex justify-center pt-20 md:pl-16 items-end md:items-end absolute top-24 md:top-0"
+        >
+          <div className="text-5xl w-full h-fit md:text-[100px] lg:text-[220px] font-AlbertSans_Bold text-start text-text justify-start flex items-start md:mb-20">
             {title.split("").map((char, index) => (
               <motion.span
                 key={index}
@@ -48,15 +77,13 @@ const CareersPage = () => {
               </motion.span>
             ))}
           </div>
-        </div>
+        </motion.div>
 
-        <div className="w-fit h-screen px-8 md:px-24 text-2xl md:text-4xl lg:text-5xl text-white  font-AlbertSans_Regular">
-          <span
-            style={{
-              display: "inline-block",
-            }}
-            className="font-AlbertSans_Bold text-blue-500"
-          >
+        <motion.div
+          style={{ y: yParagraph }}
+          className="w-fit h-screen px-8 md:px-24 text-2xl md:text-4xl lg:text-5xl text-white font-AlbertSans_Regular"
+        >
+          <span className="font-AlbertSans_Bold text-blue-500 inline-block">
             This is WebMinds -
           </span>
           . In our team of eighteen, creativity meets purpose, and modern ideas
@@ -66,10 +93,14 @@ const CareersPage = () => {
           why our partners trust us to elevate their brands, build stunning
           websites, and craft campaigns that leave an impression. We don’t just
           follow trends—we create them.
-        </div>
+        </motion.div>
       </motion.div>
 
-      <div className="relative bg-black md:w-screen h-screen md:h-fit">
+      {/* Card Section */}
+      <div
+        ref={cardSectionRef}
+        className="relative bg-black md:w-screen h-screen md:h-fit"
+      >
         <Image
           src={bg2}
           alt="bg image"
@@ -78,13 +109,11 @@ const CareersPage = () => {
           className="opacity-80 -z-50"
         />
 
-        <div className="w-fit h-fit p-8 md:p-24 text-2xl md:text-4xl lg:text-5xl text-white absolute top-8">
-          <span
-            style={{
-              display: "inline-block",
-            }}
-            className="font-AlbertSans_Bold text-blue-500"
-          >
+        <motion.div
+          style={{ y: ySpirit }}
+          className="w-fit h-fit p-8 md:p-24 text-2xl md:text-4xl lg:text-5xl text-white absolute top-8"
+        >
+          <span className="font-AlbertSans_Bold text-blue-500 inline-block">
             Our Spirit -
           </span>
           . At WebMinds, we don’t just follow the rules—we write our own. You
@@ -92,21 +121,20 @@ const CareersPage = () => {
           creativity counts more than any credential. We don’t fit into boxes;
           we think outside of them. As a team, we aren’t just building
           websites—we’re shaping the digital landscape of tomorrow, today.
-        </div>
+        </motion.div>
 
-        <div className="flex flex-wrap gap-8 justify-center p-4 md:p-24 absolute md:bottom-0  ">
+        {/* Cards with parallax */}
+        <motion.div
+          style={{ y: yCards }}
+          className="flex flex-wrap gap-8 justify-center p-4 md:p-24  absolute top-40"
+        >
           {vacancyData.map((vacancy) => (
             <div
               key={vacancy.id}
               className="md:w-[420px] w-[200px] border-2 border-slate-500 flex flex-col items-start justify-between gap-2 md:gap-6 p-2 md:p-8 rounded-lg text-text 
               transition-colors duration-700 ease-in-out hover:bg-slate-500 hover:text-white"
             >
-              <h2
-                className="text-2xl md:text-4xl lg:text-6xl text-wrap text-start font-light font-AlbertSans_Bold"
-                style={{
-                  display: "inline-block",
-                }}
-              >
+              <h2 className="text-2xl md:text-4xl lg:text-6xl text-wrap text-start font-light font-AlbertSans_Bold inline-block">
                 {vacancy.title}
               </h2>
               <div className="w-full h-fit flex justify-end">
@@ -114,7 +142,7 @@ const CareersPage = () => {
               </div>
             </div>
           ))}
-        </div>
+        </motion.div>
       </div>
 
       <Footer bgColor="bg-[#0B5E6B]" />
