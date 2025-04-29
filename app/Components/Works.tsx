@@ -33,7 +33,7 @@ const Works: React.FC<WorksProps> = ({ bgcolor }) => {
     >
       <CustomCursor hovering={hovering} />
 
-      <div className="w-full max-w-7xl h-full grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 cursor-none">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 cursor-none">
         {worksData.map((item: WorkItem, index: number) => (
           <motion.div
             key={item.id}

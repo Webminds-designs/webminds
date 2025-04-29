@@ -107,7 +107,7 @@ const Workspage = () => {
           </div>
         </div>
         {/* tagss */}
-        <div className="w-screen h-fit md:h-fit pt-8 md:pt-16  px-4 md:px-16 flex justify-start gap-2 items-start md:items-center flex-wrap font-AlbertSans_Medium">
+        <div className="w-screen h-fit md:h-fit pt-8 md:pt-16  px-4 md:px-16 flex justify-start gap-2 items-start md:items-center flex-wrap font-AlbertSans_Medium cursor-pointer">
           {tags.map((tag, index) => (
             <motion.div
               key={index}
@@ -156,7 +156,7 @@ const Workspage = () => {
         >
           <CustomCursor hovering={hovering} />
 
-          <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 cursor-none">
             {filteredWorks.map((item: WorkItem, index: number) => (
               <motion.div key={item.id} layout>
                 <motion.div
