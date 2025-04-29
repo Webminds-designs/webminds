@@ -1,102 +1,221 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
+import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { TextureLoader } from "three";
 import Nav from "../Components/Nav";
-import Image from "next/image";
-import bg from "../../public/assets/CONTANCT.png";
-import { FaMessage } from "react-icons/fa6";
-import { IoCall } from "react-icons/io5";
-import { IoMdSend } from "react-icons/io";
-import logo from "../../public/assets/Webminds-dark.webp";
-import Footer from "../Components/Footer";
 
-const page = () => {
+const ContactTV3D = () => {
+  const mountRef = useRef(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const mount = mountRef.current;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    // Scene and camera
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+    camera.position.set(-5, 3, 15);
+
+    // Renderer with shadows and transparency
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setClearColor(0x000000, 0);
+    renderer.setSize(width, height);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    mount.appendChild(renderer.domElement);
+
+    // Lighting
+    scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    dirLight.position.set(5, 10, 7.5);
+    dirLight.castShadow = true;
+    dirLight.shadow.mapSize.width = 1024;
+    dirLight.shadow.mapSize.height = 1024;
+    dirLight.shadow.camera.near = 1;
+    dirLight.shadow.camera.far = 50;
+    scene.add(dirLight);
+
+    // Floor to receive shadow
+    const floor = new THREE.Mesh(
+      new THREE.PlaneGeometry(30, 30),
+      new THREE.ShadowMaterial({ opacity: 0.3 })
+    );
+    floor.rotation.x = -Math.PI / 2;
+    floor.position.y = -3.5;
+    floor.receiveShadow = true;
+    scene.add(floor);
+
+    // TV body
+    const body = new THREE.Mesh(
+      new THREE.BoxGeometry(9, 9, 2.5),
+      new THREE.MeshStandardMaterial({
+        color: 0x2a2a2a,
+        metalness: 0.5,
+        roughness: 0.4,
+      })
+    );
+    body.castShadow = true;
+    body.receiveShadow = true;
+    scene.add(body);
+
+    // Screen plane (inside TV)
+    const screenMesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(8, 8),
+      new THREE.MeshStandardMaterial({ color: 0x000000 })
+    );
+    screenMesh.position.set(0, 0, 1.26);
+    scene.add(screenMesh);
+
+    // Load realistic icon textures
+    const loader = new TextureLoader();
+    const iconData = [
+      { url: "/phone-call.png", x: -2.4, y: 0.5, type: "phone" },
+      { url: "/icons/email.png", x: -0.4, y: 0.5, type: "email" },
+      { url: "/icons/message.png", x: 1.6, y: 0.5, type: "message" },
+    ];
+
+    const iconMeshes = [];
+    iconData.forEach(({ url, x, y, type }) => {
+      loader.load(url, (texture) => {
+        const mat = new THREE.MeshBasicMaterial({
+          map: texture,
+          transparent: true,
+        });
+        const aspect = texture.image.width / texture.image.height;
+        const h = 0.8;
+        const w = h * aspect;
+        const mesh = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat);
+        mesh.position.set(x, y, 1.27);
+        mesh.castShadow = true;
+        mesh.userData.type = type;
+        scene.add(mesh);
+        iconMeshes.push(mesh);
+      });
+    });
+
+    // Canvas for detail view
+    let detailMesh = null;
+    const detailCanvas = document.createElement("canvas");
+    detailCanvas.width = 1024;
+    detailCanvas.height = 614;
+    const dctx = detailCanvas.getContext("2d");
+
+    // Raycaster for interactions
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+    let mode = "icons";
+
+    function drawIcons() {
+      // show icons set mode
+      mode = "icons";
+      iconMeshes.forEach((m) => (m.visible = true));
+      if (detailMesh) {
+        scene.remove(detailMesh);
+        detailMesh = null;
+      }
+    }
+
+    function drawDetail(type) {
+      mode = "detail";
+      iconMeshes.forEach((m) => (m.visible = false));
+      dctx.clearRect(0, 0, detailCanvas.width, detailCanvas.height);
+      dctx.fillStyle = "#fff";
+      dctx.fillRect(0, 0, detailCanvas.width, detailCanvas.height);
+      dctx.fillStyle = "#000";
+      dctx.font = "60px Arial";
+      if (type === "phone") {
+        dctx.fillText("Call Us:", 380, 200);
+        dctx.font = "50px Arial";
+        dctx.fillText("+94 77 123 4567", 250, 300);
+      } else if (type === "email") {
+        dctx.fillText("Email Us:", 360, 200);
+        dctx.font = "50px Arial";
+        dctx.fillText("info@webminds.lk", 230, 300);
+      } else {
+        dctx.fillText("Message Us:", 330, 200);
+        dctx.font = "50px Arial";
+        dctx.fillText("@webminds_support", 200, 300);
+      }
+      dctx.fillStyle = "#000";
+      dctx.font = "40px Arial";
+      dctx.fillText("← Back", 50, 50);
+      const tex = new THREE.CanvasTexture(detailCanvas);
+      detailMesh = new THREE.Mesh(
+        new THREE.PlaneGeometry(8, 4.8),
+        new THREE.MeshBasicMaterial({ map: tex })
+      );
+      detailMesh.position.set(0, 0, 1.27);
+      scene.add(detailMesh);
+    }
+
+    function onClick(e) {
+      mouse.x = (e.clientX / width) * 2 - 1;
+      mouse.y = -(e.clientY / height) * 2 + 1;
+      raycaster.setFromCamera(mouse, camera);
+      if (mode === "icons") {
+        const hit = raycaster.intersectObjects(iconMeshes)[0];
+        if (hit) drawDetail(hit.object.userData.type);
+      } else {
+        // back click anywhere
+        drawIcons();
+      }
+    }
+    window.addEventListener("click", onClick);
+
+    // Controls and animate
+    const controls = new OrbitControls(camera, renderer.domElement);
+    const clock = new THREE.Clock();
+    function animate() {
+      requestAnimationFrame(animate);
+      const t = clock.getElapsedTime();
+      // pulse icons
+      iconMeshes.forEach((m, i) => {
+        const s = 1 + 0.1 * Math.sin(t * 2 + i);
+        m.scale.set(s, s, s);
+      });
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // Resize
+    function onResize() {
+      const w = window.innerWidth,
+        h = window.innerHeight;
+      renderer.setSize(w, h);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    }
+    window.addEventListener("resize", onResize);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("click", onClick);
+      window.removeEventListener("resize", onResize);
+      mount.removeChild(renderer.domElement);
+    };
+  }, []);
+
   return (
-    <>
+    <div
+      ref={mountRef}
+      style={{
+        width: "100vw",
+        height: "100vh",
+        position: "relative",
+        background: "linear-gradient(135deg,#1A1F5E 0%, #31B0B1  100%)",
+        overflow: "hidden",
+      }}
+    >
       <Nav />
-      {/* <CustomCursor hovering={hovering} /> */}
-      <motion.div
-        className=" bg-[#1a1a1a] md:w-screen h-fit  md:top-0"
-        initial={{ opacity: 1, y: 1000 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        //   ref={containerRef}
-      >
-        <div className="w-screen h-full flex  flex-col  md:flex-row justify-between items-center relative top-28 md:top-0">
-          <div className="w-screen md:w-2/5 text-white h-fit md:h-screen flex flex-col p-2 md:p-24 justify-center items-center gap-4 bg-[#1a1a1a]">
-            <div
-              className="text-6xl text-text "
-              style={{
-                display: "inline-block",
-                fontFamily: "eight, sans-serif",
-              }}
-            >
-              Contact
-            </div>
-            <div className="w-full flex flex-row p-5 gap-3 justify-between mt-3 border-[0.2px] border-text rounded-r-xl rounded-tl-xl rounded-bl-sm">
-              {/* <FaMessage
-                className="w-14 h-14"
-                style={{ backgroundImage: `url(${logo})` }}
-              /> */}
-              <div className="w-14 h-14 rounded-r-xl rounded-tl-xl rounded-bl-sm bg-blue-500 border-2 p-2 border-blue-800 flex justify-center items-center">
-                <Image alt="logo" src={logo} width={30} height={30} />
-              </div>
-              <div className="w-full h-fit text-sm text-gray-300 rounded-r-xl rounded-tl-xl rounded-bl-sm ">
-                <span>
-                  WebMinds — Your creative tech partners! 🚀 Got a project idea?
-                  Email us at{" "}
-                </span>
-                <span className="font-bold"> info@webmindsdesigns.com,</span>{" "}
-                <span>and let's make it happen! 💡✨</span>
-              </div>
-            </div>
-            <div className="w-full flex justify-between items-center gap-4">
-              <div className="md:w-full w-32 p-3 bg-[#242424] flex flex-col items-center justify-center gap-1 hover:bg-[#424242] cursor-pointer rounded-r-xl rounded-tl-xl rounded-bl-sm">
-                <IoCall className="w-full text-center" />
-                <div className="text-text text-center text-s">Call</div>
-              </div>
-              <div className="md:w-full w-32 p-3 bg-[#242424] flex flex-col items-center justify-center gap-1 hover:bg-[#424242] cursor-pointer rounded-r-xl rounded-tl-xl rounded-bl-sm">
-                <FaMessage className="w-full text-center " />
-                <div className="text-text text-center text-s">Email</div>
-              </div>
-              <div className="md:w-full w-32 p-3 bg-[#242424] flex flex-col items-center justify-center gap-1 hover:bg-[#424242] cursor-pointer rounded-r-xl rounded-tl-xl rounded-bl-sm">
-                <IoMdSend className="w-full text-center -rotate-45" />
-                <div className="text-text text-center text-s">Route</div>
-              </div>
-            </div>
-            <div className="p-4 w-full h-fit flex-col items-start justify-center bg-[#242424]  rounded-r-xl rounded-tl-xl rounded-bl-sm">
-              <div className="text-text">Phone</div>
-              <div className="text-white text-lg ">+44 7983 637117</div>
-            </div>
-            <div className="p-4 w-full h-fit flex-col items-start justify-center bg-[#242424]  rounded-r-xl rounded-tl-xl rounded-bl-sm">
-              <div className="text-text">Email</div>
-              <div className="text-white text-lg ">
-                damian@webmindsdesign.com
-              </div>
-            </div>
-            <div className="p-4 w-full h-fit flex-col items-start justify-center bg-[#242424]  rounded-r-xl rounded-tl-xl rounded-bl-sm">
-              <div className="text-text">Address</div>
-              <div className="text-white text-lg flex flex-col items-start gap-0">
-                <div>The Old Rectory,</div>
-                <div>Taunton, Ta4 3jt,</div>
-                <div>Somerset,</div>
-                <div>United Kingdom.</div>
-              </div>
-            </div>
-          </div>
-          <div className="w-screen md:w-3/5 h-full md:h-screen">
-            <Image
-              src={bg}
-              alt="bg image"
-              className="object-cover w-full h-full opacity-80 relative"
-            />
-          </div>
-        </div>
-      </motion.div>
-      <Footer bgColor="bg-[#AF3235]" />
-    </>
+    </div>
   );
 };
 
-export default page;
+export default ContactTV3D;
