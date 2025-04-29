@@ -84,9 +84,9 @@ const Workspage = () => {
           backgroundColor: "#0a0a0a",
         }}
       >
-        <div className="w-screen h-fit md:h-fit pt-20 md:pl-16 flex justify-center items-start md:items-center">
+        <div className="w-screen h-fit md:h-fit pt-20  pl-4 md:pl-16 flex justify-center items-start md:items-center">
           <div
-            className="text-5xl w-full md:text-[100px] lg:text-[220px] opacity-80 font-AlbertSans_Bold text-start mt-20 md:mt-10 
+            className="text-8xl w-full md:text-[100px] lg:text-[220px] opacity-80 font-AlbertSans_Bold text-start mt-6 md:mt-10 
     text-text flex"
           >
             {title.split("").map((char, index) => (
@@ -107,7 +107,7 @@ const Workspage = () => {
           </div>
         </div>
         {/* tagss */}
-        <div className="w-screen h-fit md:h-fit pt-16 md:px-16 flex justify-start gap-2 items-start md:items-center flex-wrap font-AlbertSans_Medium">
+        <div className="w-screen h-fit md:h-fit pt-8 md:pt-16  px-4 md:px-16 flex justify-start gap-2 items-start md:items-center flex-wrap font-AlbertSans_Medium">
           {tags.map((tag, index) => (
             <motion.div
               key={index}
@@ -118,7 +118,7 @@ const Workspage = () => {
                 delay: index * 0.1,
                 ease: "easeInOut",
               }}
-              className={`w-fit h-fit px-8 py-1 rounded-full cursor-pointer ${
+              className={`w-fit  h-fit px-4 md:px-8 py-1 rounded-full cursor-pointer ${
                 selectedTag === tag
                   ? "bg-white text-black"
                   : "bg-white bg-opacity-20 text-white"
@@ -136,7 +136,7 @@ const Workspage = () => {
               delay: 0.6,
               ease: "easeInOut",
             }}
-            className={`w-fit h-fit px-8 py-1 rounded-full cursor-pointer ${
+            className={`w-fit h-fit px-4 md:px-8 py-1 rounded-full cursor-pointer ${
               selectedTag === "Show All"
                 ? "bg-white text-black"
                 : "bg-white bg-opacity-20 text-white"
@@ -156,7 +156,7 @@ const Workspage = () => {
         >
           <CustomCursor hovering={hovering} />
 
-          <div className="w-full max-w-7xl h-full grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 cursor-none">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {filteredWorks.map((item: WorkItem, index: number) => (
               <motion.div key={item.id} layout>
                 <motion.div

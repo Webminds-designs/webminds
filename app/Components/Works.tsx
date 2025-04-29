@@ -16,7 +16,6 @@ interface WorkItem {
 
 interface WorksProps {
   bgcolor: string;
-  setNavigationAnimation: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Works: React.FC<WorksProps> = ({ bgcolor }) => {
