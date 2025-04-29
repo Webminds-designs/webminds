@@ -109,7 +109,7 @@ const Footer: React.FC<FooterProp> = ({ bgColor }) => {
         </div>
       </div>
       <main className="flex flex-col items-center justify-center h-[360px]  bg-transparent text-text md:pb-0">
-        <ParallaxText baseVelocity={-2} fontSize="text-[300px]">
+        <ParallaxText baseVelocity={-1.5} fontSize="text-[300px]">
           - Get In Touch -
         </ParallaxText>
       </main>
