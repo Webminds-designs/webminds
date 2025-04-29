@@ -20,8 +20,8 @@ const Section2 = ({scrollYProgress}) => {
           className="relative w-full h-screen bg-[#f0f0f0] text-[3.5vw] flex flex-col items-center justify-center text-white cursor-pointer"
         >
       <p className="absolute left-10 bottom-5 text-[100px] font-semibold"
-      style={{ fontFamily: 'eight, sans-serif', fontWeight: 400, fontStyle: 'normal' , lineHeight: '90px' }}
-      >Social Media <br/>Management</p>
+      style={{ fontFamily: 'AlberSans-Bold, sans-serif', fontWeight: 400, fontStyle: 'normal' , lineHeight: '90px' }}
+      >Social Media Management</p>
 
       <img
         src="/Social-Media2.jpg"
