@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import bg from "../asserts/Lbg2.jpg";
-import bg2 from "../asserts/careerBg3.png";
+import bg2 from "../asserts/careerBg5.png";
 import Image from "next/image";
 import Nav from "../Components/Nav";
 import Footer from "../Components/Footer";
@@ -106,12 +106,12 @@ const CareersPage = () => {
           alt="bg image"
           layout="cover"
           objectFit="fill"
-          className="opacity-80 -z-50"
+          className="opacity-80 "
         />
 
         <motion.div
           style={{ y: ySpirit }}
-          className="w-fit h-fit p-8 md:p-24 text-2xl md:text-4xl lg:text-5xl text-white absolute top-8"
+          className="w-fit h-fit p-8 md:p-24 text-2xl md:text-4xl lg:text-5xl text-white absolute top-8 "
         >
           <span className="font-AlbertSans_Bold text-blue-500 inline-block">
             Our Spirit -
@@ -145,7 +145,7 @@ const CareersPage = () => {
         </motion.div>
       </div>
 
-      <Footer bgColor="bg-[#0B5E6B]" />
+      <Footer bgColor="bg-gradient-to-t from-[#1e222b] via-[#1B4453] to-[#1B4453]" />
     </>
   );
 };
