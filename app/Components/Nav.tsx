@@ -133,7 +133,13 @@ const Nav = () => {
             (item, index) => (
               <li key={index} className="group">
                 <Link
-                  href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
+                  href={
+                    item === "Home"
+                      ? "/"
+                      : item === "Expertise"
+                      ? "#"
+                      : `/${item.toLowerCase()}`
+                  }
                   onMouseEnter={(e) => {
                     handleMouseEnter(e);
                     if (item === "Expertise") setExpertiesHovered(true);
@@ -288,7 +294,13 @@ const Nav = () => {
               (item, index) => (
                 <li key={index}>
                   <Link
-                    href={`/${item.toLowerCase()}`}
+                    href={
+                      item === "Home"
+                        ? "/"
+                        : item === "Expertise"
+                        ? "#"
+                        : `/${item.toLowerCase()}`
+                    }
                     onClick={() => toggleMenu()} // Close menu on click
                     className="relative inline-block overflow-hidden hover:opacity-70"
                   >
