@@ -175,7 +175,7 @@ const Page: React.FC = () => {
           />
         </div>
 
-        <div className={styles.sliderContainer} ref={sliderTextRef}>
+        <div className={styles.sliderContainer} ref={sliderTextRef} style={{ fontFamily:'AlberSans-Medium', letterSpacing: '-1px' }}>
           <div className={styles.slider} ref={slider}>
             <p ref={firstText}>Digital Marketing - </p>
             <p ref={secondText}>Digital Marketing -</p>
