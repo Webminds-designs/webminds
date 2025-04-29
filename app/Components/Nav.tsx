@@ -120,7 +120,7 @@ const Nav = () => {
   }, [isMobileMenuOpen]);
 
   return (
-    <div className="w-screen bg-transparent font-AlbertSans_Regular flex justify-between items-center px-6 lg:px-20 py-4 fixed top-0 z-10 overflow-hidden">
+    <div className="w-screen bg-transparent font-AlbertSans_Regular flex justify-between items-center px-6 lg:px-20 py-4 top-0 z-10 overflow-hidden fixed">
       {/* Logo Section */}
       <div className="w-16 cursor-pointer z-40">
         <Image className="mix-blend-luminosity" src={logo} alt="logo" />
