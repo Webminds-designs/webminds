@@ -16,9 +16,8 @@ const ContactTV3D = () => {
 
     // ─── Scene & Camera ─────────────────────────────────────────────────────
     const scene = new THREE.Scene();
-    const envMap = new CubeTextureLoader()
-      .setPath("/hdr/")
-      .load(["px.jpg", "nx.jpg", "py.jpg", "ny.jpg", "pz.jpg", "nz.jpg"]);
+    const envMap = new CubeTextureLoader().setPath("/hdr/");
+
     scene.environment = envMap;
 
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
@@ -58,6 +57,7 @@ const ContactTV3D = () => {
     floor.rotation.x = -Math.PI / 2;
     floor.position.y = floorY;
     floor.receiveShadow = true;
+    floor.castShadow = false;
     scene.add(floor);
 
     // ─── TV Body ─────────────────────────────────────────────────────────────
@@ -100,14 +100,16 @@ const ContactTV3D = () => {
     bodyGeom.setIndex(idx);
     bodyGeom.computeVertexNormals();
 
-    const bodyMat = new THREE.MeshStandardMaterial({
-      color: 0x707070,
-      metalness: 0.7,
-      roughness: 0.3,
-      envMap,
-      envMapIntensity: 0.8,
-    });
-    const body = new THREE.Mesh(bodyGeom, bodyMat);
+    const body = new THREE.Mesh(
+      bodyGeom,
+      new THREE.MeshStandardMaterial({
+        color: 0x707070,
+        metalness: 0.7,
+        roughness: 0.3,
+        envMap,
+        envMapIntensity: 0.8,
+      })
+    );
     body.castShadow = true;
     body.receiveShadow = true;
     body.position.y = standTh;
@@ -115,8 +117,7 @@ const ContactTV3D = () => {
 
     // ─── Screen ─────────────────────────────────────────────────────────────
     const screenCanvas = document.createElement("canvas");
-    screenCanvas.width = 1024;
-    screenCanvas.height = 1024;
+    screenCanvas.width = screenCanvas.height = 1024;
     const sc = screenCanvas.getContext("2d")!;
     sc.fillStyle = "#000";
     sc.fillRect(0, 0, 1024, 1024);
@@ -125,12 +126,15 @@ const ContactTV3D = () => {
     sc.textAlign = "center";
     sc.textBaseline = "middle";
     sc.fillText("Let's Talk", 512, 512);
-    const screenTex = new THREE.CanvasTexture(screenCanvas);
 
     const screenMesh = new THREE.Mesh(
       new THREE.PlaneGeometry(frontW - 1.2, frontH - 1.2),
-      new THREE.MeshBasicMaterial({ map: screenTex })
+      new THREE.MeshBasicMaterial({
+        map: new THREE.CanvasTexture(screenCanvas),
+      })
     );
+    screenMesh.castShadow = true;
+    screenMesh.receiveShadow = true;
     screenMesh.position.z = hd + 0.02;
     body.add(screenMesh);
 
@@ -186,7 +190,7 @@ const ContactTV3D = () => {
     stand.receiveShadow = true;
     scene.add(stand);
 
-    // ─── Original Icons & Interaction ───────────────────────────────────────
+    // ─── Contact Icons & Interaction ───────────────────────────────────────
     const loader = new TextureLoader();
     const iconData = [
       { url: "/phone-call.png", x: -2.6, y: -1.5, type: "phone" },
@@ -196,21 +200,23 @@ const ContactTV3D = () => {
     const icons: THREE.Mesh[] = [];
     iconData.forEach(({ url, x, y, type }) => {
       loader.load(url, (tex) => {
-        const mat = new THREE.MeshBasicMaterial({
-          map: tex,
-          transparent: true,
-        });
         const aspect = tex.image.width / tex.image.height;
         const h = 1.1,
           w = h * aspect;
-        const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat);
+        const m = new THREE.Mesh(
+          new THREE.PlaneGeometry(w, h),
+          new THREE.MeshBasicMaterial({ map: tex, transparent: true })
+        );
         m.position.set(x + 0.5, standTh + y, hd + 0.03);
         m.userData.type = type;
+        m.castShadow = true;
+        m.receiveShadow = true;
         scene.add(m);
         icons.push(m);
       });
     });
-    // detail overlay setup...
+
+    // ─── Detail Overlay ────────────────────────────────────────────────────
     const detailCanvas = document.createElement("canvas");
     detailCanvas.width = 1024;
     detailCanvas.height = 614;
@@ -219,6 +225,7 @@ const ContactTV3D = () => {
     let mode: "icons" | "detail" = "icons";
     const ray = new THREE.Raycaster(),
       mouse = new THREE.Vector2();
+
     function showIcons() {
       mode = "icons";
       icons.forEach((m) => (m.visible = true));
@@ -251,14 +258,19 @@ const ContactTV3D = () => {
       }
       dc.font = "40px Arial";
       dc.fillText("← Back", 50, 520);
-      const tex = new THREE.CanvasTexture(detailCanvas);
+
       detailMesh = new THREE.Mesh(
         new THREE.PlaneGeometry(frontW - 1.2, (frontW - 1.2) * (614 / 1024)),
-        new THREE.MeshBasicMaterial({ map: tex })
+        new THREE.MeshBasicMaterial({
+          map: new THREE.CanvasTexture(detailCanvas),
+        })
       );
+      detailMesh.castShadow = true;
+      detailMesh.receiveShadow = true;
       detailMesh.position.set(0, standTh + 0.5, hd + 0.03);
       scene.add(detailMesh);
     }
+
     window.addEventListener("click", (e: MouseEvent) => {
       mouse.x = (e.clientX / width) * 2 - 1;
       mouse.y = -(e.clientY / height) * 2 + 1;
@@ -266,7 +278,9 @@ const ContactTV3D = () => {
       if (mode === "icons") {
         const hit = ray.intersectObjects(icons)[0];
         if (hit) showDetail(hit.object.userData.type);
-      } else showIcons();
+      } else {
+        showIcons();
+      }
     });
 
     // ─── Props: Plant, Book, Mug & Smoke ─────────────────────────────────────
@@ -278,12 +292,17 @@ const ContactTV3D = () => {
       new THREE.MeshStandardMaterial({ color: 0x8b4513 })
     );
     pot.position.set(-6, floorY + potH / 2, 0);
+    pot.castShadow = true;
+    pot.receiveShadow = true;
     scene.add(pot);
+
     const foliage = new THREE.Mesh(
       new THREE.SphereGeometry(0.7, 16, 16),
       new THREE.MeshStandardMaterial({ color: 0x228b22 })
     );
     foliage.position.set(-6, floorY + potH + 0.7, 0);
+    foliage.castShadow = true;
+    foliage.receiveShadow = true;
     scene.add(foliage);
 
     // Book
@@ -294,9 +313,11 @@ const ContactTV3D = () => {
     );
     book.position.set(7, floorY + bookH / 2, 0);
     book.rotation.x = -Math.PI / 1;
+    book.castShadow = true;
+    book.receiveShadow = true;
     scene.add(book);
 
-    // Mug
+    // Mug + Handle
     const mugH = 1.5,
       mugR = 0.8;
     const mug = new THREE.Mesh(
@@ -304,13 +325,18 @@ const ContactTV3D = () => {
       new THREE.MeshStandardMaterial({ color: 0xffffff })
     );
     mug.position.set(2, floorY + mugH / 2, 4);
+    mug.castShadow = true;
+    mug.receiveShadow = true;
     scene.add(mug);
+
     const handle = new THREE.Mesh(
       new THREE.TorusGeometry(0.4, 0.08, 16, 150, Math.PI),
       new THREE.MeshStandardMaterial({ color: 0x000000 })
     );
     handle.position.set(1.2, floorY + mugH / 2, 4);
     handle.rotation.z = Math.PI / 2;
+    handle.castShadow = true;
+    handle.receiveShadow = true;
     scene.add(handle);
 
     // Smoke particle setup
@@ -333,6 +359,8 @@ const ContactTV3D = () => {
         4 + (Math.random() - 0.5) * 0.2
       );
       p.rotation.z = Math.random() * Math.PI * 2;
+      p.castShadow = true;
+      p.receiveShadow = true;
       scene.add(p);
       smokeParticles.push(p);
     }
@@ -347,15 +375,13 @@ const ContactTV3D = () => {
 
       // pulse contact icons
       icons.forEach((m, i) => {
-        const s = 1 + 0.1 * Math.sin(t * 2 + i);
-        m.scale.set(s, s, s);
+        m.scale.setScalar(1 + 0.1 * Math.sin(t * 2 + i));
       });
-      // spin social ring
 
       // animate smoke
       smokeParticles.forEach((p) => {
-        p.position.y += delta * 0.5; // rise
-        (p.material as any).opacity -= delta * 0.2; // fade
+        p.position.y += delta * 0.5;
+        (p.material as any).opacity -= delta * 0.2;
         if ((p.material as any).opacity <= 0) {
           p.position.y = floorY + mugH;
           (p.material as any).opacity = 0.5 + Math.random() * 0.2;
@@ -381,26 +407,36 @@ const ContactTV3D = () => {
   return (
     <div className="container" ref={mountRef}>
       <Nav />
-      <style jsx>{`
-        .container {
-          width: 100vw;
-          height: 100vh;
-          overflow: hidden;
-          position: relative;
+      <style jsx global>{`
+        /* reset & full-screen gradient on body */
+        html,
+        body,
+        #__next {
+          margin: 0;
+          padding: 0;
+          width: 100%;
+          height: 100%;
+        }
+        body {
           background: linear-gradient(135deg, #1a1f5e 0%, #31b0b1 100%);
           background-size: 200% 200%;
           animation: gradientShift 10s ease infinite;
         }
         @keyframes gradientShift {
-          0% {
+          0%,
+          100% {
             background-position: 0% 50%;
           }
           50% {
             background-position: 100% 50%;
           }
-          100% {
-            background-position: 0% 50%;
-          }
+        }
+
+        /* ensure the Three.js canvas container fills the viewport */
+        .container {
+          position: fixed;
+          inset: 0;
+          overflow: hidden;
         }
       `}</style>
     </div>
