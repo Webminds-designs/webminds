@@ -40,7 +40,7 @@ const ContactTV3D = () => {
     dirLight.shadow.mapSize.set(1024, 1024);
     scene.add(dirLight);
 
-    // ─── TV & Stand Dimensions ───────────────────────────────────────────────
+    // ─── Dimensions ─────────────────────────────────────────────────────────
     const frontW = 9,
       frontH = 9,
       depth = 4;
@@ -60,7 +60,7 @@ const ContactTV3D = () => {
     floor.receiveShadow = true;
     scene.add(floor);
 
-    // ─── Trapezoidal TV Body ────────────────────────────────────────────────
+    // ─── TV Body ─────────────────────────────────────────────────────────────
     const hwF = frontW / 2,
       hhF = frontH / 2,
       hwB = backW / 2,
@@ -113,7 +113,7 @@ const ContactTV3D = () => {
     body.position.y = standTh;
     scene.add(body);
 
-    // ─── Screen Canvas (flat inset, centered “Let’s Talk”) ────────────────
+    // ─── Screen ─────────────────────────────────────────────────────────────
     const screenCanvas = document.createElement("canvas");
     screenCanvas.width = 1024;
     screenCanvas.height = 1024;
@@ -124,9 +124,9 @@ const ContactTV3D = () => {
     sc.font = "bold 150px Arial";
     sc.textAlign = "center";
     sc.textBaseline = "middle";
-    sc.fillText("Let's Talk", 512, 400);
-
+    sc.fillText("Let's Talk", 512, 512);
     const screenTex = new THREE.CanvasTexture(screenCanvas);
+
     const screenMesh = new THREE.Mesh(
       new THREE.PlaneGeometry(frontW - 1.2, frontH - 1.2),
       new THREE.MeshBasicMaterial({ map: screenTex })
@@ -134,12 +134,12 @@ const ContactTV3D = () => {
     screenMesh.position.z = hd + 0.02;
     body.add(screenMesh);
 
-    // ─── Stand Wedge ───────────────────────────────────────────────────────
+    // ─── Stand Wedge ────────────────────────────────────────────────────────
     const sd = depth * 0.5,
       sw = frontW * 0.6;
     const fBY = standTh - frontH / 2,
       bBY = standTh - backH / 2;
-    const vs = new Float32Array([
+    const vs2 = new Float32Array([
       -sw / 2,
       floorY,
       sd / 2,
@@ -165,30 +165,32 @@ const ContactTV3D = () => {
       bBY,
       -sd / 2,
     ]);
-    const is = [
+    const is2 = [
       0, 1, 2, 0, 2, 3, 5, 4, 7, 5, 7, 6, 4, 0, 3, 4, 3, 7, 2, 1, 5, 2, 5, 6, 3,
       2, 6, 3, 6, 7, 4, 5, 1, 4, 1, 0,
     ];
     const standGeom = new THREE.BufferGeometry();
-    standGeom.setAttribute("position", new THREE.BufferAttribute(vs, 3));
-    standGeom.setIndex(is);
+    standGeom.setAttribute("position", new THREE.BufferAttribute(vs2, 3));
+    standGeom.setIndex(is2);
     standGeom.computeVertexNormals();
 
-    const standMat = new THREE.MeshStandardMaterial({
-      color: 0x333333,
-      metalness: 0.3,
-      roughness: 0.5,
-    });
-    const stand = new THREE.Mesh(standGeom, standMat);
+    const stand = new THREE.Mesh(
+      standGeom,
+      new THREE.MeshStandardMaterial({
+        color: 0x333333,
+        metalness: 0.3,
+        roughness: 0.5,
+      })
+    );
     stand.castShadow = true;
     stand.receiveShadow = true;
     scene.add(stand);
 
-    // ─── Icons & Interaction ───────────────────────────────────────────────
+    // ─── Original Icons & Interaction ───────────────────────────────────────
     const loader = new TextureLoader();
     const iconData = [
-      { url: "/phone-call.png", x: -2.4, y: -1.5, type: "phone" },
-      { url: "/email.png", x: -0.4, y: -1.5, type: "email" },
+      { url: "/phone-call.png", x: -2.6, y: -1.5, type: "phone" },
+      { url: "/email.png", x: -0.6, y: -1.5, type: "email" },
       { url: "/gps.png", x: 1.6, y: -1.5, type: "message" },
     ];
     const icons: THREE.Mesh[] = [];
@@ -202,22 +204,21 @@ const ContactTV3D = () => {
         const h = 1.1,
           w = h * aspect;
         const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat);
-        m.position.set(x, y + standTh, hd + 0.03);
+        m.position.set(x + 0.5, standTh + y, hd + 0.03);
         m.userData.type = type;
         scene.add(m);
         icons.push(m);
       });
     });
-
+    // detail overlay setup...
     const detailCanvas = document.createElement("canvas");
     detailCanvas.width = 1024;
     detailCanvas.height = 614;
     const dc = detailCanvas.getContext("2d")!;
     let detailMesh: THREE.Mesh | null = null;
     let mode: "icons" | "detail" = "icons";
-    const ray = new THREE.Raycaster();
-    const mouse = new THREE.Vector2();
-
+    const ray = new THREE.Raycaster(),
+      mouse = new THREE.Vector2();
     function showIcons() {
       mode = "icons";
       icons.forEach((m) => (m.visible = true));
@@ -244,81 +245,164 @@ const ContactTV3D = () => {
         dc.font = "50px Arial";
         dc.fillText("info@webmindsdesigns.com", 50, 130);
       } else {
-        dc.fillText("Message Us:", 50, 50);
+        dc.fillText("Address:", 50, 50);
         dc.font = "50px Arial";
-        dc.fillText("@webminds_support", 50, 130);
+        dc.fillText("Colombo, Sri Lanka", 50, 130);
       }
       dc.font = "40px Arial";
       dc.fillText("← Back", 50, 520);
-
       const tex = new THREE.CanvasTexture(detailCanvas);
       detailMesh = new THREE.Mesh(
         new THREE.PlaneGeometry(frontW - 1.2, (frontW - 1.2) * (614 / 1024)),
         new THREE.MeshBasicMaterial({ map: tex })
       );
-      detailMesh.position.set(0, standTh, hd + 0.03);
+      detailMesh.position.set(0, standTh + 0.5, hd + 0.03);
       scene.add(detailMesh);
     }
-
-    function onClick(e: MouseEvent) {
+    window.addEventListener("click", (e: MouseEvent) => {
       mouse.x = (e.clientX / width) * 2 - 1;
       mouse.y = -(e.clientY / height) * 2 + 1;
       ray.setFromCamera(mouse, camera);
       if (mode === "icons") {
         const hit = ray.intersectObjects(icons)[0];
         if (hit) showDetail(hit.object.userData.type);
-      } else {
-        showIcons();
-      }
+      } else showIcons();
+    });
+
+    // ─── Props: Plant, Book, Mug & Smoke ─────────────────────────────────────
+    // Plant
+    const potH = 1.2,
+      potR = 0.6;
+    const pot = new THREE.Mesh(
+      new THREE.CylinderGeometry(potR, potR, potH, 32),
+      new THREE.MeshStandardMaterial({ color: 0x8b4513 })
+    );
+    pot.position.set(-6, floorY + potH / 2, 0);
+    scene.add(pot);
+    const foliage = new THREE.Mesh(
+      new THREE.SphereGeometry(0.7, 16, 16),
+      new THREE.MeshStandardMaterial({ color: 0x228b22 })
+    );
+    foliage.position.set(-6, floorY + potH + 0.7, 0);
+    scene.add(foliage);
+
+    // Book
+    const bookH = 0.5;
+    const book = new THREE.Mesh(
+      new THREE.BoxGeometry(3, bookH, 6),
+      new THREE.MeshStandardMaterial({ color: 0xff0000 })
+    );
+    book.position.set(7, floorY + bookH / 2, 0);
+    book.rotation.x = -Math.PI / 1;
+    scene.add(book);
+
+    // Mug
+    const mugH = 1.5,
+      mugR = 0.8;
+    const mug = new THREE.Mesh(
+      new THREE.CylinderGeometry(mugR, mugR, mugH, 32),
+      new THREE.MeshStandardMaterial({ color: 0xffffff })
+    );
+    mug.position.set(2, floorY + mugH / 2, 4);
+    scene.add(mug);
+    const handle = new THREE.Mesh(
+      new THREE.TorusGeometry(0.4, 0.08, 16, 150, Math.PI),
+      new THREE.MeshStandardMaterial({ color: 0x000000 })
+    );
+    handle.position.set(1.2, floorY + mugH / 2, 4);
+    handle.rotation.z = Math.PI / 2;
+    scene.add(handle);
+
+    // Smoke particle setup
+    const smokeTexture = new THREE.TextureLoader().load("/smoke.png");
+    const smokeGeo = new THREE.PlaneGeometry(1, 1);
+    const smokeMatBase = new THREE.MeshLambertMaterial({
+      map: smokeTexture,
+      transparent: true,
+      opacity: 0.5,
+      depthWrite: false,
+    });
+    const smokeParticles: THREE.Mesh[] = [];
+    const numSmoke = 15;
+    for (let i = 0; i < numSmoke; i++) {
+      const mat = smokeMatBase.clone();
+      const p = new THREE.Mesh(smokeGeo, mat);
+      p.position.set(
+        2 + (Math.random() - 0.5) * 0.2,
+        floorY + mugH + Math.random() * 0.2,
+        4 + (Math.random() - 0.5) * 0.2
+      );
+      p.rotation.z = Math.random() * Math.PI * 2;
+      scene.add(p);
+      smokeParticles.push(p);
     }
-    window.addEventListener("click", onClick);
 
-    // ─── Orbit Controls ─────────────────────────────────────────────────────
+    // ─── Controls & Animate ────────────────────────────────────────────────
     const controls = new OrbitControls(camera, renderer.domElement);
-    // keep default: user can rotate, pan, zoom manually
-
-    // ─── Animation Loop ─────────────────────────────────────────────────────
     const clock = new THREE.Clock();
     (function animate() {
       requestAnimationFrame(animate);
       const t = clock.getElapsedTime();
-      // icon pulse only
+      const delta = clock.getDelta();
+
+      // pulse contact icons
       icons.forEach((m, i) => {
         const s = 1 + 0.1 * Math.sin(t * 2 + i);
         m.scale.set(s, s, s);
       });
+      // spin social ring
+
+      // animate smoke
+      smokeParticles.forEach((p) => {
+        p.position.y += delta * 0.5; // rise
+        (p.material as any).opacity -= delta * 0.2; // fade
+        if ((p.material as any).opacity <= 0) {
+          p.position.y = floorY + mugH;
+          (p.material as any).opacity = 0.5 + Math.random() * 0.2;
+          p.rotation.z = Math.random() * Math.PI * 2;
+        }
+      });
+
       controls.update();
       renderer.render(scene, camera);
     })();
 
-    // ─── Resize Handler ────────────────────────────────────────────────────
-    function onResize() {
+    // ─── Resize & Cleanup ───────────────────────────────────────────────────
+    window.addEventListener("resize", () => {
       renderer.setSize(window.innerWidth, window.innerHeight);
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
-    }
-    window.addEventListener("resize", onResize);
-
-    // ─── Cleanup ───────────────────────────────────────────────────────────
+    });
     return () => {
-      window.removeEventListener("click", onClick);
-      window.removeEventListener("resize", onResize);
       mount.removeChild(renderer.domElement);
     };
   }, []);
 
   return (
-    <div
-      ref={mountRef}
-      style={{
-        width: "100vw",
-        height: "100vh",
-        background: "linear-gradient(135deg,#1A1F5E 0%,#31B0B1 100%)",
-        overflow: "hidden",
-        position: "relative",
-      }}
-    >
+    <div className="container" ref={mountRef}>
       <Nav />
+      <style jsx>{`
+        .container {
+          width: 100vw;
+          height: 100vh;
+          overflow: hidden;
+          position: relative;
+          background: linear-gradient(135deg, #1a1f5e 0%, #31b0b1 100%);
+          background-size: 200% 200%;
+          animation: gradientShift 10s ease infinite;
+        }
+        @keyframes gradientShift {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+      `}</style>
     </div>
   );
 };
