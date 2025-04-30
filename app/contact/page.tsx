@@ -1,200 +1,305 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { TextureLoader } from "three";
+import { TextureLoader, CubeTextureLoader } from "three";
 import Nav from "../Components/Nav";
 
 const ContactTV3D = () => {
-  const mountRef = useRef(null);
-  const router = useRouter();
+  const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const mount = mountRef.current;
+    const mount = mountRef.current!;
     const width = window.innerWidth;
     const height = window.innerHeight;
 
-    // Scene and camera
+    // ─── Scene & Camera ─────────────────────────────────────────────────────
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
-    camera.position.set(-5, 3, 15);
+    const envMap = new CubeTextureLoader()
+      .setPath("/hdr/")
+      .load(["px.jpg", "nx.jpg", "py.jpg", "ny.jpg", "pz.jpg", "nz.jpg"]);
+    scene.environment = envMap;
 
-    // Renderer with shadows and transparency
+    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+    camera.position.set(-6, 4, 18);
+
+    // ─── Renderer ───────────────────────────────────────────────────────────
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setClearColor(0x000000, 0);
     renderer.setSize(width, height);
+    renderer.setClearColor(0x000000, 0);
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     mount.appendChild(renderer.domElement);
 
-    // Lighting
+    // ─── Lights ──────────────────────────────────────────────────────────────
     scene.add(new THREE.AmbientLight(0xffffff, 0.4));
     const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
     dirLight.position.set(5, 10, 7.5);
     dirLight.castShadow = true;
-    dirLight.shadow.mapSize.width = 1024;
-    dirLight.shadow.mapSize.height = 1024;
-    dirLight.shadow.camera.near = 1;
-    dirLight.shadow.camera.far = 50;
+    dirLight.shadow.mapSize.set(1024, 1024);
     scene.add(dirLight);
 
-    // Floor to receive shadow
+    // ─── TV & Stand Dimensions ───────────────────────────────────────────────
+    const frontW = 9,
+      frontH = 9,
+      depth = 4;
+    const backW = 7,
+      backH = 7;
+    const hd = depth / 2;
+    const standTh = 0.4;
+    const floorY = -frontH / 2;
+
+    // ─── Floor ───────────────────────────────────────────────────────────────
     const floor = new THREE.Mesh(
       new THREE.PlaneGeometry(30, 30),
       new THREE.ShadowMaterial({ opacity: 0.3 })
     );
     floor.rotation.x = -Math.PI / 2;
-    floor.position.y = -3.5;
+    floor.position.y = floorY;
     floor.receiveShadow = true;
     scene.add(floor);
 
-    // TV body
-    const body = new THREE.Mesh(
-      new THREE.BoxGeometry(9, 9, 2.5),
-      new THREE.MeshStandardMaterial({
-        color: 0x2a2a2a,
-        metalness: 0.5,
-        roughness: 0.4,
-      })
-    );
+    // ─── Trapezoidal TV Body ────────────────────────────────────────────────
+    const hwF = frontW / 2,
+      hhF = frontH / 2,
+      hwB = backW / 2,
+      hhB = backH / 2;
+    const verts = new Float32Array([
+      -hwF,
+      -hhF,
+      hd,
+      hwF,
+      -hhF,
+      hd,
+      hwF,
+      hhF,
+      hd,
+      -hwF,
+      hhF,
+      hd,
+      -hwB,
+      -hhB,
+      -hd,
+      hwB,
+      -hhB,
+      -hd,
+      hwB,
+      hhB,
+      -hd,
+      -hwB,
+      hhB,
+      -hd,
+    ]);
+    const idx = [
+      0, 1, 2, 0, 2, 3, 5, 4, 7, 5, 7, 6, 3, 2, 6, 3, 6, 7, 4, 5, 1, 4, 1, 0, 1,
+      5, 6, 1, 6, 2, 4, 0, 3, 4, 3, 7,
+    ];
+    const bodyGeom = new THREE.BufferGeometry();
+    bodyGeom.setAttribute("position", new THREE.BufferAttribute(verts, 3));
+    bodyGeom.setIndex(idx);
+    bodyGeom.computeVertexNormals();
+
+    const bodyMat = new THREE.MeshStandardMaterial({
+      color: 0x707070,
+      metalness: 0.7,
+      roughness: 0.3,
+      envMap,
+      envMapIntensity: 0.8,
+    });
+    const body = new THREE.Mesh(bodyGeom, bodyMat);
     body.castShadow = true;
     body.receiveShadow = true;
+    body.position.y = standTh;
     scene.add(body);
 
-    // Screen plane (inside TV)
-    const screenMesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(8, 8),
-      new THREE.MeshStandardMaterial({ color: 0x000000 })
-    );
-    screenMesh.position.set(0, 0, 1.26);
-    scene.add(screenMesh);
+    // ─── Screen Canvas (flat inset, centered “Let’s Talk”) ────────────────
+    const screenCanvas = document.createElement("canvas");
+    screenCanvas.width = 1024;
+    screenCanvas.height = 1024;
+    const sc = screenCanvas.getContext("2d")!;
+    sc.fillStyle = "#000";
+    sc.fillRect(0, 0, 1024, 1024);
+    sc.fillStyle = "#fff";
+    sc.font = "bold 150px Arial";
+    sc.textAlign = "center";
+    sc.textBaseline = "middle";
+    sc.fillText("Let's Talk", 512, 400);
 
-    // Load realistic icon textures
+    const screenTex = new THREE.CanvasTexture(screenCanvas);
+    const screenMesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(frontW - 1.2, frontH - 1.2),
+      new THREE.MeshBasicMaterial({ map: screenTex })
+    );
+    screenMesh.position.z = hd + 0.02;
+    body.add(screenMesh);
+
+    // ─── Stand Wedge ───────────────────────────────────────────────────────
+    const sd = depth * 0.5,
+      sw = frontW * 0.6;
+    const fBY = standTh - frontH / 2,
+      bBY = standTh - backH / 2;
+    const vs = new Float32Array([
+      -sw / 2,
+      floorY,
+      sd / 2,
+      sw / 2,
+      floorY,
+      sd / 2,
+      sw / 2,
+      fBY,
+      sd / 2,
+      -sw / 2,
+      fBY,
+      sd / 2,
+      -sw / 2,
+      floorY,
+      -sd / 2,
+      sw / 2,
+      floorY,
+      -sd / 2,
+      sw / 2,
+      bBY,
+      -sd / 2,
+      -sw / 2,
+      bBY,
+      -sd / 2,
+    ]);
+    const is = [
+      0, 1, 2, 0, 2, 3, 5, 4, 7, 5, 7, 6, 4, 0, 3, 4, 3, 7, 2, 1, 5, 2, 5, 6, 3,
+      2, 6, 3, 6, 7, 4, 5, 1, 4, 1, 0,
+    ];
+    const standGeom = new THREE.BufferGeometry();
+    standGeom.setAttribute("position", new THREE.BufferAttribute(vs, 3));
+    standGeom.setIndex(is);
+    standGeom.computeVertexNormals();
+
+    const standMat = new THREE.MeshStandardMaterial({
+      color: 0x333333,
+      metalness: 0.3,
+      roughness: 0.5,
+    });
+    const stand = new THREE.Mesh(standGeom, standMat);
+    stand.castShadow = true;
+    stand.receiveShadow = true;
+    scene.add(stand);
+
+    // ─── Icons & Interaction ───────────────────────────────────────────────
     const loader = new TextureLoader();
     const iconData = [
-      { url: "/phone-call.png", x: -2.4, y: 0.5, type: "phone" },
-      { url: "/icons/email.png", x: -0.4, y: 0.5, type: "email" },
-      { url: "/icons/message.png", x: 1.6, y: 0.5, type: "message" },
+      { url: "/phone-call.png", x: -2.4, y: -1.5, type: "phone" },
+      { url: "/email.png", x: -0.4, y: -1.5, type: "email" },
+      { url: "/gps.png", x: 1.6, y: -1.5, type: "message" },
     ];
-
-    const iconMeshes = [];
+    const icons: THREE.Mesh[] = [];
     iconData.forEach(({ url, x, y, type }) => {
-      loader.load(url, (texture) => {
+      loader.load(url, (tex) => {
         const mat = new THREE.MeshBasicMaterial({
-          map: texture,
+          map: tex,
           transparent: true,
         });
-        const aspect = texture.image.width / texture.image.height;
-        const h = 0.8;
-        const w = h * aspect;
-        const mesh = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat);
-        mesh.position.set(x, y, 1.27);
-        mesh.castShadow = true;
-        mesh.userData.type = type;
-        scene.add(mesh);
-        iconMeshes.push(mesh);
+        const aspect = tex.image.width / tex.image.height;
+        const h = 1.1,
+          w = h * aspect;
+        const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat);
+        m.position.set(x, y + standTh, hd + 0.03);
+        m.userData.type = type;
+        scene.add(m);
+        icons.push(m);
       });
     });
 
-    // Canvas for detail view
-    let detailMesh = null;
     const detailCanvas = document.createElement("canvas");
     detailCanvas.width = 1024;
     detailCanvas.height = 614;
-    const dctx = detailCanvas.getContext("2d");
-
-    // Raycaster for interactions
-    const raycaster = new THREE.Raycaster();
+    const dc = detailCanvas.getContext("2d")!;
+    let detailMesh: THREE.Mesh | null = null;
+    let mode: "icons" | "detail" = "icons";
+    const ray = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
-    let mode = "icons";
 
-    function drawIcons() {
-      // show icons set mode
+    function showIcons() {
       mode = "icons";
-      iconMeshes.forEach((m) => (m.visible = true));
+      icons.forEach((m) => (m.visible = true));
       if (detailMesh) {
         scene.remove(detailMesh);
         detailMesh = null;
       }
     }
-
-    function drawDetail(type) {
+    function showDetail(type: string) {
       mode = "detail";
-      iconMeshes.forEach((m) => (m.visible = false));
-      dctx.clearRect(0, 0, detailCanvas.width, detailCanvas.height);
-      dctx.fillStyle = "#fff";
-      dctx.fillRect(0, 0, detailCanvas.width, detailCanvas.height);
-      dctx.fillStyle = "#000";
-      dctx.font = "60px Arial";
+      icons.forEach((m) => (m.visible = false));
+      dc.fillStyle = "#000";
+      dc.fillRect(0, 0, 1024, 614);
+      dc.fillStyle = "#fff";
+      dc.font = "60px Arial";
+      dc.textAlign = "left";
+      dc.textBaseline = "top";
       if (type === "phone") {
-        dctx.fillText("Call Us:", 380, 200);
-        dctx.font = "50px Arial";
-        dctx.fillText("+94 77 123 4567", 250, 300);
+        dc.fillText("Call Us:", 50, 50);
+        dc.font = "50px Arial";
+        dc.fillText("+94 77 123 4567", 50, 130);
       } else if (type === "email") {
-        dctx.fillText("Email Us:", 360, 200);
-        dctx.font = "50px Arial";
-        dctx.fillText("info@webminds.lk", 230, 300);
+        dc.fillText("Email Us:", 50, 50);
+        dc.font = "50px Arial";
+        dc.fillText("info@webmindsdesigns.com", 50, 130);
       } else {
-        dctx.fillText("Message Us:", 330, 200);
-        dctx.font = "50px Arial";
-        dctx.fillText("@webminds_support", 200, 300);
+        dc.fillText("Message Us:", 50, 50);
+        dc.font = "50px Arial";
+        dc.fillText("@webminds_support", 50, 130);
       }
-      dctx.fillStyle = "#000";
-      dctx.font = "40px Arial";
-      dctx.fillText("← Back", 50, 50);
+      dc.font = "40px Arial";
+      dc.fillText("← Back", 50, 520);
+
       const tex = new THREE.CanvasTexture(detailCanvas);
       detailMesh = new THREE.Mesh(
-        new THREE.PlaneGeometry(8, 4.8),
+        new THREE.PlaneGeometry(frontW - 1.2, (frontW - 1.2) * (614 / 1024)),
         new THREE.MeshBasicMaterial({ map: tex })
       );
-      detailMesh.position.set(0, 0, 1.27);
+      detailMesh.position.set(0, standTh, hd + 0.03);
       scene.add(detailMesh);
     }
 
-    function onClick(e) {
+    function onClick(e: MouseEvent) {
       mouse.x = (e.clientX / width) * 2 - 1;
       mouse.y = -(e.clientY / height) * 2 + 1;
-      raycaster.setFromCamera(mouse, camera);
+      ray.setFromCamera(mouse, camera);
       if (mode === "icons") {
-        const hit = raycaster.intersectObjects(iconMeshes)[0];
-        if (hit) drawDetail(hit.object.userData.type);
+        const hit = ray.intersectObjects(icons)[0];
+        if (hit) showDetail(hit.object.userData.type);
       } else {
-        // back click anywhere
-        drawIcons();
+        showIcons();
       }
     }
     window.addEventListener("click", onClick);
 
-    // Controls and animate
+    // ─── Orbit Controls ─────────────────────────────────────────────────────
     const controls = new OrbitControls(camera, renderer.domElement);
+    // keep default: user can rotate, pan, zoom manually
+
+    // ─── Animation Loop ─────────────────────────────────────────────────────
     const clock = new THREE.Clock();
-    function animate() {
+    (function animate() {
       requestAnimationFrame(animate);
       const t = clock.getElapsedTime();
-      // pulse icons
-      iconMeshes.forEach((m, i) => {
+      // icon pulse only
+      icons.forEach((m, i) => {
         const s = 1 + 0.1 * Math.sin(t * 2 + i);
         m.scale.set(s, s, s);
       });
       controls.update();
       renderer.render(scene, camera);
-    }
-    animate();
+    })();
 
-    // Resize
+    // ─── Resize Handler ────────────────────────────────────────────────────
     function onResize() {
-      const w = window.innerWidth,
-        h = window.innerHeight;
-      renderer.setSize(w, h);
-      camera.aspect = w / h;
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
     }
     window.addEventListener("resize", onResize);
 
-    // Cleanup
+    // ─── Cleanup ───────────────────────────────────────────────────────────
     return () => {
       window.removeEventListener("click", onClick);
       window.removeEventListener("resize", onResize);
@@ -208,9 +313,9 @@ const ContactTV3D = () => {
       style={{
         width: "100vw",
         height: "100vh",
-        position: "relative",
-        background: "linear-gradient(135deg,#1A1F5E 0%, #31B0B1  100%)",
+        background: "linear-gradient(135deg,#1A1F5E 0%,#31B0B1 100%)",
         overflow: "hidden",
+        position: "relative",
       }}
     >
       <Nav />
