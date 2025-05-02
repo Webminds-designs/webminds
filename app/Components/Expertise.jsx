@@ -45,7 +45,7 @@ export default function Expertise() {
     };
 
     return (
-        <main ref={container} className="relative h-[405vh] bg-[black]">
+        <main ref={container} className="relative h-[405vh] bg-[black] pt-20">
                 <Section1 scrollYProgress={scrollYProgress} />
                 <Section2 scrollYProgress={scrollYProgress} />
                 <Section3 scrollYProgress={scrollYProgress} />
