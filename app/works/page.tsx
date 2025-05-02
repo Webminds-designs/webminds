@@ -44,6 +44,7 @@ const Workspage = () => {
   };
 
   const title = "Work";
+  
   const pageVariants = {
     initial: {
       y: "5%",
