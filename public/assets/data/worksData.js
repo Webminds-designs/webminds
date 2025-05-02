@@ -1,5 +1,3 @@
-import { footer, nav } from "framer-motion/client";
-
 const worksData = [
   {
     id: 1,
