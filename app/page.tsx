@@ -10,19 +10,14 @@ import Expertise from "./Components/Expertise";
 import Works from "./Components/Works";
 import Footer from "./Components/Footer";
 
-import { motion } from "framer-motion";
-import { useState } from "react";
-
 export default function Home() {
-  const [navigationAnimation, setNavigationAnimation] = useState(false);
-
   return (
     <div>
-      <Nav />
+      <Nav bgColor="" />
       <Hero />
       <Bigfontloop />
       <WeSection />
-      <Works />
+      <Works bgcolor="#fffff" />
       <Expertise />
       <WhyUs />
       <Socials />

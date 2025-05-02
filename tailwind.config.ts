@@ -18,8 +18,16 @@ export default {
         AlbertSans_Regular: ["AlbertSans-Regular", "sans-serif"],
         AlbertSans_Bold: ["AlberSans-Bold", "sans-serif"],
         AlbertSans_Medium: ["AlberSans-Medium", "sans-serif"],
+        Poppins: ["Poppins", "sans-serif"],
       },
     },
   },
+  safelist: [
+    "bg-[#916349]",
+    "bg-[#683b21]",
+    "bg-[#ffffff]",
+
+    // Add more if needed
+  ],
   plugins: [],
 } satisfies Config;
