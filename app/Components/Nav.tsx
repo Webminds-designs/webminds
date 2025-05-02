@@ -131,7 +131,7 @@ const Nav: React.FC<NavProps> = ({ bgColor, navTextColor }) => {
     >
       {/* Logo Section */}
       <div
-        className=" font-bold text-2xl leading-none tracking-wider flex items-start gap-1  z-20"
+        className=" font-bold text-2xl leading-none tracking-wider flex items-start   z-20"
         style={{ color: navTextColor || "#f6f6f6" }}
       >
         <span className="font-Poppins">WebMinds</span>
