@@ -1,3 +1,4 @@
+// ContactTV3D.tsx
 "use client";
 
 import React, { useEffect, useRef } from "react";
@@ -17,8 +18,7 @@ const ContactTV3D = () => {
     // ─── Scene & Camera ─────────────────────────────────────────────────────
     const scene = new THREE.Scene();
     const envMap = new CubeTextureLoader().setPath("/hdr/");
-
-    scene.environment = envMap;
+    scene.environment = envMap; // (you can remove this if you never load any hdr)
 
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
     camera.position.set(-6, 4, 18);
@@ -92,8 +92,42 @@ const ContactTV3D = () => {
       -hd,
     ]);
     const idx = [
-      0, 1, 2, 0, 2, 3, 5, 4, 7, 5, 7, 6, 3, 2, 6, 3, 6, 7, 4, 5, 1, 4, 1, 0, 1,
-      5, 6, 1, 6, 2, 4, 0, 3, 4, 3, 7,
+      0,
+      1,
+      2,
+      0,
+      2,
+      3, // front
+      5,
+      4,
+      7,
+      5,
+      7,
+      6, // back
+      3,
+      2,
+      6,
+      3,
+      6,
+      7, // top
+      4,
+      5,
+      1,
+      4,
+      1,
+      0, // bottom
+      1,
+      5,
+      6,
+      1,
+      6,
+      2, // right
+      4,
+      0,
+      3,
+      4,
+      3,
+      7, // left
     ];
     const bodyGeom = new THREE.BufferGeometry();
     bodyGeom.setAttribute("position", new THREE.BufferAttribute(verts, 3));
@@ -283,112 +317,16 @@ const ContactTV3D = () => {
       }
     });
 
-    // ─── Props: Plant, Book, Mug & Smoke ─────────────────────────────────────
-    // Plant
-    const potH = 1.2,
-      potR = 0.6;
-    const pot = new THREE.Mesh(
-      new THREE.CylinderGeometry(potR, potR, potH, 32),
-      new THREE.MeshStandardMaterial({ color: 0x8b4513 })
-    );
-    pot.position.set(-6, floorY + potH / 2, 0);
-    pot.castShadow = true;
-    pot.receiveShadow = true;
-    scene.add(pot);
-
-    const foliage = new THREE.Mesh(
-      new THREE.SphereGeometry(0.7, 16, 16),
-      new THREE.MeshStandardMaterial({ color: 0x228b22 })
-    );
-    foliage.position.set(-6, floorY + potH + 0.7, 0);
-    foliage.castShadow = true;
-    foliage.receiveShadow = true;
-    scene.add(foliage);
-
-    // Book
-    const bookH = 0.5;
-    const book = new THREE.Mesh(
-      new THREE.BoxGeometry(3, bookH, 6),
-      new THREE.MeshStandardMaterial({ color: 0xff0000 })
-    );
-    book.position.set(7, floorY + bookH / 2, 0);
-    book.rotation.x = -Math.PI / 1;
-    book.castShadow = true;
-    book.receiveShadow = true;
-    scene.add(book);
-
-    // Mug + Handle
-    const mugH = 1.5,
-      mugR = 0.8;
-    const mug = new THREE.Mesh(
-      new THREE.CylinderGeometry(mugR, mugR, mugH, 32),
-      new THREE.MeshStandardMaterial({ color: 0xffffff })
-    );
-    mug.position.set(2, floorY + mugH / 2, 4);
-    mug.castShadow = true;
-    mug.receiveShadow = true;
-    scene.add(mug);
-
-    const handle = new THREE.Mesh(
-      new THREE.TorusGeometry(0.4, 0.08, 16, 150, Math.PI),
-      new THREE.MeshStandardMaterial({ color: 0x000000 })
-    );
-    handle.position.set(1.2, floorY + mugH / 2, 4);
-    handle.rotation.z = Math.PI / 2;
-    handle.castShadow = true;
-    handle.receiveShadow = true;
-    scene.add(handle);
-
-    // Smoke particle setup
-    const smokeTexture = new THREE.TextureLoader().load("/smoke.png");
-    const smokeGeo = new THREE.PlaneGeometry(1, 1);
-    const smokeMatBase = new THREE.MeshLambertMaterial({
-      map: smokeTexture,
-      transparent: true,
-      opacity: 0.5,
-      depthWrite: false,
-    });
-    const smokeParticles: THREE.Mesh[] = [];
-    const numSmoke = 15;
-    for (let i = 0; i < numSmoke; i++) {
-      const mat = smokeMatBase.clone();
-      const p = new THREE.Mesh(smokeGeo, mat);
-      p.position.set(
-        2 + (Math.random() - 0.5) * 0.2,
-        floorY + mugH + Math.random() * 0.2,
-        4 + (Math.random() - 0.5) * 0.2
-      );
-      p.rotation.z = Math.random() * Math.PI * 2;
-      p.castShadow = true;
-      p.receiveShadow = true;
-      scene.add(p);
-      smokeParticles.push(p);
-    }
-
-    // ─── Controls & Animate ────────────────────────────────────────────────
+    // ─── Animate ───────────────────────────────────────────────────────────
     const controls = new OrbitControls(camera, renderer.domElement);
     const clock = new THREE.Clock();
     (function animate() {
       requestAnimationFrame(animate);
       const t = clock.getElapsedTime();
-      const delta = clock.getDelta();
-
-      // pulse contact icons
+      // pulse icons
       icons.forEach((m, i) => {
         m.scale.setScalar(1 + 0.1 * Math.sin(t * 2 + i));
       });
-
-      // animate smoke
-      smokeParticles.forEach((p) => {
-        p.position.y += delta * 0.5;
-        (p.material as any).opacity -= delta * 0.2;
-        if ((p.material as any).opacity <= 0) {
-          p.position.y = floorY + mugH;
-          (p.material as any).opacity = 0.5 + Math.random() * 0.2;
-          p.rotation.z = Math.random() * Math.PI * 2;
-        }
-      });
-
       controls.update();
       renderer.render(scene, camera);
     })();
@@ -408,7 +346,6 @@ const ContactTV3D = () => {
     <div className="container" ref={mountRef}>
       <Nav />
       <style jsx global>{`
-        /* reset & full-screen gradient on body */
         html,
         body,
         #__next {
@@ -431,8 +368,6 @@ const ContactTV3D = () => {
             background-position: 100% 50%;
           }
         }
-
-        /* ensure the Three.js canvas container fills the viewport */
         .container {
           position: fixed;
           inset: 0;

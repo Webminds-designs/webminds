@@ -26,6 +26,9 @@ interface WorkItem {
     designTools?: string[];
   };
   services: string[];
+  navBgColor: string;
+  footerBgColor?: string;
+  navTextColor?: string;
 }
 
 const ProjectPage = () => {
@@ -49,9 +52,11 @@ const ProjectPage = () => {
     );
   }
 
+  console.log("Project bg color:", project.navBgColor);
+
   return (
     <>
-      <Nav />
+      <Nav bgColor={project.navBgColor} navTextColor={project.navTextColor} />
       <motion.div
         ref={containerRef}
         className="min-h-screen flex flex-col items-center justify-start bg-black absolute top-0 text-text overflow-hidden"
@@ -61,29 +66,10 @@ const ProjectPage = () => {
       >
         {/* Project Title & Text Overlay with GSAP Parallax */}
         <div className="w-fit h-fit relative top-0">
-          <motion.div
-            className="w-fit h-fit absolute bottom-1/3 pl-8 lg:pl-24 z-10"
-            initial={{ opacity: 0, y: "10%" }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-          >
-            <h1
-              className="text-6xl lg:text-[140px] leading-none w-1/2 text-wrap text-start font-AlbertSans_Bold tracking-wide text-text"
-              style={{
-                display: "inline-block",
-              }}
-            >
-              {project.name}
-            </h1>
-            <p className="text-xl md:text-2xl lg:text-2xl mt-4 px-2 font-AlbertSans_Regular text-text">
-              {project.textOverlay}
-            </p>
-          </motion.div>
-
           {/* Project Image with GSAP Parallax Effect */}
           <motion.div
             ref={imageRef}
-            className="w-screen h-full overflow-hidden shadow-lg"
+            className="w-screen h-screen overflow-hidden shadow-lg"
           >
             <Image
               key={project.id}
@@ -91,8 +77,8 @@ const ProjectPage = () => {
               alt={project.name}
               width={0}
               height={0}
-              sizes="100vw"
-              className="w-full h-screen md:h-full object-cover object-right md:object-cover md:object-center"
+              sizes="100%"
+              className="w-full h-screen md:h-full object-cover object-right md:object-cover md:object-bottom"
               loading="lazy" // ✅ Remove index check, load eagerly
               placeholder="blur" // Optional: Blur effect before loading
               blurDataURL="/placeholder.jpg" // Placeholder image (low-quality version)

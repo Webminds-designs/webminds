@@ -17,7 +17,12 @@ import im4 from "../../public/Branding.jpg";
 
 import { motion } from "framer-motion";
 
-const Nav = () => {
+interface NavProps {
+  bgColor?: string;
+  navTextColor?: string;
+}
+
+const Nav: React.FC<NavProps> = ({ bgColor, navTextColor }) => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isExpertiesHovered, setExpertiesHovered] = useState(false);
   const [Hovered, setHovered] = useState("marketing");
@@ -120,15 +125,25 @@ const Nav = () => {
   }, [isMobileMenuOpen]);
 
   return (
-    <div className="w-screen bg-transparent font-AlbertSans_Regular flex justify-between items-center px-6 lg:px-20 py-4 top-0 z-10 overflow-hidden fixed">
+    // <div className="w-screen bg-transparent font-AlbertSans_Regular flex justify-between items-center px-6 lg:px-20 py-4 top-0 z-10 overflow-hidden fixed">
+    <div
+      className={`w-screen font-AlbertSans_Regular flex justify-between items-center px-6 lg:px-20 py-4 top-0 z-10 overflow-hidden fixed `}
+    >
       {/* Logo Section */}
-      <div className="w-16 cursor-pointer z-40">
-        <Image className="mix-blend-luminosity" src={logo} alt="logo" />
+      <div
+        className=" font-bold text-2xl leading-none tracking-wider flex items-start gap-1  z-20"
+        style={{ color: navTextColor || "#f6f6f6" }}
+      >
+        <span className="font-Poppins">WebMinds</span>
+        <span className="text-[10px] mt-[2px] align-top">™</span>
       </div>
 
       {/* Desktop Navigation Links */}
       <nav className="hidden lg:flex ">
-        <ul className="flex items-center space-x-16 text-sm text-white font-semibold tracking-wider">
+        <ul
+          className="flex items-center space-x-16 text-sm font-semibold tracking-wider"
+          style={{ color: navTextColor || "#f6f6f6" }} // Default color if not provided
+        >
           {["Home", "Works", "Expertise", "Careers", "Contact"].map(
             (item, index) => (
               <li key={index} className="group">
@@ -162,14 +177,18 @@ const Nav = () => {
                     {item}
                   </span>
                   {item === "Expertise" && (
-                    <div className="flex items-center rounded-full bg-white bg-opacity-30 p-1">
-                      <FaArrowDown className="text-white bg-opacity-100 w-2 h-2 " />
+                    <div
+                      className={`flex items-center rounded-full bg-[#fffdfc] bg-opacity-20 p-1`}
+                    >
+                      <FaArrowDown className={`bg-opacity-100 w-2 h-2 `} />
                     </div>
                   )}
                 </Link>
                 {item === "Expertise" && isExpertiesHovered && (
                   <div
-                    className="fixed top-0 left-0 w-screen flex items-center justify-between bg-[#212121] shadow-lg opacity-100 transition-opacity duration-300 z-30"
+                    className={`fixed top-0 left-0 w-screen ${
+                      bgColor || "bg-[#2D2D2D]"
+                    }`}
                     ref={menuRef}
                     style={{
                       transformOrigin: "top center",
