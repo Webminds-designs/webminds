@@ -127,7 +127,7 @@ const Nav: React.FC<NavProps> = ({ bgColor, navTextColor }) => {
   return (
     // <div className="w-screen bg-transparent font-AlbertSans_Regular flex justify-between items-center px-6 lg:px-20 py-4 top-0 z-10 overflow-hidden fixed">
     <div
-      className={`w-screen font-AlbertSans_Regular flex justify-between items-center px-6 lg:px-20 py-4 top-0 z-10 overflow-hidden fixed `}
+      className={`w-screen font-AlbertSans_Regular flex justify-between items-center px-6 lg:px-20 py-6 top-0 z-10 overflow-hidden fixed `}
     >
       {/* Logo Section */}
       <div
@@ -186,13 +186,12 @@ const Nav: React.FC<NavProps> = ({ bgColor, navTextColor }) => {
                 </Link>
                 {item === "Expertise" && isExpertiesHovered && (
                   <div
-                    className={`fixed top-0 left-0 w-screen ${
-                      bgColor || "bg-[#2D2D2D]"
-                    }`}
+                    className="fixed top-0 left-0 w-screen"
                     ref={menuRef}
                     style={{
                       transformOrigin: "top center",
                       transform: "scaleY(0)",
+                      backgroundColor: bgColor || "bg-[#2D2D2D]",
                     }}
                     onMouseEnter={() => setExpertiesHovered(true)}
                     onMouseLeave={() => toggleCloseDrop()}
