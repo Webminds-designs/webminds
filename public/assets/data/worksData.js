@@ -57,7 +57,7 @@ const worksData = [
       "Digital Marketing",
       "Social Media",
     ],
-    navBgColor: "bg-[#ffffff]",
+    navBgColor: "#ffffff",
     navTextColor: "#683b21",
     footerTextColor: "text-green-500",
     footerBgColor: "bg-[#f5f5f5]",
