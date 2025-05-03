@@ -28,6 +28,7 @@ const Works: React.FC<WorksProps> = ({ bgcolor }) => {
   };
 
   return (
+    <>
     <div
       className={`relative w-screen min-h-screen flex items-center justify-center py-4 px-4 md:px-8 md:py-8 lg:px-12 lg:py-12 ${bgcolor}`}
     >
@@ -72,9 +73,26 @@ const Works: React.FC<WorksProps> = ({ bgcolor }) => {
               </div>
             </div>
           </motion.div>
+
+          
         ))}
       </div>
     </div>
+
+<hr className="border-t-20 border-gray-800 w-[90%] mx-auto bg-black/75" />
+
+<section className="min-h-content text-white px-6 md:px-20 py-20 bg-black">
+  <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-16">
+    <div className="md:w-1/3">
+      <div className="text-sm tracking-widest font-bold uppercase">
+      We Expertises In...                  
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr className="border-t-20 border-gray-800 w-[90%] mx-auto bg-black/75" />
+</>
   );
 };
 
