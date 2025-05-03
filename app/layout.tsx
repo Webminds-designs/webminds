@@ -26,6 +26,7 @@ export default function RootLayout({
       <head>
         <link rel="stylesheet" href="https://use.typekit.net/gfv5wee.css" />
         <link rel="icon" href="/favicon.png" />
+
         <link
           rel="icon"
           type="image/png"
