@@ -10,6 +10,26 @@ import { ScrollTrigger } from 'gsap/all';
 
 gsap.registerPlugin(ScrollTrigger);
 
+import CustomCursor from "../../Components/CustomCursor";
+import worksData from "../../../public/assets/data/worksData.js";
+import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
+
+
+interface WorkItem {
+  id: number;
+  name: string;
+  textOverlay: string;
+  imgPor: string;
+  tag: string[];
+}
+
+interface WorksProps {
+  bgcolor: string;
+}
+
+const filteredTag = "Social Media";
+
 const services = [
   {
     title: 'Content Strategy & Planning',
@@ -29,7 +49,7 @@ const services = [
   },
 ];
 
-const Page: React.FC = () => {
+const Page: React.FC<WorksProps> = ({ bgcolor }) => {
   const firstText = useRef<HTMLParagraphElement>(null);
   const secondText = useRef<HTMLParagraphElement>(null);
   const slider = useRef<HTMLDivElement>(null);
@@ -50,6 +70,15 @@ const Page: React.FC = () => {
       prev.map((open, i) => (i === index ? !open : open))
     );
   };
+
+  const [hovering, setHovering] = useState(false);
+  const router = useRouter();
+
+  const handleImageClick = (img: string, id: number) => {
+    setHovering(false);
+    router.push(`/projects/${id}`);
+  };
+
 
   useEffect( () => {
     gsap.registerPlugin(ScrollTrigger);
@@ -182,7 +211,7 @@ const Page: React.FC = () => {
 
 
 
-        <div className={styles.sliderContainer} ref={sliderTextRef}>
+        <div className={styles.sliderContainer} ref={sliderTextRef} style={{ fontFamily:'AlberSans-Medium', letterSpacing: '-1px' }}>
           <div className={styles.slider} ref={slider}>
             <p ref={firstText}>Social Media Management - </p>
             <p ref={secondText}>Social Media Management -</p>
@@ -277,18 +306,52 @@ const Page: React.FC = () => {
 
       <hr className="border-t-20 border-gray-800 w-[90%] mx-auto bg-black/75" />
 
-      <section className="bg-black py-16 px-4">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          <div className="bg-gray-800 rounded-lg shadow-md h-[600px] w-full"></div>
-          <div className="bg-gray-800 rounded-lg shadow-md h-[600px] w-full"></div>
-          <div className="bg-gray-800 rounded-lg shadow-md h-[600px] w-full"></div>
-          <div className="bg-gray-800 rounded-lg shadow-md h-[600px] w-full"></div>
-          <div className="bg-gray-800 rounded-lg shadow-md h-[600px] w-full"></div>
-          <div className="bg-gray-800 rounded-lg shadow-md h-[600px] w-full"></div>
-          <div className="bg-gray-800 rounded-lg shadow-md h-[600px] w-full"></div>
-          <div className="bg-gray-800 rounded-lg shadow-md h-[600px] w-full"></div>
+
+      <CustomCursor hovering={hovering} />
+      <div className="max-w-7xl pt-20 pb-20 mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 cursor-none">
+  {worksData
+    .filter((item: WorkItem) => item.tag.includes(filteredTag))
+    .map((item: WorkItem, index: number) => (
+      <motion.div
+        key={item.id}
+        className="flex flex-col justify-center items-center w-full max-w-[410px] mx-auto transition-transform duration-150 cursor-none"
+        onMouseEnter={() => setHovering(true)}
+        onMouseLeave={() => setHovering(false)}
+        initial={{ opacity: 0, y: 100 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          duration: 1,
+          delay: index * 0.1,
+          ease: "easeInOut",
+        }}
+      >
+        {/* Card with Image */}
+        <div
+          id={`card-${index}`}
+          className="rounded-md shadow-md overflow-hidden w-fit flex flex-col transition-transform duration-150 cursor-none"
+        >
+          <div
+            className="relative cursor-none hover:scale-105 transition-transform duration-450"
+            onClick={() => handleImageClick(item.imgPor, item.id)}
+          >
+            <Image
+              src={item.imgPor}
+              alt={item.name}
+              width={400}
+              height={600}
+              className="object-cover cursor-none"
+            />
+            <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center transition-opacity duration-300 opacity-0 hover:opacity-100">
+              <div className="text-black text-2xl font-bold cursor-none h-12 w-12 bg-white rounded-full text-center flex justify-center items-center">
+                <span className="text-lg">+</span>
+              </div>
+            </div>
+          </div>
         </div>
-      </section>
+      </motion.div>
+  ))}
+</div>
+
 
       {/* <hr className="border-t-2 border-gray-500 w-[80%] mx-auto" /> */}
 

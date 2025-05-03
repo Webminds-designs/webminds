@@ -4,6 +4,7 @@
     justify-content: center;
     flex-direction: column;
     height: 100vh;
+    gap:100px ;
     background-color: black;
   }
   
@@ -20,12 +21,6 @@
     transition: fill 0.2s, transform 0.3s; /* Transition for hover effect */
     cursor: pointer;
   }
-
-/*   
-  .main p {
-    color: #494136;
-    margin-top: 20px; 
-  } */
   
   .container img {
     transition: fill 0.3s ease, transform 0.3s ease;

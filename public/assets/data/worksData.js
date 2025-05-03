@@ -20,7 +20,7 @@ const worksData = [
     ],
     tag: [
       "Web Development",
-      "Branding & Desing",
+      "Branding & Design",
       "Digital Marketing",
       "Social Media",
     ],
@@ -53,7 +53,7 @@ const worksData = [
     ],
     tag: [
       "Web Development",
-      "Branding & Desing",
+      "Branding & Design",
       "Digital Marketing",
       "Social Media",
     ],
@@ -66,7 +66,7 @@ const worksData = [
     id: 3,
     img: "/assets/OdLand.jpg",
     imgPor: "/assets/works/Od.jpg",
-    name: "Odyssey",
+    name: "Odessa",
     textOverlay: "Crafting Your Unique Diamond Jowelry",
     description:
       "At Odyssey, we believe that every piece of jewelry tells a unique story of elegance and craftsmanship. Specializing in sustainable luxury, Odyssey combines timeless artistry with modern design to create exclusive collections.",
@@ -82,6 +82,7 @@ const worksData = [
       "SEO and Content Marketing",
       "Social Media Integration",
     ],
+
     tag: ["Web Development", "Branding & Desing"],
     navBgColor: "#C98A59",
     navTextColor: "#fffdfc",
@@ -111,6 +112,7 @@ const worksData = [
       "Social Media Campaigning",
       "Online Resource Management",
     ],
+
     tag: ["Web Development", "Branding & Desing"],
     navBgColor: "#1B8093",
     navTextColor: "#fffdfc",
@@ -137,6 +139,7 @@ const worksData = [
       "SEO and Content Marketing",
       "Social Media Integration",
     ],
+
     tag: ["Web Development", "Branding & Desing"],
     navBgColor: "#A6CED1",
     navTextColor: "#0d404a",
@@ -163,6 +166,7 @@ const worksData = [
       "SEO and Content Marketing",
       "Social Media Integration",
     ],
+
     tag: ["Web Development", "Branding & Desing"],
     navBgColor: "bg-[#ffffff]",
     navTextColor: "#683b21",
@@ -191,6 +195,7 @@ const worksData = [
       "Social Media Campaigning",
       "Virtual Try-On Integration",
     ],
+
     tag: ["Web Development", "Branding & Desing", "Digital Marketing"],
     navBgColor: "#0EA576",
     navTextColor: "white",
@@ -217,6 +222,7 @@ const worksData = [
       "SEO and Content Marketing",
       "Social Media Integration",
     ],
+
     tag: ["Web Development", "Branding & Desing"],
     navBgColor: "#212121",
     navTextColor: "white",
