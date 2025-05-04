@@ -145,7 +145,7 @@ const Workspage = () => {
           </div>
 
           {/* Tags */}
-          <div className="w-screen pt-8 md:pt-16 px-4 md:px-16 flex flex-wrap gap-2 font-AlbertSans_Medium">
+          <div className="w-screen pt-8 md:pt-12 px-4 md:px-16 flex flex-wrap gap-2 font-AlbertSans_Medium">
             {tags.map((tag) => (
               <div
                 key={tag}
@@ -162,7 +162,7 @@ const Workspage = () => {
           </div>
 
           {/* Divider */}
-          <div className="w-screen pt-10 md:px-16 flex justify-center md:mt-14 md:mb-14">
+          <div className="w-screen pt-10 md:px-16 flex justify-center md:mt-10 md:mb-10">
             <hr className="w-full opacity-50" />
           </div>
 

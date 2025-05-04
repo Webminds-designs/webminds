@@ -138,7 +138,7 @@ const ProjectPage = () => {
             </div>
           </div>
         </div>
-        <Footer bgColor={" bg-green-950"} />
+        <Footer bgColor="bg-gradient-to-t from-[#1e222b] via-[#0a0a0a] to-[#0e0e0f]" />
       </motion.div>
     </>
   );
