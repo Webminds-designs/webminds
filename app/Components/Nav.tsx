@@ -191,7 +191,7 @@ const Nav: React.FC<NavProps> = ({ bgColor, navTextColor }) => {
                     style={{
                       transformOrigin: "top center",
                       transform: "scaleY(0)",
-                      backgroundColor: bgColor || "bg-[#2D2D2D]",
+                      backgroundColor: bgColor || "#2D2D2D",
                     }}
                     onMouseEnter={() => setExpertiesHovered(true)}
                     onMouseLeave={() => toggleCloseDrop()}

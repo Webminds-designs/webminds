@@ -12,18 +12,9 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
-// interface WorkItem {
-//   id: number;
-//   name: string;
-//   textOverlay: string;
-//   imgPor: string;
-//   tag?: string[];
-// }
-
 const Workspage = () => {
   const [hovering, setHovering] = useState(false);
   const router = useRouter();
-  // const pathname = usePathname();
   const [selectedTag, setSelectedTag] = useState<string>("Show All");
   const cardsRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
@@ -49,13 +40,14 @@ const Workspage = () => {
     router.push(`/projects/${projectId}`);
   };
 
-
   useEffect(() => {
     if (!cardsRef.current) return;
 
     const cards = cardsRef.current.querySelectorAll(".gsap-card");
 
     cards.forEach((card, i) => {
+      if (card.dataset.animated) return;
+
       gsap.fromTo(
         card,
         { opacity: 0, y: 100 },
@@ -70,13 +62,19 @@ const Workspage = () => {
             start: "top 90%",
             once: true,
           },
+          onComplete: () => {
+            card.setAttribute("data-animated", "true");
+          },
         }
       );
     });
 
     if (titleRef.current) {
       const letters = titleRef.current.querySelectorAll(".gsap-letter");
+
       letters.forEach((letter, i) => {
+        if (letter.dataset.animated) return;
+
         gsap.fromTo(
           letter,
           { opacity: 0, x: -100 },
@@ -90,6 +88,9 @@ const Workspage = () => {
               trigger: letter,
               start: "top 95%",
               once: true,
+            },
+            onComplete: () => {
+              letter.setAttribute("data-animated", "true");
             },
           }
         );
