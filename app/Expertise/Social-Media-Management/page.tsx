@@ -4,7 +4,7 @@ import React, { useLayoutEffect, useRef, useState, useEffect } from "react";
 import Nav from "../../Components/Nav";
 import Footer from "../../Components/Footer";
 import Image from "next/image";
-import styles from "./slider.module.css";
+import styles from "../../styles/slider.module.css";
 import gsap from "gsap";
 import { ScrollTrigger } from 'gsap/all';
 
@@ -209,12 +209,10 @@ const Page: React.FC<WorksProps> = ({ bgcolor }) => {
           />
       </div>
 
-
-
         <div className={styles.sliderContainer} ref={sliderTextRef} style={{ fontFamily:'AlberSans-Medium', letterSpacing: '-1px' }}>
           <div className={styles.slider} ref={slider}>
-            <p ref={firstText}>Social Media Management - </p>
-            <p ref={secondText}>Social Media Management -</p>
+            <p className={styles.text} ref={firstText}>Social Media Management - </p>
+            <p className={styles.text} ref={secondText}>Social Media Management -</p>
           </div>
         </div>
       </main>
@@ -306,12 +304,12 @@ const Page: React.FC<WorksProps> = ({ bgcolor }) => {
 
       <hr className="border-t-20 border-gray-800 w-[90%] mx-auto bg-black/75" />
 
-
       <CustomCursor hovering={hovering} />
-      <div className="max-w-7xl pt-20 pb-20 mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 cursor-none">
-  {worksData
-    .filter((item: WorkItem) => item.tag.includes(filteredTag))
-    .map((item: WorkItem, index: number) => (
+      <div className="max-w-7xl pt-20 pb-20 mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 cursor-none bg-black">
+      {worksData
+      .filter((item: WorkItem) => item.tag.includes(filteredTag))
+      .map((item: WorkItem, index: number) => (
+      
       <motion.div
         key={item.id}
         className="flex flex-col justify-center items-center w-full max-w-[410px] mx-auto transition-transform duration-150 cursor-none"
@@ -350,8 +348,7 @@ const Page: React.FC<WorksProps> = ({ bgcolor }) => {
         </div>
       </motion.div>
   ))}
-</div>
-
+      </div>
 
       {/* <hr className="border-t-2 border-gray-500 w-[80%] mx-auto" /> */}
 
