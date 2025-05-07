@@ -6,29 +6,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: 100vh;
   background: black;
-  }
-
-.mask,
-.body {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #f6f6f6;
-  font-size: 64px;
-  cursor: none;
-
-  p {
-    width: 90%;
-    padding: 40px;
-  }
-
-  span {
-    color: #393cec;
-  }
 }
 
 .mask {
@@ -46,5 +24,33 @@
   left: 0;
   width: 100%;
   height: 100%;
-  color: black;
+  color: rgb(0, 0, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+  cursor: none;
+}
+
+.body {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f6f6f6;
+  font-size: 64px;
+  cursor: none;
+}
+
+/* Specific styles for text inside .mask and .body */
+.mask p,
+.body p {
+  width: 90%;
+  padding: 40px;
+}
+
+.mask span,
+.body span {
+  color: #393cec;
 }
