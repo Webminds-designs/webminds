@@ -1,23 +1,23 @@
-'use client';
+"use client";
 
-import React, { useLayoutEffect, useRef, useState, useEffect } from "react";
+import React, { useLayoutEffect, useRef, useEffect } from "react";
 
 import styles from "../styles/socials.module.css";
 import gsap from "gsap";
 
-import MagneticIcons from './MagneticIcons';
+import MagneticIcons from "./MagneticIcons";
 
 gsap.registerPlugin(ScrollTrigger);
-import { ScrollTrigger } from 'gsap/all';
+import { ScrollTrigger } from "gsap/all";
 
-import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
+// // import { motion } from "framer-motion";
+// import { useRouter } from "next/navigation";
 
 interface PageProps {
   bgcolor?: string;
 }
 
-const Page: React.FC<PageProps> = ({ bgcolor }) => {
+const Page: React.FC<PageProps> = () => {
   const firstText = useRef<HTMLParagraphElement>(null);
   const secondText = useRef<HTMLParagraphElement>(null);
   const slider = useRef<HTMLDivElement>(null);
@@ -28,17 +28,16 @@ const Page: React.FC<PageProps> = ({ bgcolor }) => {
   const imageRef = useRef<HTMLDivElement>(null);
   const sliderTextRef = useRef<HTMLDivElement>(null);
 
-
   let xPercent = 0;
   let direction = -1;
 
-  const [hovering, setHovering] = useState(false);
-  const router = useRouter();
+  // const [hovering, setHovering] = useState(false);
+  // const router = useRouter();
 
-  const handleImageClick = (img: string, id: number) => {
-    setHovering(false);
-    router.push(`/projects/${id}`);
-  };
+  // const handleImageClick = (img: string, id: number) => {
+  //   setHovering(false);
+  //   router.push(`/projects/${id}`);
+  // };
 
   useEffect(() => {
     gsap.to(slider.current, {
@@ -47,7 +46,7 @@ const Page: React.FC<PageProps> = ({ bgcolor }) => {
         scrub: 0.25,
         start: 0,
         end: window.innerHeight,
-        onUpdate: e => direction = e.direction * -1
+        onUpdate: (e) => (direction = e.direction * -1),
       },
       x: "-500px",
     });
@@ -78,7 +77,7 @@ const Page: React.FC<PageProps> = ({ bgcolor }) => {
             opacity: 0,
             y: 30,
             duration: 1,
-            ease: "power2.out"
+            ease: "power2.out",
           });
         }
       });
@@ -92,7 +91,7 @@ const Page: React.FC<PageProps> = ({ bgcolor }) => {
           opacity: 0,
           y: 50,
           duration: 1,
-          ease: "power2.out"
+          ease: "power2.out",
         });
       }
 
@@ -121,7 +120,7 @@ const Page: React.FC<PageProps> = ({ bgcolor }) => {
             y: 20,
             duration: 1,
             delay: 0.2,
-            ease: "power2.out"
+            ease: "power2.out",
           });
         }
       });
@@ -132,82 +131,96 @@ const Page: React.FC<PageProps> = ({ bgcolor }) => {
 
   return (
     <>
-
-    <main className={styles.main}>
-
-    <h1
-      ref={(el) => { headingRefs.current[0] = el; }}
-      className="text-7xl pl-20 w-full md:text-[100px] lg:text-[220px] opacity-80 font-AlbertSans_Bold text-start mt-6 md:mt-10 text-text"
-    >
-      Our Socials
-      <span className="block text-sm md:text-base lg:text-lg mt-2 ml-6 opacity-60 font-normal">
-        hover the icons please!
-      </span>
-    </h1>
-
-
-
-    <div className={styles.container}>
-    <MagneticIcons>
-        <a href="https://www.facebook.com/share/1DAHKSvb6y/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">
-        <img src="/facebook.svg" alt="Facebook" />
-        </a>
-    </MagneticIcons>
-
-    <MagneticIcons>
-        <a href="https://www.tiktok.com/@webminds_?_t=ZS-8tOO77I5S35&_r=1" target="_blank" rel="noopener noreferrer">
-        <img src="/tik-tok.svg" alt="TikTok" />
-        </a>
-    </MagneticIcons>
-
-    <MagneticIcons>
-        <a href="https://www.youtube.com/@WebMindsuk" target="_blank" rel="noopener noreferrer">
-        <img src="/youtube.svg" alt="YouTube" />
-        </a>
-    </MagneticIcons>
-
-    <MagneticIcons>
-        <a href="https://www.instagram.com/webminds.designs?igsh=MTdnNjR0MXhsZmR1bw%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">
-        <img src="/instagram.svg" alt="Instagram" />
-        </a>
-    </MagneticIcons>
-    </div>
-
-    <hr className="border-t-20 border-gray-800 w-[90%] mx-auto bg-black/75" />
-
-    <section className="relative text-white bg-black">
-
-    <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start justify-between gap-20">
-        <h2
-        ref={(el) => { headingRefs.current[0] = el; }}
-        className="text-lg md:text-xl font-semibold"
+      <main className={styles.main}>
+        <h1
+          ref={(el) => {
+            headingRefs.current[0] = el;
+          }}
+          className="text-7xl pl-20 w-full md:text-[100px] lg:text-[220px] opacity-80 font-AlbertSans_Bold text-start mt-6 md:mt-10 text-text"
         >
-        We Speak
-        <br />
-        Fluent
-        Social
-        </h2>
+          Our Socials
+          <span className="block text-sm md:text-base lg:text-lg mt-2 ml-6 opacity-60 font-normal">
+            hover the icons please!
+          </span>
+        </h1>
 
-        <div
-        ref={(el) => { paraRefs.current[0] = el; }}
-        className="md:w-3/5 text-2xl font-light leading-relaxed"
-        >
-        <p>
-        Vibes and a whole lot of personality — your brand, but make it scroll-
-stopping. We blend aesthetic precision with smart storytelling to craft social
-content that resonates. Whether it’s an Instagram series, TikTok campaign,
-or a full-blown digital narrative, we ensure your presence is as polished as it
-is powerful
- </p>
+        <div className={styles.container}>
+          <MagneticIcons>
+            <a
+              href="https://www.facebook.com/share/1DAHKSvb6y/?mibextid=wwXIfr"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src="/facebook.svg" alt="Facebook" />
+            </a>
+          </MagneticIcons>
+
+          <MagneticIcons>
+            <a
+              href="https://www.tiktok.com/@webminds_?_t=ZS-8tOO77I5S35&_r=1"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src="/tik-tok.svg" alt="TikTok" />
+            </a>
+          </MagneticIcons>
+
+          <MagneticIcons>
+            <a
+              href="https://www.youtube.com/@WebMindsuk"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src="/youtube.svg" alt="YouTube" />
+            </a>
+          </MagneticIcons>
+
+          <MagneticIcons>
+            <a
+              href="https://www.instagram.com/webminds.designs?igsh=MTdnNjR0MXhsZmR1bw%3D%3D&utm_source=qr"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src="/instagram.svg" alt="Instagram" />
+            </a>
+          </MagneticIcons>
         </div>
-    </div>
 
-    </section>
+        <hr className="border-t-20 border-gray-800 w-[90%] mx-auto bg-black/75" />
 
-    </main>
+        <section className="relative text-white bg-black">
+          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start justify-between gap-20">
+            <h2
+              ref={(el) => {
+                headingRefs.current[0] = el;
+              }}
+              className="text-lg md:text-xl font-semibold"
+            >
+              We Speak
+              <br />
+              Fluent Social
+            </h2>
+
+            <div
+              ref={(el) => {
+                paraRefs.current[0] = el;
+              }}
+              className="md:w-3/5 text-2xl font-light leading-relaxed"
+            >
+              <p>
+                Vibes and a whole lot of personality — your brand, but make it
+                scroll- stopping. We blend aesthetic precision with smart
+                storytelling to craft social content that resonates. Whether
+                it’s an Instagram series, TikTok campaign, or a full-blown
+                digital narrative, we ensure your presence is as polished as it
+                is powerful
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
 
       <hr className="border-t-20 border-gray-800 w-[90%] mx-auto bg-black/75" />
-
     </>
   );
 };

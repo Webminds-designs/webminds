@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import Image from "next/image";
 
-import logo from "../../public/assets/Webminds-dark.webp";
+// import logo from "../../public/assets/Webminds-dark.webp";
 
 import { HiMenuAlt1 } from "react-icons/hi";
 import { IoClose } from "react-icons/io5";
@@ -27,7 +27,7 @@ const Nav: React.FC<NavProps> = ({ bgColor, navTextColor }) => {
   const [isExpertiesHovered, setExpertiesHovered] = useState(false);
   const [Hovered, setHovered] = useState("marketing");
   const menuRef = useRef(null);
-  const contentRef = useRef(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const handleMouseEnter = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
@@ -66,7 +66,7 @@ const Nav: React.FC<NavProps> = ({ bgColor, navTextColor }) => {
   const toggleCloseDrop = () => {
     if (isExpertiesHovered) {
       // Move all content down quickly before closing
-      gsap.to(contentRef.current.children, {
+      gsap.to(contentRef.current!.children, {
         y: 100,
         opacity: 0,
         duration: 0.2, // Fast closing speed
@@ -95,7 +95,7 @@ const Nav: React.FC<NavProps> = ({ bgColor, navTextColor }) => {
 
       // Animate each child separately with different speeds
       gsap.fromTo(
-        contentRef.current.children,
+        contentRef.current!.children,
         { y: 80, opacity: 0 }, // Start from bottom
         {
           y: 0,

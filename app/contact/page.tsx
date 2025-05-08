@@ -17,7 +17,9 @@ const ContactTV3D = () => {
 
     // ─── Scene & Camera ─────────────────────────────────────────────────────
     const scene = new THREE.Scene();
-    const envMap = new CubeTextureLoader().setPath("/hdr/");
+    const envMap = new CubeTextureLoader()
+      .setPath("/hdr/")
+      .load(["px.jpg", "nx.jpg", "py.jpg", "ny.jpg", "pz.jpg", "nz.jpg"]);
     scene.environment = envMap; // (you can remove this if you never load any hdr)
 
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);

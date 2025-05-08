@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import worksData from "../../public/assets/data/worksData.js";
 import Image from "next/image";
 import CustomCursor from "./CustomCursor";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import ImageModal from "./ImageModal";
 
 interface WorkItem {

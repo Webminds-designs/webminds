@@ -1,11 +1,10 @@
 import React, { useRef, useEffect, useState } from "react";
-import Lottie from "lottie-react";
+import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import animationweb from "../../public/animation2.json";
 import animationmob from "../../public/animation2mobi.json";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// Register the ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
@@ -24,39 +23,36 @@ const Hero = () => {
     };
   }, []);
 
-  const lottieRef = useRef<any>(null);
-  const containerRef = useRef(null);
+  const lottieRef = useRef<LottieRefCurrentProps>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!lottieRef.current || !containerRef.current) return;
 
     const totalFrames = lottieRef.current.getDuration(true);
 
-    // Reverse the animation from last frame to first on load
     const reverseAnimation = () => {
-      let currentFrame = totalFrames;
+      let currentFrame: number = totalFrames || 0;
       const interval = setInterval(() => {
         if (currentFrame <= 0) {
           clearInterval(interval);
         } else {
           currentFrame -= 1;
-          lottieRef.current.goToAndStop(currentFrame, true);
+          lottieRef.current?.goToAndStop(currentFrame, true);
         }
-      }, 100); // Adjust speed of reversal
+      }, 100);
     };
 
     reverseAnimation();
 
-    // Set up GSAP ScrollTrigger
     ScrollTrigger.create({
-      trigger: containerRef.current, // Trigger animation when this element is in view
-      start: "top top", // Start when the top of the component hits the top of the viewport
-      end: "bottom 50%", // End when the bottom of the component hits the top of the viewport
-      scrub: true, // Smoothly scrub through the animation as the user scrolls
+      trigger: containerRef.current,
+      start: "top top",
+      end: "bottom 50%",
+      scrub: true,
       onUpdate: (self) => {
-        // Calculate the frame based on scroll progress
-        const frame = Math.floor(self.progress * totalFrames);
-        lottieRef.current.goToAndStop(frame, true);
+        const frame = Math.floor(self.progress * (totalFrames ?? 0));
+        lottieRef.current?.goToAndStop(frame, true);
       },
     });
   }, []);
@@ -69,12 +65,10 @@ const Hero = () => {
       <div className="w-screen h-full overflow-hidden">
         <Lottie
           lottieRef={lottieRef}
-          // animationData={animation}
-
           animationData={isPotrait ? animationmob : animationweb}
           loop={false}
           autoplay={false}
-          className="w-screen  object-cover overflow-hidden"
+          className="w-screen object-cover overflow-hidden"
         />
       </div>
     </div>

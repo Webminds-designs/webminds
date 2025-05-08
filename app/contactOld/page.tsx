@@ -48,7 +48,7 @@ const page = () => {
                   Email us at{" "}
                 </span>
                 <span className="font-bold"> info@webmindsdesigns.com,</span>{" "}
-                <span>and let's make it happen! 💡✨</span>
+                <span>and let&apos;s make it happen! 💡✨</span>
               </div>
             </div>
             <div className="w-full flex justify-between items-center gap-4">
