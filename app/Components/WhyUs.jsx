@@ -27,6 +27,7 @@ export default function Home() {
         <p 
           onMouseEnter={() => setIsHovered(true)} 
           onMouseLeave={() => setIsHovered(false)}
+          className={styles.text}
         >
       Why Us—We turn your wildest ideas into something that works (most of the time). Fueled by 
       coffee, creativity, and a touch of chaos, we craft designs that dazzle, content that clicks, 

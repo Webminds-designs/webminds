@@ -4,7 +4,7 @@ import React, { useLayoutEffect, useRef, useState, useEffect } from "react";
 import Nav from "../../Components/Nav";
 import Footer from "../../Components/Footer";
 import Image from "next/image";
-import styles from "./slider.module.css";
+import styles from "../../styles/slider.module.css";
 import gsap from "gsap";
 
 
@@ -207,8 +207,8 @@ const Page: React.FC<WorksProps> = ({ bgcolor }) => {
 
         <div className={styles.sliderContainer} ref={sliderTextRef} style={{ fontFamily:'AlberSans-Medium', letterSpacing: '-1px' }}>
           <div className={styles.slider} ref={slider}>
-            <p ref={firstText}>Digital Marketing - </p>
-            <p ref={secondText}>Digital Marketing -</p>
+            <p className={styles.text} ref={firstText}>Digital Marketing - </p>
+            <p className={styles.text} ref={secondText}>Digital Marketing -</p>
           </div>
         </div>
       </main>
