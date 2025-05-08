@@ -11,9 +11,14 @@ interface FooterProp {
 }
 
 const Footer: React.FC<FooterProp> = ({ bgColor }) => {
+  console.log("Footer bg color:", bgColor);
+
   return (
     <div
-      className={`w-screen h-fit ${bgColor} z-10 relative font-AlbertSans_Regular`}
+      className="w-screen h-fit  z-10 relative font-AlbertSans_Regular"
+      style={{
+        background: `linear-gradient(to bottom,#0F0F0F  0%, #000000 20%, ${bgColor} 100%)`,
+      }}
     >
       <div className="w-screen h-fit flex flex-col md:flex-row justify-between  md:p-24">
         <div className="w-fit h-fit">

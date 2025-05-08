@@ -59,7 +59,7 @@ const ProjectPage = () => {
       <Nav bgColor={project.navBgColor} navTextColor={project.navTextColor} />
       <motion.div
         ref={containerRef}
-        className="min-h-screen flex flex-col items-center justify-start bg-black absolute top-0 text-text overflow-hidden"
+        className="min-h-screen flex flex-col items-center justify-start bg-[#0F0F0F] absolute top-0 text-text overflow-hidden"
         initial={{ opacity: 1, y: "10%" }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
@@ -138,7 +138,7 @@ const ProjectPage = () => {
             </div>
           </div>
         </div>
-        <Footer bgColor="bg-gradient-to-t from-[#1e222b] via-[#0a0a0a] to-[#0e0e0f]" />
+        <Footer bgColor={project.footerBgColor || "#1e222b"} />
       </motion.div>
     </>
   );

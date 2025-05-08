@@ -188,7 +188,8 @@ const Workspage = () => {
           </div>
         </div>
 
-        <Footer bgColor="bg-gradient-to-t from-[#1e222b] via-[#0a0a0a] to-[#0e0e0f]" />
+        {/* <Footer bgColor=" " /> */}
+        <Footer bgColor="#1e222b" />
       </motion.div>
     </>
   );
