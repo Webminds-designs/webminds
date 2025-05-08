@@ -15,6 +15,7 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
   const logoRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
+  // ✅ Smooth progress animation
   useEffect(() => {
     let rafId: number;
 
@@ -33,6 +34,16 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
     return () => cancelAnimationFrame(rafId);
   }, [targetProgress]);
 
+  // ✅ Stage text update based on % (live tracking)
+  useEffect(() => {
+    if (progress < 25) setStageText("Hydrating app...");
+    else if (progress < 50) setStageText("Loading fonts...");
+    else if (progress < 90) setStageText("Loading images...");
+    else if (progress < 100) setStageText("Finalizing...");
+    else setStageText("Complete!");
+  }, [progress]);
+
+  // ✅ Core loading & transition logic
   useEffect(() => {
     const logoPulse = gsap.to(logoRef.current, {
       scale: 1.05,
@@ -43,10 +54,9 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
       ease: "power1.inOut",
     });
 
-    setTargetProgress(25); // Initial hydration
+    setTargetProgress(25); // Initial hydration phase
 
     document.fonts.ready.then(() => {
-      setStageText("Loading fonts...");
       setTargetProgress(50);
     });
 
@@ -55,35 +65,27 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
     const total = allImages.length;
 
     if (total === 0) {
-      setStageText("Loading images...");
       setTargetProgress(90);
     } else {
       allImages.forEach((img) => {
         if (img.complete) {
           loaded++;
-          if (loaded === total) {
-            setStageText("Loading images...");
-            setTargetProgress(90);
-          }
+          if (loaded === total) setTargetProgress(90);
         } else {
           img.onload = img.onerror = () => {
             loaded++;
-            if (loaded === total) {
-              setStageText("Loading images...");
-              setTargetProgress(90);
-            }
+            if (loaded === total) setTargetProgress(90);
           };
         }
       });
     }
 
-    window.addEventListener("load", () => {
-      setStageText("Finalizing...");
+    // ✅ Finish when window is fully ready
+    const handleLoad = () => {
       setTargetProgress(100);
+      logoPulse.kill();
 
       const tl = gsap.timeline();
-
-      logoPulse.kill();
 
       tl.to(logoRef.current, {
         scale: 1.2,
@@ -95,10 +97,13 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
         ease: "power2.out",
         onComplete: onFinish,
       });
-    });
+    };
+
+    window.addEventListener("load", handleLoad);
 
     return () => {
       logoPulse.kill();
+      window.removeEventListener("load", handleLoad);
     };
   }, [onFinish]);
 
@@ -131,6 +136,7 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
         </p>
       </div>
 
+      {/* 🔥 Gradient background animation */}
       <style jsx global>{`
         @keyframes gradientFlow {
           0%,
