@@ -21,7 +21,6 @@ const Workspage = () => {
 
   const cardsRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
-  const tagContainerRef = useRef<HTMLDivElement>(null);
 
   const handleTagClick = (tag: string) => {
     setSelectedTag(tag);
@@ -100,19 +99,6 @@ const Workspage = () => {
         );
       });
     }
-
-    // Animate tags (reveal)
-    if (tagContainerRef.current) {
-      const tagElements = tagContainerRef.current.querySelectorAll(".gsap-tag");
-      gsap.from(tagElements, {
-        opacity: 0,
-        y: 30,
-        stagger: 0.1,
-        delay: 1.5,
-        duration: 0.5,
-        ease: "power2.out",
-      });
-    }
   }, [filteredWorks]);
 
   return (
@@ -142,10 +128,7 @@ const Workspage = () => {
         </div>
 
         {/* Tags with reveal animation */}
-        <div
-          ref={tagContainerRef}
-          className="w-screen pt-8 md:pt-16 px-4 md:px-16 flex flex-wrap gap-2 font-AlbertSans_Medium"
-        >
+        <div className="w-screen pt-8 md:pt-16 px-4 md:px-16 flex flex-wrap gap-2 font-AlbertSans_Medium">
           {tags.map((tag) => (
             <div
               key={tag}
