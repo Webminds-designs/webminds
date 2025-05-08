@@ -71,23 +71,20 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
 
     const handleLoad = () => {
       updateProgress(100);
-
       logoPulse.kill();
 
-      setTimeout(() => {
-        const tl = gsap.timeline();
+      const tl = gsap.timeline();
 
-        tl.to(logoRef.current, {
-          scale: 1.2,
-          duration: 0.5,
-          ease: "power3.out",
-        }).to(wrapperRef.current, {
-          opacity: 0,
-          duration: 0.8,
-          ease: "power2.out",
-          onComplete: onFinish,
-        });
-      }, 1000);
+      tl.to(logoRef.current, {
+        scale: 1.2,
+        duration: 0.5,
+        ease: "power3.out",
+      }).to(wrapperRef.current, {
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        onComplete: onFinish,
+      });
     };
 
     window.addEventListener("load", handleLoad);
@@ -128,7 +125,7 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
         </p>
       </div>
 
-      {/* 🔥 Gradient animation styles without Tailwind config */}
+      {/* 🔥 Gradient animation styles */}
       <style jsx global>{`
         @keyframes gradientFlow {
           0%,
