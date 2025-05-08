@@ -9,36 +9,31 @@ interface PreloaderProps {
 
 const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
   const [progress, setProgress] = useState(0);
+  const [targetProgress, setTargetProgress] = useState(0);
   const [stageText, setStageText] = useState("Initializing...");
 
   const logoRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    let frame: number;
+    let rafId: number;
 
-    const updateProgress = (target: number, speed = 0.5) => {
-      frame = requestAnimationFrame(() => {
-        setProgress((prev) => {
-          const next = prev + speed;
-
-          if (next >= 0 && next < 25) setStageText("Hydrating app...");
-          else if (next >= 25 && next < 50) setStageText("Loading fonts...");
-          else if (next >= 50 && next < 90) setStageText("Loading images...");
-          else if (next >= 90 && next < 100) setStageText("Finalizing...");
-
-          if (next < target) {
-            updateProgress(target, speed);
-            return next;
-          } else {
-            return target;
-          }
-        });
+    const tick = () => {
+      setProgress((prev) => {
+        const delta = targetProgress - prev;
+        const step = Math.max(0.3, delta * 0.05);
+        const next = Math.min(prev + step, targetProgress);
+        return next;
       });
+      rafId = requestAnimationFrame(tick);
     };
 
-    updateProgress(25);
+    rafId = requestAnimationFrame(tick);
 
+    return () => cancelAnimationFrame(rafId);
+  }, [targetProgress]);
+
+  useEffect(() => {
     const logoPulse = gsap.to(logoRef.current, {
       scale: 1.05,
       opacity: 0.9,
@@ -48,32 +43,47 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
       ease: "power1.inOut",
     });
 
-    document.fonts.ready.then(() => updateProgress(50));
+    setTargetProgress(25); // Initial hydration
+
+    document.fonts.ready.then(() => {
+      setStageText("Loading fonts...");
+      setTargetProgress(50);
+    });
 
     const allImages = Array.from(document.images);
-    let loadedImages = 0;
+    let loaded = 0;
+    const total = allImages.length;
 
-    if (allImages.length === 0) {
-      updateProgress(90);
+    if (total === 0) {
+      setStageText("Loading images...");
+      setTargetProgress(90);
     } else {
       allImages.forEach((img) => {
         if (img.complete) {
-          loadedImages++;
-          if (loadedImages === allImages.length) updateProgress(90);
+          loaded++;
+          if (loaded === total) {
+            setStageText("Loading images...");
+            setTargetProgress(90);
+          }
         } else {
           img.onload = img.onerror = () => {
-            loadedImages++;
-            if (loadedImages === allImages.length) updateProgress(90);
+            loaded++;
+            if (loaded === total) {
+              setStageText("Loading images...");
+              setTargetProgress(90);
+            }
           };
         }
       });
     }
 
-    const handleLoad = () => {
-      updateProgress(100);
-      logoPulse.kill();
+    window.addEventListener("load", () => {
+      setStageText("Finalizing...");
+      setTargetProgress(100);
 
       const tl = gsap.timeline();
+
+      logoPulse.kill();
 
       tl.to(logoRef.current, {
         scale: 1.2,
@@ -85,14 +95,10 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
         ease: "power2.out",
         onComplete: onFinish,
       });
-    };
-
-    window.addEventListener("load", handleLoad);
+    });
 
     return () => {
-      cancelAnimationFrame(frame);
       logoPulse.kill();
-      window.removeEventListener("load", handleLoad);
     };
   }, [onFinish]);
 
@@ -116,7 +122,7 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
 
         {/* Progress Counter */}
         <p className="mt-12 text-lg tracking-widest font-mono z-10">
-          Loading... {Math.min(Math.round(progress), 100)}%
+          Loading... {Math.round(progress)}%
         </p>
 
         {/* Stage Message */}
@@ -125,7 +131,6 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
         </p>
       </div>
 
-      {/* 🔥 Gradient animation styles */}
       <style jsx global>{`
         @keyframes gradientFlow {
           0%,
