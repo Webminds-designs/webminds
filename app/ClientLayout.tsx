@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Preloader from "./Components/PreLoader";
 import ScrollToTop from "./Components/ScrollToTop";
 import LiveNoise from "./Components/LiveNoise";
@@ -13,22 +13,31 @@ export default function ClientLayout({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // fallback timeout (in case GSAP onComplete never fires)
-    const timer = setTimeout(() => setLoading(false), 3500);
-    return () => clearTimeout(timer);
+    // ✅ Auto-reload on chunk load failure
+    const onChunkError = (e: ErrorEvent) => {
+      if (
+        e?.message?.includes("Loading chunk") ||
+        e?.filename?.includes(".js")
+      ) {
+        console.warn("Chunk load failed, reloading...");
+        window.location.reload();
+      }
+    };
+
+    window.addEventListener("error", onChunkError);
+
+    const timer = setTimeout(() => setLoading(false), 100); // Or let Preloader handle real loading
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("error", onChunkError);
+    };
   }, []);
 
   return (
     <>
-      {loading ? (
-        <Preloader onFinish={() => setLoading(false)} />
-      ) : (
-        <>
-          <ScrollToTop />
-          <LiveNoise />
-          {children}
-        </>
-      )}
+      <ScrollToTop />
+      <LiveNoise />
+      {loading ? <Preloader onFinish={() => setLoading(false)} /> : children}
     </>
   );
 }
