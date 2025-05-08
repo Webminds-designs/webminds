@@ -1,179 +1,196 @@
 "use client";
 
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Nav from "../Components/Nav";
 import Footer from "../Components/Footer";
 import worksData from "../../public/assets/data/worksData";
 import Image from "next/image";
 import CustomCursor from "../Components/CustomCursor";
-import { usePathname, useRouter } from "next/navigation";
-import ImageModal from "../Components/ImageModal";
 
-interface WorkItem {
-  id: number;
-  name: string;
-  textOverlay: string;
-  imgPor: string;
-}
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "framer-motion";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Workspage = () => {
   const [hovering, setHovering] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const router = useRouter();
-  const pathname = usePathname();
+  const [selectedTag, setSelectedTag] = useState<string>("Show All");
 
-  const handleMouseMove = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    index: number
-  ) => {
-    const card = document.getElementById(`card-${index}`);
-    if (!card) return;
+  const cardsRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
 
-    const image = card.querySelector(".card-image") as HTMLElement;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = ((y - centerY) / centerY) * 20;
-    const rotateY = ((x - centerX) / centerX) * -20;
-
-    requestAnimationFrame(() => {
-      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-      if (image) {
-        image.style.transform = `translateZ(60px) scale(1.3)`;
-      }
-    });
+  const handleTagClick = (tag: string) => {
+    setSelectedTag(tag);
   };
 
-  const handleMouseLeave = (index: number) => {
-    const card = document.getElementById(`card-${index}`);
-    if (!card) return;
+  const filteredWorks =
+    selectedTag === "Show All"
+      ? worksData
+      : worksData.filter((item) => item.tag?.includes(selectedTag));
 
-    const image = card.querySelector(".card-image") as HTMLElement;
-    requestAnimationFrame(() => {
-      card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
-      if (image) {
-        image.style.transform = `translateZ(0px) scale(1)`;
-      }
-    });
-    setHovering(false);
+  const tags = [
+    "Show All",
+    "Web Development",
+    "Social Media",
+    "Digital Marketing",
+    "Branding & Desing",
+  ];
+
+  const handleImageClick = (projectId: number) => {
+    router.push(`/projects/${projectId}`);
   };
 
-  const handleImageClick = (imageUrl: string, projectId: number) => {
-    setSelectedImage(imageUrl);
-    setModalOpen(true);
+  useEffect(() => {
+    // Animate cards
+    if (cardsRef.current) {
+      const cards = cardsRef.current.querySelectorAll(".gsap-card");
+      cards.forEach((card, i) => {
+        if ((card as HTMLElement).dataset.animated) return;
 
-    setTimeout(() => {
-      router.push(`/projects/${projectId}`);
-    }, 500); // Match with animation duration
-  };
+        gsap.fromTo(
+          card,
+          { opacity: 0, y: 100 },
+          {
+            opacity: 1,
+            y: 0,
+            delay: i * 0.05,
+            duration: 0.6,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 100%",
+              once: true,
+            },
+            onComplete: () => {
+              card.setAttribute("data-animated", "true");
+            },
+          }
+        );
+      });
+    }
 
-  const pageVariants = {
-    initial: {
-      y: "100%",
-      opacity: 0,
-    },
-    animate: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 1,
-        ease: "easeInOut",
-      },
-    },
-    exit: {
-      y: "-100%",
-      opacity: 0,
-      transition: {
-        duration: 1,
-        ease: "easeInOut",
-      },
-    },
-  };
+    // Animate title letters
+    if (titleRef.current) {
+      const letters = titleRef.current.querySelectorAll(".gsap-letter");
+      letters.forEach((letter, i) => {
+        if ((letter as HTMLElement).dataset.animated) return;
 
-  const handleMouseEnter = () => setHovering(true);
+        gsap.fromTo(
+          letter,
+          { opacity: 0, x: -100 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.8,
+            delay: i * 0.1 + 0.5,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: letter,
+              start: "top 95%",
+              once: true,
+            },
+            onComplete: () => {
+              letter.setAttribute("data-animated", "true");
+            },
+          }
+        );
+      });
+    }
+  }, [filteredWorks]);
 
   return (
-    <AnimatePresence mode="wait">
+    <>
       <Nav />
       <motion.div
-        key={pathname}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        variants={pageVariants}
-        style={{
-          position: "fixed",
-          width: "100%",
-          height: "100%",
-          overflowY: "auto",
-          backgroundColor: "#0a0a0a",
-        }}
+        className="min-h-screen bg-[#0a0a0a] overflow-x-hidden"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
       >
-        <div className="w-screen h-fit md:h-96 flex justify-center items-start md:items-center">
+        {/* Title */}
+        <div className="w-screen pt-20 pl-4 md:pl-16 flex justify-center items-start">
           <div
-            className="text-5xl md:text-[100px] lg:text-[250px] opacity-80"
-            style={{ fontFamily: "eight, sans-serif" }}
+            ref={titleRef}
+            className="text-8xl w-full md:text-[100px] lg:text-[220px] opacity-80 font-AlbertSans_Bold text-start mt-6 md:mt-10 text-text flex"
           >
-            Works .
+            {"Work".split("").map((char) => (
+              <span
+                key={char + Math.random()}
+                className="gsap-letter inline-block"
+              >
+                {char}
+              </span>
+            ))}
           </div>
         </div>
 
-        <div className="bg-black md:w-screen mt-10 h-fit">
-          <div className="relative w-screen min-h-screen flex items-center justify-center p-4 md:p-8 lg:p-12 bg-[#0a0a0a]">
-            <CustomCursor hovering={hovering} />
+        {/* Tags with reveal animation */}
+        <div className="w-screen pt-8 md:pt-16 px-4 md:px-16 flex flex-wrap gap-2 font-AlbertSans_Medium">
+          {tags.map((tag) => (
+            <div
+              key={tag}
+              className={`gsap-tag w-fit h-fit px-4 md:px-8 py-1 rounded-full cursor-pointer ${
+                selectedTag === tag
+                  ? "bg-white text-black"
+                  : "bg-white bg-opacity-20 text-white"
+              }`}
+              onClick={() => handleTagClick(tag)}
+            >
+              {tag}
+            </div>
+          ))}
+        </div>
 
-            <ImageModal
-              isOpen={modalOpen}
-              imageUrl={selectedImage || ""}
-              onClose={() => setModalOpen(false)}
-            />
+        {/* Divider */}
+        <div className="w-screen pt-10 md:px-16 flex justify-center md:mt-14 md:mb-14">
+          <hr className="w-full opacity-50" />
+        </div>
 
-            <div className="w-full max-w-[1920px] grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-12">
-              {worksData.map((item: WorkItem, index: number) => (
+        {/* Cards */}
+        <div className="relative w-screen min-h-screen flex items-center justify-center py-4 px-4 md:px-8 lg:px-12">
+          <CustomCursor hovering={hovering} />
+          <div
+            className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
+            ref={cardsRef}
+          >
+            {filteredWorks.map((item) => (
+              <div key={item.id} className="gsap-card">
                 <div
-                  key={item.id}
-                  id={`card-${index}`}
-                  className="w-full max-w-[410px] mx-auto rounded-md shadow-md p-2 md:p-4 lg:p-6 bg-[#0a0a0a] flex flex-col transition-transform duration-150 items-center"
-                  onMouseMove={(e) => handleMouseMove(e, index)}
-                  onMouseLeave={() => handleMouseLeave(index)}
-                  onMouseEnter={handleMouseEnter}
-                  style={{
-                    transformStyle: "preserve-3d",
-                    transition: "transform 0.15s ease-out",
-                  }}
+                  className="flex flex-col justify-center items-center w-full max-w-[410px] mx-auto transition-transform duration-150"
+                  onMouseEnter={() => setHovering(true)}
+                  onMouseLeave={() => setHovering(false)}
                 >
-                  <div
-                    className="card-image-wrapper w-full"
-                    style={{ transformStyle: "preserve-3d" }}
-                  >
-                    <h3 className="text-base md:text-lg lg:text-xl text-white font-bold mb-2">
-                      {item.name}
-                    </h3>
-                    <p className="text-sm md:text-base text-gray-400 mb-4 md:mb-6">
-                      {item.textOverlay}
-                    </p>
-                    <div className="relative aspect-square w-full">
+                  <div className="rounded-md shadow-md overflow-hidden w-fit flex flex-col transition-transform duration-150">
+                    <div
+                      className="relative hover:scale-105 transition-transform duration-450"
+                      onClick={() => handleImageClick(item.id)}
+                    >
                       <Image
                         src={item.imgPor}
-                        alt="img"
-                        fill
-                        className="card-image object-cover transition-transform duration-150 rounded cursor-none"
-                        onClick={() => handleImageClick(item.imgPor, item.id)}
+                        alt={item.name}
+                        width={400}
+                        height={600}
+                        className="object-cover"
                       />
+                      <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center transition-opacity duration-300 opacity-0 hover:opacity-100">
+                        <div className="text-black text-2xl font-bold h-12 w-12 bg-white rounded-full text-center flex justify-center items-center">
+                          <span className="text-lg">+</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
-        <Footer bgColor="bg-black" />
+
+        <Footer bgColor="bg-gradient-to-t from-[#1e222b] via-[#0a0a0a] to-[#0e0e0f]" />
       </motion.div>
-    </AnimatePresence>
+    </>
   );
 };
 

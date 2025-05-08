@@ -27,6 +27,7 @@ export default function Home() {
         <p 
           onMouseEnter={() => setIsHovered(true)} 
           onMouseLeave={() => setIsHovered(false)}
+          className={styles.text}
         >
       Why Us—We turn your wildest ideas into something that works (most of the time). Fueled by 
       coffee, creativity, and a touch of chaos, we craft designs that dazzle, content that clicks, 
@@ -37,12 +38,16 @@ export default function Home() {
 
       <div className={styles.body}>
         <p>
-         <span style={{ fontFamily: 'eight, sans-serif', fontWeight: 400, fontStyle: 'normal' }} >Why Us</span>—At WebMinds, we combine innovation, creativity, and expertise 
+         <span style={{ fontFamily: 'sans-serif', fontWeight: 400, fontStyle: 'normal' }} >Why Us</span>—At WebMinds, we combine innovation, creativity, and expertise 
          to bring your vision to life. From strategy to execution, we deliver tailored digital 
          solutions that drive results and make an impact. With a commitment to precision and 
          excellence, we’re here to help you succeed.
         </p>
       </div>
+
+      <hr className="border-t-20 border-gray-800 w-[90%] mx-auto bg-black/75" />
+
+
     </main>
   );
 }

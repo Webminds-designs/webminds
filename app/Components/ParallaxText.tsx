@@ -39,11 +39,11 @@ const ParallaxText: React.FC<ParallaxProps> = ({
   useAnimationFrame((t, delta) => {
     let moveBy = directionFactor.current * baseVelocity * (delta / 1000);
 
-    // if (velocityFactor.get() < 0) {
-    //   directionFactor.current = -1;
-    // } else if (velocityFactor.get() > 0) {
-    //   directionFactor.current = 1;
-    // }
+    if (velocityFactor.get() < 0) {
+      directionFactor.current = -1;
+    } else if (velocityFactor.get() > 0) {
+      directionFactor.current = 1;
+    }
 
     moveBy += directionFactor.current * moveBy * velocityFactor.get();
     baseX.set(baseX.get() + moveBy);
@@ -61,14 +61,14 @@ const ParallaxText: React.FC<ParallaxProps> = ({
       const handleMouseEnter = () => {
         gsap.to(textElement, {
           color: "transparent",
-          webkitTextStroke: "3px #afa18f",
+          webkitTextStroke: "3px white",
           duration: 0.3,
         });
       };
 
       const handleMouseLeave = () => {
         gsap.to(textElement, {
-          color: "#afa18f", // Use your original text color here
+          color: "white", // Use your original text color here
           webkitTextStroke: "0px",
           duration: 0.3,
         });
@@ -86,12 +86,12 @@ const ParallaxText: React.FC<ParallaxProps> = ({
 
   return (
     <div
-      className="relative w-screen overflow-hidden whitespace-nowrap flex"
+      className="relative w-screen overflow-hidden whitespace-nowrap flex "
       ref={containerRef}
     >
       <motion.div
-        className={`flex ${fontSize} font-bold uppercase gap-2`}
-        style={{ x, display: "inline-block", fontFamily: "eight, sans-serif" }}
+        className={`flex ${fontSize} font-bold font-AlbertSans_Regular tracking-tight`}
+        style={{ x, display: "inline-block" }}
         ref={textRef}
       >
         <span>{children}</span>

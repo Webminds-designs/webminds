@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import worksData from "../../../public/assets/data/worksData";
 import { useParams } from "next/navigation";
 import Image from "next/image";
@@ -26,6 +26,9 @@ interface WorkItem {
     designTools?: string[];
   };
   services: string[];
+  navBgColor: string;
+  footerBgColor?: string;
+  navTextColor?: string;
 }
 
 const ProjectPage = () => {
@@ -41,28 +44,6 @@ const ProjectPage = () => {
   const containerRef = useRef(null);
   const imageRef = useRef(null);
 
-  const overlayRef = useRef(null);
-
-  useEffect(() => {
-    if (project) {
-      let ctx = gsap.context(() => {
-        // ✅ Make text overlay scroll faster
-        gsap.to(overlayRef.current, {
-          y: "-30vh", // Moves text up more
-          ease: "power1.out",
-          scrollTrigger: {
-            trigger: overlayRef.current,
-            start: "top 90%",
-            end: "top 10%",
-            scrub: 3, // Moves faster
-          },
-        });
-      }, containerRef);
-
-      return () => ctx.revert(); // Cleanup GSAP animations when component unmounts
-    }
-  }, [project]);
-
   if (!project) {
     return (
       <div className="flex items-center justify-center min-h-screen text-text text-xl">
@@ -71,40 +52,24 @@ const ProjectPage = () => {
     );
   }
 
+  console.log("Project bg color:", project.navBgColor);
+
   return (
     <>
-      <Nav />
+      <Nav bgColor={project.navBgColor} navTextColor={project.navTextColor} />
       <motion.div
         ref={containerRef}
         className="min-h-screen flex flex-col items-center justify-start bg-black absolute top-0 text-text overflow-hidden"
-        initial={{ opacity: 1, y: 1000 }}
+        initial={{ opacity: 1, y: "10%" }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
+        transition={{ duration: 0.8 }}
       >
         {/* Project Title & Text Overlay with GSAP Parallax */}
         <div className="w-fit h-fit relative top-0">
-          <div
-            className="w-fit h-fit absolute bottom-1/3 pl-8 lg:pl-24 z-10"
-            ref={overlayRef} // GSAP reference
-          >
-            <p className="text-xl md:text-2xl lg:text-4xl mb-4 px-2 font-bold">
-              {project.textOverlay}
-            </p>
-            <h1
-              className="text-6xl lg:text-[120px] leading-none w-1/2 text-wrap text-start "
-              style={{
-                display: "inline-block",
-                fontFamily: "eight, sans-serif",
-              }}
-            >
-              {project.name}
-            </h1>
-          </div>
-
           {/* Project Image with GSAP Parallax Effect */}
           <motion.div
             ref={imageRef}
-            className="w-screen h-full overflow-hidden shadow-lg"
+            className="w-screen h-screen overflow-hidden shadow-lg"
           >
             <Image
               key={project.id}
@@ -112,9 +77,9 @@ const ProjectPage = () => {
               alt={project.name}
               width={0}
               height={0}
-              sizes="100vw"
-              className="w-full h-screen md:h-full object-cover object-right md:object-cover md:object-center"
-              loading="eager" // ✅ Remove index check, load eagerly
+              sizes="100%"
+              className="w-full h-screen md:h-full object-cover object-right md:object-cover md:object-bottom"
+              loading="lazy" // ✅ Remove index check, load eagerly
               placeholder="blur" // Optional: Blur effect before loading
               blurDataURL="/placeholder.jpg" // Placeholder image (low-quality version)
             />
@@ -123,14 +88,14 @@ const ProjectPage = () => {
         <div className="w-screen h-screen flex">
           {/* Project Description */}
           <div className="w-2/3 h-screen flex justify-center items-center text-start p-6  md:p-12 lg:p-24">
-            <p className="mt-6 text-xl md:text-2xl lg:text-4xl text-text  text-start font-bold leading-loose">
+            <p className="mt-6 text-xl md:text-2xl lg:text-4xl text-text  text-start font-AlbertSans_Regular leading-loose">
               {project.description}
             </p>
           </div>
           <div className="w-1/3 h-screen bg-[#212121] md:p-12 flex justify-between items-center">
-            <div className="w-full h-full flex flex-col justify-center items-center">
+            <div className="w-full h-full flex flex-col justify-center items-center font-AlbertSans_Regular">
               {/* Technologies Used */}
-              <div className="mt-6 w-full flex-col justify-between items-center max-w-3xl bg- z-10">
+              <div className="mt-6 w-full flex-col justify-between items-center max-w-3xl ">
                 <h3 className="text-xl font-bold mb-2">Technologies Used:</h3>
                 <div className="flex flex-col  pl-4 gap-3">
                   {Object.entries(project.technology).map(
@@ -173,7 +138,7 @@ const ProjectPage = () => {
             </div>
           </div>
         </div>
-        <Footer bgColor={" bg-green-950"} />
+        <Footer bgColor="bg-gradient-to-t from-[#1e222b] via-[#0a0a0a] to-[#0e0e0f]" />
       </motion.div>
     </>
   );

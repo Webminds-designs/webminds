@@ -1,9 +1,11 @@
+"use client";
+
 import React, { useState } from "react";
 import worksData from "../../public/assets/data/worksData.js";
 import Image from "next/image";
 import CustomCursor from "./CustomCursor";
-import { usePathname, useRouter } from "next/navigation";
-import ImageModal from "./ImageModal";
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 
 interface WorkItem {
   id: number;
@@ -14,119 +16,83 @@ interface WorkItem {
 
 interface WorksProps {
   bgcolor: string;
-  setNavigationAnimation: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Works: React.FC<WorksProps> = ({ bgcolor, setNavigationAnimation }) => {
-  // ... existing state and handlers ...
+const Works: React.FC<WorksProps> = ({ bgcolor }) => {
   const [hovering, setHovering] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const router = useRouter();
-  const handleMouseMove = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    index: number
-  ) => {
-    const card = document.getElementById(`card-${index}`);
-    if (!card) return;
 
-    const image = card.querySelector(".card-image") as HTMLElement;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = ((y - centerY) / centerY) * 20;
-    const rotateY = ((x - centerX) / centerX) * -20;
-
-    requestAnimationFrame(() => {
-      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-      if (image) {
-        image.style.transform = `translateZ(60px) scale(1.3)`;
-      }
-    });
+  const handleImageClick = (img: string, id: number) => {
+    setHovering(false);
+    router.push(`/projects/${id}`);
   };
 
-  const handleMouseLeave = (index: number) => {
-    const card = document.getElementById(`card-${index}`);
-    if (!card) return;
-
-    const image = card.querySelector(".card-image") as HTMLElement;
-    requestAnimationFrame(() => {
-      card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
-      if (image) {
-        image.style.transform = `translateZ(0px) scale(1)`;
-      }
-    });
-    setHovering(false); // Hide cursor
-  };
-
-  const handleImageClick = (imageUrl: string, projectId: number) => {
-    setSelectedImage(imageUrl);
-    setModalOpen(true);
-    setTimeout(() => {
-      setNavigationAnimation(true);
-    }, 1000);
-
-    setTimeout(() => {
-      router.push(`/projects/${projectId}`);
-    }, 1000);
-  };
-
-  const handleMouseEnter = () => setHovering(true); // Show cursor
   return (
+    <>
     <div
-      className={`relative w-screen min-h-screen flex items-center justify-center p-4 md:p-8 lg:p-12 ${bgcolor}`}
+      className={`relative w-screen min-h-screen flex items-center justify-center py-4 px-4 md:px-8 md:py-8 lg:px-12 lg:py-12 ${bgcolor}`}
     >
       <CustomCursor hovering={hovering} />
 
-      {/* Image Modal */}
-      <ImageModal
-        isOpen={modalOpen}
-        imageUrl={selectedImage || ""}
-        onClose={() => setModalOpen(false)}
-      />
-
-      <div className="w-full max-w-[1920px] grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-12">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 cursor-none">
         {worksData.map((item: WorkItem, index: number) => (
-          <div
+          <motion.div
             key={item.id}
-            id={`card-${index}`}
-            className="w-full max-w-[410px] mx-auto rounded-md shadow-md p-2 md:p-4 lg:p-6 bg-[#0a0a0a] flex flex-col transition-transform duration-150 items-center"
-            onMouseMove={(e) => handleMouseMove(e, index)}
-            onMouseLeave={() => handleMouseLeave(index)}
-            onMouseEnter={handleMouseEnter}
-            style={{
-              transformStyle: "preserve-3d",
-              transition: "transform 0.15s ease-out",
+            className="flex flex-col justify-center items-center w-full max-w-[410px] mx-auto transition-transform duration-150 cursor-none"
+            onMouseEnter={() => setHovering(true)}
+            onMouseLeave={() => setHovering(false)}
+            initial={{ opacity: 0, y: 100 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 1,
+              delay: index * 0.1,
+              ease: "easeInOut",
             }}
           >
+            {/* Card with Image */}
             <div
-              className="card-image-wrapper w-full"
-              style={{ transformStyle: "preserve-3d" }}
+              id={`card-${index}`}
+              className="rounded-md shadow-md overflow-hidden w-fit flex flex-col transition-transform duration-150 cursor-none"
             >
-              <h3 className="text-base md:text-lg lg:text-xl text-white font-bold mb-2">
-                {item.name}
-              </h3>
-              <p className="text-sm md:text-base text-gray-400 mb-4 md:mb-6">
-                {item.textOverlay}
-              </p>
-
-              {/* Responsive image container */}
-              <div className="relative aspect-square w-full">
+              <div
+                className="relative cursor-none hover:scale-105 transition-transform duration-450"
+                onClick={() => handleImageClick(item.imgPor, item.id)}
+              >
                 <Image
                   src={item.imgPor}
-                  alt="img"
-                  fill
-                  className="card-image object-cover transition-transform duration-150 rounded cursor-none"
-                  onClick={() => handleImageClick(item.imgPor, item.id)}
+                  alt={item.name}
+                  width={400}
+                  height={600}
+                  className="object-cover cursor-none"
                 />
+                <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center transition-opacity duration-300 opacity-0 hover:opacity-100">
+                  <div className="text-black text-2xl font-bold cursor-none h-12 w-12 bg-white rounded-full text-center flex justify-center items-center">
+                    <span className="text-lg">+</span>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          </motion.div>
+
+          
         ))}
       </div>
     </div>
+
+<hr className="border-t-20 border-gray-800 w-[90%] mx-auto bg-black/75" />
+
+<section className="min-h-content text-white px-6 md:px-20 py-20 bg-black">
+  <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-16">
+    <div className="md:w-1/3">
+      <div className="text-sm tracking-widest font-bold uppercase">
+      We Expertises In...                  
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr className="border-t-20 border-gray-800 w-[90%] mx-auto bg-black/75" />
+</>
   );
 };
 

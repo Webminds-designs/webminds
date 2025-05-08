@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import Image from "next/image";
 
-import logo from "../../public/assets/Webminds-dark.webp";
+// import logo from "../../public/assets/Webminds-dark.webp";
 
 import { HiMenuAlt1 } from "react-icons/hi";
 import { IoClose } from "react-icons/io5";
@@ -13,16 +13,21 @@ import { FaArrowDown } from "react-icons/fa6";
 import im1 from "../../public/assets/DigitalMarketing.jpg";
 import im2 from "../../public/assets/Website.jpg";
 import im3 from "../../public/assets/Social-Media.jpg";
-import im4 from "../../public/assets/tembrand.png";
+import im4 from "../../public/Branding.jpg";
 
 import { motion } from "framer-motion";
 
-const Nav = () => {
+interface NavProps {
+  bgColor?: string;
+  navTextColor?: string;
+}
+
+const Nav: React.FC<NavProps> = ({ bgColor, navTextColor }) => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isExpertiesHovered, setExpertiesHovered] = useState(false);
   const [Hovered, setHovered] = useState("marketing");
-  const menuRef = useRef(null); // Ref for the dropdown container
-  const contentRef = useRef(null); // Ref for the dropdown content
+  const menuRef = useRef(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const handleMouseEnter = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
@@ -30,14 +35,13 @@ const Nav = () => {
     const textElement = event.currentTarget.querySelector("span");
 
     gsap.to(textElement, {
-      y: -10, // Move the text up
+      y: -10,
       duration: 0.1,
       ease: "power1.out",
       onComplete: () => {
-        // After it moves up, reset to bottom position and animate back up
-        gsap.set(textElement, { y: 20, opacity: 1 }); // Reset to below the original position
+        gsap.set(textElement, { y: 20, opacity: 1 });
         gsap.to(textElement, {
-          y: 0, // Animate it back to its original position
+          y: 0,
           duration: 0.1,
           ease: "power1.in",
         });
@@ -62,8 +66,8 @@ const Nav = () => {
   const toggleCloseDrop = () => {
     if (isExpertiesHovered) {
       // Move all content down quickly before closing
-      gsap.to(contentRef.current.children, {
-        y: 100, // Move down quickly
+      gsap.to(contentRef.current!.children, {
+        y: 100,
         opacity: 0,
         duration: 0.2, // Fast closing speed
         stagger: -0.05, // Make all items disappear together
@@ -91,7 +95,7 @@ const Nav = () => {
 
       // Animate each child separately with different speeds
       gsap.fromTo(
-        contentRef.current.children,
+        contentRef.current!.children,
         { y: 80, opacity: 0 }, // Start from bottom
         {
           y: 0,
@@ -121,26 +125,42 @@ const Nav = () => {
   }, [isMobileMenuOpen]);
 
   return (
-    <div className="w-screen bg-transparent font-FunnelDisplayRegular flex justify-between items-center px-6 lg:px-20 py-4 fixed top-0 z-10 overflow-hidden">
+    // <div className="w-screen bg-transparent font-AlbertSans_Regular flex justify-between items-center px-6 lg:px-20 py-4 top-0 z-10 overflow-hidden fixed">
+    <div
+      className={`w-screen font-AlbertSans_Regular flex justify-between items-center px-6 lg:px-20 py-6 top-0 z-10 overflow-hidden fixed `}
+    >
       {/* Logo Section */}
-      <div className="w-12 cursor-pointer z-40">
-        <Image src={logo} alt="logo" />
+      <div
+        className=" font-bold text-2xl leading-none tracking-wider flex items-start   z-20"
+        style={{ color: navTextColor || "#f6f6f6" }}
+      >
+        <span className="font-Poppins">WebMinds</span>
+        <span className="text-[10px] mt-[2px] align-top">™</span>
       </div>
 
       {/* Desktop Navigation Links */}
       <nav className="hidden lg:flex ">
-        <ul className="flex items-center space-x-16 text-sm text-white font-semibold">
-          {["Home", "Works", "Experties", "Careers", "Contact"].map(
+        <ul
+          className="flex items-center space-x-16 text-sm font-semibold tracking-wider"
+          style={{ color: navTextColor || "#f6f6f6" }} // Default color if not provided
+        >
+          {["Home", "Works", "Expertise", "Careers", "Contact"].map(
             (item, index) => (
               <li key={index} className="group">
                 <Link
-                  href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
+                  href={
+                    item === "Home"
+                      ? "/"
+                      : item === "Expertise"
+                      ? "#"
+                      : `/${item.toLowerCase()}`
+                  }
                   onMouseEnter={(e) => {
                     handleMouseEnter(e);
-                    if (item === "Experties") setExpertiesHovered(true);
+                    if (item === "Expertise") setExpertiesHovered(true);
                   }}
                   onMouseLeave={() => {
-                    if (item === "Experties") {
+                    if (item === "Expertise") {
                       setExpertiesHovered(false);
                     }
                   }}
@@ -156,19 +176,22 @@ const Nav = () => {
                   >
                     {item}
                   </span>
-                  {item === "Experties" && (
-                    <div className="flex items-center rounded-full bg-white bg-opacity-30 p-1">
-                      <FaArrowDown className="text-white bg-opacity-100 w-2 h-2 " />
+                  {item === "Expertise" && (
+                    <div
+                      className={`flex items-center rounded-full bg-[#fffdfc] bg-opacity-20 p-1`}
+                    >
+                      <FaArrowDown className={`bg-opacity-100 w-2 h-2 `} />
                     </div>
                   )}
                 </Link>
-                {item === "Experties" && isExpertiesHovered && (
+                {item === "Expertise" && isExpertiesHovered && (
                   <div
-                    className="fixed top-0 left-0 w-screen flex items-center justify-between bg-[#212121] shadow-lg opacity-100 transition-opacity duration-300 z-30"
+                    className="fixed top-0 left-0 w-screen"
                     ref={menuRef}
                     style={{
                       transformOrigin: "top center",
                       transform: "scaleY(0)",
+                      backgroundColor: bgColor || "#2D2D2D",
                     }}
                     onMouseEnter={() => setExpertiesHovered(true)}
                     onMouseLeave={() => toggleCloseDrop()}
@@ -177,19 +200,18 @@ const Nav = () => {
                       className="mt-28 px-24 mb-20 w-full flex justify-between"
                       ref={contentRef}
                     >
-                      <div>Our Experties</div>
+                      <div>Our Expertise</div>
                       <ul
-                        className="md:text-3xl lg:text-4xl "
+                        className="md:text-3xl lg:text-4xl font-AlbertSans_Bold"
                         style={{
                           display: "inline-block",
-                          fontFamily: "eight, sans-serif",
                         }}
                       >
                         <li
                           className="px-4 py-3"
                           onMouseEnter={() => hoverHandel("marketing")}
                         >
-                          <Link href="/experties/marketing">
+                          <Link href="/Expertise/Digital-Marketing">
                             Digital Marketing
                           </Link>
                         </li>
@@ -197,7 +219,7 @@ const Nav = () => {
                           className="px-4 py-3"
                           onMouseEnter={() => hoverHandel("web")}
                         >
-                          <Link href="/experties/development">
+                          <Link href="/Expertise/Web-Development">
                             Website Development
                           </Link>
                         </li>
@@ -205,15 +227,15 @@ const Nav = () => {
                           className="px-4 py-3"
                           onMouseEnter={() => hoverHandel("social")}
                         >
-                          <Link href="/experties/socialmedia">
-                            Social Media
+                          <Link href="/Expertise/Social-Media-Management">
+                            Social Media Management
                           </Link>
                         </li>
                         <li
                           className="px-4 py-3"
                           onMouseEnter={() => hoverHandel("brand")}
                         >
-                          <Link href="/experties/branding">
+                          <Link href="/Expertise/Branding-n-Design">
                             Branding & Design
                           </Link>
                         </li>
@@ -290,7 +312,13 @@ const Nav = () => {
               (item, index) => (
                 <li key={index}>
                   <Link
-                    href={`/${item.toLowerCase()}`}
+                    href={
+                      item === "Home"
+                        ? "/"
+                        : item === "Expertise"
+                        ? "#"
+                        : `/${item.toLowerCase()}`
+                    }
                     onClick={() => toggleMenu()} // Close menu on click
                     className="relative inline-block overflow-hidden hover:opacity-70"
                   >
