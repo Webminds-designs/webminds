@@ -11,30 +11,26 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
   const [progress, setProgress] = useState(0);
   const [targetProgress, setTargetProgress] = useState(0);
   const [stageText, setStageText] = useState("Initializing...");
-
-  const logoRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const logoRef = useRef<HTMLDivElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null);
 
-  // ✅ Smooth progress animation
+  // ✅ Smooth loading progress loop
   useEffect(() => {
     let rafId: number;
-
     const tick = () => {
       setProgress((prev) => {
         const delta = targetProgress - prev;
         const step = Math.max(0.3, delta * 0.05);
-        const next = Math.min(prev + step, targetProgress);
-        return next;
+        return Math.min(prev + step, targetProgress);
       });
       rafId = requestAnimationFrame(tick);
     };
-
     rafId = requestAnimationFrame(tick);
-
     return () => cancelAnimationFrame(rafId);
   }, [targetProgress]);
 
-  // ✅ Stage text update based on % (live tracking)
+  // ✅ Stage updates based on % progress
   useEffect(() => {
     if (progress < 25) setStageText("Hydrating app...");
     else if (progress < 50) setStageText("Loading fonts...");
@@ -43,7 +39,20 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
     else setStageText("Complete!");
   }, [progress]);
 
-  // ✅ Core loading & transition logic
+  // ✅ Cursor-following glow logic
+  useEffect(() => {
+    const move = (e: MouseEvent) => {
+      const x = e.clientX;
+      const y = e.clientY;
+      if (glowRef.current) {
+        glowRef.current.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
+      }
+    };
+    window.addEventListener("mousemove", move);
+    return () => window.removeEventListener("mousemove", move);
+  }, []);
+
+  // ✅ Preloader progress logic
   useEffect(() => {
     const logoPulse = gsap.to(logoRef.current, {
       scale: 1.05,
@@ -54,49 +63,37 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
       ease: "power1.inOut",
     });
 
-    setTargetProgress(25); // Initial hydration phase
+    setTargetProgress(25);
 
-    document.fonts.ready.then(() => {
-      setTargetProgress(50);
-    });
+    document.fonts.ready.then(() => setTargetProgress(50));
 
-    const allImages = Array.from(document.images);
+    const images = Array.from(document.images);
     let loaded = 0;
-    const total = allImages.length;
+    const total = images.length;
+    const done = () => {
+      loaded++;
+      if (loaded === total) setTargetProgress(90);
+    };
 
-    if (total === 0) {
-      setTargetProgress(90);
-    } else {
-      allImages.forEach((img) => {
-        if (img.complete) {
-          loaded++;
-          if (loaded === total) setTargetProgress(90);
-        } else {
-          img.onload = img.onerror = () => {
-            loaded++;
-            if (loaded === total) setTargetProgress(90);
-          };
-        }
+    if (total === 0) setTargetProgress(90);
+    else {
+      images.forEach((img) => {
+        img.complete ? done() : (img.onload = img.onerror = done);
       });
     }
 
-    // ✅ Finish when window is fully ready
     const handleLoad = () => {
       setTargetProgress(100);
       logoPulse.kill();
-
-      const tl = gsap.timeline();
-
-      tl.to(logoRef.current, {
-        scale: 1.2,
-        duration: 0.5,
-        ease: "power3.out",
-      }).to(wrapperRef.current, {
-        opacity: 0,
-        duration: 0.8,
-        ease: "power2.out",
-        onComplete: onFinish,
-      });
+      gsap
+        .timeline()
+        .to(logoRef.current, { scale: 1.2, duration: 0.5, ease: "power3.out" })
+        .to(wrapperRef.current, {
+          opacity: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          onComplete: onFinish,
+        });
     };
 
     window.addEventListener("load", handleLoad);
@@ -111,8 +108,27 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
     <>
       <div
         ref={wrapperRef}
-        className="preloader-wrapper fixed top-0 left-0 w-screen h-screen z-[9999] flex flex-col items-center justify-center text-white transition-opacity duration-500 overflow-hidden animate-gradient"
+        className="preloader-wrapper fixed top-0 left-0 w-screen h-screen z-[9999] flex flex-col items-center justify-center text-white transition-opacity duration-500 overflow-hidden bg-gradient"
       >
+        {/* ✨ Blue glow follows cursor */}
+        <div
+          ref={glowRef}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "250px",
+            height: "250px",
+            borderRadius: "9999px",
+            backgroundColor: "rgba(59, 130, 246, 0.2)", // Tailwind blue-500
+            filter: "blur(60px)",
+            pointerEvents: "none",
+            transform: "translate(-50%, -50%)",
+            transition: "transform 0.1s ease",
+            zIndex: 0,
+          }}
+        />
+
         {/* Logo */}
         <div
           ref={logoRef}
@@ -125,18 +141,18 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
           </span>
         </div>
 
-        {/* Progress Counter */}
+        {/* Progress */}
         <p className="mt-12 text-lg tracking-widest font-mono z-10">
           Loading... {Math.round(progress)}%
         </p>
 
-        {/* Stage Message */}
+        {/* Stage text */}
         <p className="mt-2 text-xs text-gray-400 animate-pulse z-10">
           {stageText}
         </p>
       </div>
 
-      {/* 🔥 Gradient background animation */}
+      {/* 🌌 Background gradient animation */}
       <style jsx global>{`
         @keyframes gradientFlow {
           0%,
@@ -148,7 +164,7 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
           }
         }
 
-        .animate-gradient {
+        .bg-gradient {
           background: linear-gradient(to top, #1e222b, #0a0a0a, #0e0e0f);
           background-size: 400% 400%;
           animation: gradientFlow 8s ease infinite;
