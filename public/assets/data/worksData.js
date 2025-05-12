@@ -27,7 +27,7 @@ const worksData = [
     navBgColor: "bg-[#ffffff]",
     navTextColor: "#683b21",
     footerTextColor: "text-green-500",
-    footerBgColor: "bg-[#f5f5f5]",
+    footerBgColor: "#422f21",
   },
   {
     id: 2,
@@ -60,7 +60,7 @@ const worksData = [
     navBgColor: "#ffffff",
     navTextColor: "#683b21",
     footerTextColor: "text-green-500",
-    footerBgColor: "bg-[#f5f5f5]",
+    footerBgColor: "#422f21",
   },
   {
     id: 3,
@@ -87,7 +87,7 @@ const worksData = [
     navBgColor: "#C98A59",
     navTextColor: "#fffdfc",
     footerTextColor: "text-green-500",
-    footerBgColor: "bg-[#f5f5f5]",
+    footerBgColor: "#C98A59",
   },
   {
     id: 4,
@@ -117,7 +117,7 @@ const worksData = [
     navBgColor: "#1B8093",
     navTextColor: "#fffdfc",
     footerTextColor: "text-green-500",
-    footerBgColor: "bg-[#f5f5f5]",
+    footerBgColor: "#1B8093",
   },
   {
     id: 5,
@@ -144,7 +144,7 @@ const worksData = [
     navBgColor: "#A6CED1",
     navTextColor: "#0d404a",
     footerTextColor: "text-green-500",
-    footerBgColor: "bg-[#f5f5f5]",
+    footerBgColor: "#A6CED1",
   },
   {
     id: 6,
@@ -171,7 +171,7 @@ const worksData = [
     navBgColor: "bg-[#ffffff]",
     navTextColor: "#683b21",
     footerTextColor: "text-green-500",
-    footerBgColor: "bg-[#f5f5f5]",
+    footerBgColor: "#683b21",
   },
 
   {
@@ -200,7 +200,7 @@ const worksData = [
     navBgColor: "#0EA576",
     navTextColor: "white",
     footerTextColor: "text-green-500",
-    footerBgColor: "bg-[#f5f5f5]",
+    footerBgColor: "#0EA576",
   },
   {
     id: 8,
@@ -227,7 +227,7 @@ const worksData = [
     navBgColor: "#212121",
     navTextColor: "white",
     footerTextColor: "text-green-500",
-    footerBgColor: "bg-[#f5f5f5]",
+    footerBgColor: "#212121",
   },
 ];
 
