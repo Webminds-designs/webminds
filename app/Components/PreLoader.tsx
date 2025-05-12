@@ -78,7 +78,11 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
     if (total === 0) setTargetProgress(90);
     else {
       images.forEach((img) => {
-        img.complete ? done() : (img.onload = img.onerror = done);
+        if (img.complete) {
+          done();
+        } else {
+          img.onload = img.onerror = done;
+        }
       });
     }
 
