@@ -18,6 +18,7 @@ export default {
         AlbertSans_Regular: ["AlbertSans-Regular", "sans-serif"],
         AlbertSans_Bold: ["AlberSans-Bold", "sans-serif"],
         AlbertSans_Medium: ["AlberSans-Medium", "sans-serif"],
+        AlberSans_Light: ["AlberSans-Light", "sans-serif"],
         Poppins: ["Poppins", "sans-serif"],
       },
     },

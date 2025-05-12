@@ -1,6 +1,7 @@
+// Contact.tsx
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Nav from "../Components/Nav";
 // import Footer from "../Components/Footer";
 
@@ -12,6 +13,16 @@ const Contact = () => {
     message: "",
   });
 
+  // Refs for the container and the H1
+  const containerRef = useRef<HTMLDivElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+
+  // Your default glow
+  const defaultShadow = `
+    16px 4px 20px rgba(45, 95, 157,0.8),
+    0px 0px 40px rgba(45, 95, 157,0.3)
+  `;
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -21,19 +32,56 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData); // 🔄 Replace with your API call or logic
+    console.log(formData);
+  };
+
+  // Update text-shadow on mouse move
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!containerRef.current || !headingRef.current) return;
+
+    const rect = containerRef.current.getBoundingClientRect();
+    // coords relative to center of container
+    const x = e.clientX - (rect.left + rect.width / 2);
+    const y = e.clientY - (rect.top + rect.height / 2);
+
+    const maxOffset = 40; // max px from center
+    const offsetX = (x / (rect.width / 2)) * maxOffset;
+    const offsetY = (y / (rect.height / 2)) * maxOffset;
+
+    // apply dynamic glow
+    headingRef.current.style.textShadow = `
+      ${-offsetX}px ${-offsetY}px 20px rgba(45, 95, 157,0.8),
+      ${offsetX * 0.5}px ${offsetY * 0.5}px 40px rgba(45, 95, 157,0.3)
+    `;
+  };
+
+  // Snap back to default glow on leave
+  const handleMouseLeave = () => {
+    if (headingRef.current) {
+      headingRef.current.style.textShadow = defaultShadow;
+    }
   };
 
   return (
     <>
       <Nav bgColor="#212121" />
-      <div className="min-h-screen bg-gradient-to-b from-[#131313] to-[#0E101C] text-white p-10 flex flex-col md:flex-row items-center justify-center font-AlbertSans_Regular">
+
+      <div className="min-h-screen bg-gradient-to-b from-[#050505] to-[#010B19] text-white p-10 flex flex-col md:flex-row items-center justify-center font-poppins">
         {/* Left Panel */}
-        <div className="w-full md:w-1/2 p-4">
-          <h1 className="text-[200px] md:text-[350px] font-bold text-[#b8d0ff] leading-none">
+        <div
+          ref={containerRef}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          className="w-full md:w-1/2 p-4 flex flex-col items-start text-left relative overflow-visible cursor-move"
+        >
+          <h1
+            ref={headingRef}
+            style={{ textShadow: defaultShadow }}
+            className="relative z-10 text-[200px] md:text-[300px] font-bold text-[rgb(248,251,254)] leading-none font-Poppins"
+          >
             Hey
           </h1>
-          <p className="mt-4 text-lg text-[#ded9cf]">
+          <p className="relative z-10 mt-12 font-thin font-Poppins pr-32 text-4xl text-[#ded9cf] pl-6">
             Let’s start something great together!
           </p>
         </div>
@@ -41,7 +89,7 @@ const Contact = () => {
         {/* Form */}
         <form
           onSubmit={handleSubmit}
-          className="w-full md:w-1/2 p-4 space-y-12"
+          className="w-full md:w-1/2 p-4 space-y-8 font-Poppins"
         >
           {/* Full Name */}
           <div>
@@ -52,7 +100,7 @@ const Contact = () => {
               value={formData.fullName}
               onChange={handleChange}
               placeholder="Enter your full name here"
-              className="w-full px-4 py-2 bg-transparent border-b border-b-gray-400 text-base outline-none"
+              className="w-full px-4 py-2 text-[#E2E2E2]  bg-transparent border-b border-b-gray-400 text-sm outline-none"
             />
           </div>
 
@@ -65,7 +113,7 @@ const Contact = () => {
               value={formData.mobileNumber}
               onChange={handleChange}
               placeholder="Enter your mobile number here"
-              className="w-full px-4 py-2 bg-transparent border-b border-b-gray-400 text-base outline-none"
+              className="w-full px-4 py-2 text-[#E2E2E2]  bg-transparent border-b border-b-gray-400 text-sm outline-none"
             />
           </div>
 
@@ -78,7 +126,7 @@ const Contact = () => {
               value={formData.subject}
               onChange={handleChange}
               placeholder="What is this about?"
-              className="w-full px-4 py-2 bg-transparent border-b border-b-gray-400 text-base outline-none"
+              className="w-full px-4 py-2 text-[#E2E2E2]  bg-transparent border-b border-b-gray-400 text-sm outline-none"
             />
           </div>
 
@@ -90,21 +138,24 @@ const Contact = () => {
               value={formData.message}
               onChange={handleChange}
               rows={4}
-              className="w-full px-4 pt-4 pb-2 bg-transparent border-b border-b-gray-400 text-base outline-none text-white placeholder-transparent resize-none"
               placeholder="Tell us more about what you need?"
+              className="w-full px-4 pt-4 pb-2 bg-transparent border-b border-b-gray-400 text-sm  outline-none placeholder-transparent resize-none"
             />
-            <span className="absolute bottom-4 left-4 text-gray-400 pointer-events-none text-base">
+            <span className="absolute bottom-4 left-4 text-[#E2E2E2] text-sm pointer-events-none ">
               {formData.message === "" && "Tell us more about what you need?"}
             </span>
           </div>
 
-          {/* Submit Button */}
-          <button
-            type="submit"
-            className="bg-[#ded9cf] text-black px-6 py-2 rounded hover:opacity-80 transition-all"
-          >
-            Send
-          </button>
+          <div className="flex items-center justify-end mt-8">
+            {/* Submit Button */}
+
+            <button
+              type="submit"
+              className="bg-[#ded9cf] text-black px-6 py-2 rounded hover:opacity-80 transition-all "
+            >
+              Send
+            </button>
+          </div>
         </form>
       </div>
     </>
