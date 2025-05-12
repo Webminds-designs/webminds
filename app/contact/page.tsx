@@ -3,6 +3,7 @@
 
 import React, { useState, useRef } from "react";
 import Nav from "../Components/Nav";
+import Footer from "../Components/Footer";
 // import Footer from "../Components/Footer";
 
 const Contact = () => {
@@ -158,6 +159,7 @@ const Contact = () => {
           </div>
         </form>
       </div>
+      <Footer bgColor={"bg-[#212121]"} />
     </>
   );
 };
