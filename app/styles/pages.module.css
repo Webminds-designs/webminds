@@ -6,12 +6,12 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background: black;
+  background: #050505;
 }
 
 .mask {
-  -webkit-mask-image: url('/mask.svg');
-  mask-image: url('/mask.svg');
+  -webkit-mask-image: url("/mask.svg");
+  mask-image: url("/mask.svg");
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-position: center;

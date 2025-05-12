@@ -57,7 +57,7 @@ const worksData = [
       "Digital Marketing",
       "Social Media",
     ],
-    navBgColor: "#ffffff",
+    navBgColor: "#fff7f2",
     navTextColor: "#683b21",
     footerTextColor: "text-green-500",
     footerBgColor: "#422f21",
@@ -141,10 +141,10 @@ const worksData = [
     ],
 
     tag: ["Web Development", "Branding & Desing"],
-    navBgColor: "#A6CED1",
+    navBgColor: "#4d898f",
     navTextColor: "#0d404a",
     footerTextColor: "text-green-500",
-    footerBgColor: "#A6CED1",
+    footerBgColor: "#22686e",
   },
   {
     id: 6,

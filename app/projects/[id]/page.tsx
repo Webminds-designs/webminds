@@ -85,7 +85,7 @@ const ProjectPage = () => {
             />
           </motion.div>
         </div>
-        <div className="w-screen h-screen flex">
+        <div className="w-screen h-screen flex bg-[#0a0a0a]">
           {/* Project Description */}
           <div className="w-2/3 h-screen flex justify-center items-center text-start p-6  md:p-12 lg:p-24">
             <p className="mt-6 text-xl md:text-2xl lg:text-4xl text-text  text-start font-AlbertSans_Regular leading-loose">
@@ -138,7 +138,12 @@ const ProjectPage = () => {
             </div>
           </div>
         </div>
-        <Footer bgColor={project.footerBgColor || "#1e222b"} />
+
+        <Footer
+          bgColorBottom={project.footerBgColor || "#1e222b"}
+          bgColorMid="#0a0a0a"
+          bgColorTop="#0a0a0a"
+        />
       </motion.div>
     </>
   );

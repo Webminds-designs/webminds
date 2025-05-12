@@ -159,7 +159,11 @@ const Contact = () => {
           </div>
         </form>
       </div>
-      <Footer bgColor={"bg-[#212121]"} />
+      <Footer
+        bgColorBottom="#02214d"
+        bgColorTop="#040719"
+        bgColorMid="#07101E"
+      />
     </>
   );
 };

@@ -60,7 +60,7 @@ const Hero = () => {
   return (
     <div
       ref={containerRef}
-      className="w-screen h-screen bg-black fixed top-0 left-0 flex items-center justify-center -z-10 overflow-hidden"
+      className="w-screen h-screen bg-[#050505] fixed top-0 left-0 flex items-center justify-center -z-10 overflow-hidden"
     >
       <div className="w-screen h-full overflow-hidden">
         <Lottie

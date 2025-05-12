@@ -189,7 +189,11 @@ const Workspage = () => {
         </div>
 
         {/* <Footer bgColor=" " /> */}
-        <Footer bgColor="#1e222b" />
+        <Footer
+          bgColorBottom="#1e222b"
+          bgColorMid="#0a0a0a"
+          bgColorTop="#0a0a0a"
+        />
       </motion.div>
     </>
   );
