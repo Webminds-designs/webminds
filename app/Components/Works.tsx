@@ -25,7 +25,7 @@ const Works: React.FC = () => {
 
   return (
     <>
-      <div className="relative w-screen min-h-screen flex items-center justify-center py-4 px-4 md:px-8 md:py-8 lg:px-12 lg:py-12 bg-[#141414] bg-cover bg-center">
+      <div className="relative w-screen min-h-screen flex items-center justify-center py-4 px-4 md:px-8 md:py-8 lg:px-12 lg:py-12 bg-[#212121] bg-cover bg-center">
         <CustomCursor hovering={hovering} />
 
         <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 cursor-none">
