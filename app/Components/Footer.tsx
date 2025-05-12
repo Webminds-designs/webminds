@@ -3,7 +3,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import logo from "../../public/assets/WebMinds Logo_WebMinds Blue.png";
+import logo from "../../public/assets/Webminds-dark.webp";
 import ParallaxText from "./ParallaxText";
 
 interface FooterProp {
@@ -17,8 +17,6 @@ const Footer: React.FC<FooterProp> = ({
   bgColorTop,
   bgColorMid,
 }) => {
-  // console.log("Footer bg color:", bgColor);
-
   return (
     <div
       className="w-screen h-fit  z-10 relative font-AlbertSans_Regular "
@@ -39,10 +37,10 @@ const Footer: React.FC<FooterProp> = ({
               Contact Us
             </div>
             <ul className="list-none text-text flex flex-col gap-2 text-sm  items-center md:items-start ">
-              <li className="cursor-pointer">
+              <li className="cursor-pointer hover:underline">
                 <a href="tel:+94762130015">+94 76 213 0015</a>
               </li>
-              <li className="cursor-pointer">
+              <li className="cursor-pointer hover:underline">
                 <a href="mailto:lg@webmindsdesign.com">
                   lg@webmindsdesigns.com
                 </a>
@@ -93,11 +91,11 @@ const Footer: React.FC<FooterProp> = ({
               Pages
             </div>
             <ul className="list-none text-text flex flex-col gap-2 text-lg md:text-sm items-center md:items-start">
-              <li className="cursor-pointer">Home</li>
-              <li className="cursor-pointer">Works</li>
-              <li className="cursor-pointer">About Us</li>
-              <li className="cursor-pointer">Contact Us</li>
-              <li className="cursor-pointer">Careers</li>
+              <li className="cursor-pointer hover:underline">Home</li>
+              <li className="cursor-pointer hover:underline">Works</li>
+              <li className="cursor-pointer hover:underline">About Us</li>
+              <li className="cursor-pointer hover:underline">Contact Us</li>
+              <li className="cursor-pointer hover:underline">Careers</li>
             </ul>
           </div>
           <div className="w-fit h-fit flex-col justify-center items-start mt-6">
@@ -105,10 +103,10 @@ const Footer: React.FC<FooterProp> = ({
               Follow Us
             </div>
             <ul className="list-none text-text flex flex-col gap-2 text-lg md:text-sm items-center md:items-start">
-              <li className="cursor-pointer">Instagran</li>
-              <li className="cursor-pointer">Youtube</li>
-              <li className="cursor-pointer">Facebook</li>
-              <li className="cursor-pointer">Tiktok</li>
+              <li className="cursor-pointer hover:underline">Instagran</li>
+              <li className="cursor-pointer hover:underline">Youtube</li>
+              <li className="cursor-pointer hover:underline">Facebook</li>
+              <li className="cursor-pointer hover:underline">Tiktok</li>
             </ul>
           </div>
         </div>
@@ -116,8 +114,8 @@ const Footer: React.FC<FooterProp> = ({
       <div className="w-full h-fit bg-green lg:px-24 opacity-80 flex justify-between items-center  text-sm font-extralight text-text px-4 md:px-8 relative -bottom-8">
         <div>All rights reserved 2025 © webmindsdesign</div>
         <div className="flex justify-end gap-12 ">
-          <div className="cursor-pointer">Privacy Policy</div>
-          <div className="cursor-pointer">Terms of Service</div>
+          <div className="cursor-pointer hover:underline">Privacy Policy</div>
+          <div className="cursor-pointer hover:underline">Terms of Service</div>
         </div>
       </div>
       <main className="flex flex-col items-center justify-center h-[360px]  bg-transparent text-text md:pb-0">
