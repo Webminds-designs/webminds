@@ -132,7 +132,7 @@ const Page: React.FC<PageProps> = () => {
       <main className={styles.main}>
         <h1
           ref={(el) => void (headingRefs.current[0] = el)}
-          className="text-7xl pl-20 w-full md:text-[100px] lg:text-[220px] opacity-80 font-AlbertSans_Bold text-start mt-6 md:mt-10 text-text"
+          className="text-7xl pl-20 w-full md:text-[100px] lg:text-[220px] opacity-80 font-AlbertSans_Bold text-start mt-6 md:mt-10 text-text bg-[#050505]"
         >
           Our Socials
           <span className="block text-sm md:text-base lg:text-lg mt-2 ml-6 opacity-60 font-normal">
@@ -192,7 +192,7 @@ const Page: React.FC<PageProps> = () => {
 
         <hr className="border-t-20 border-gray-800 w-[90%] mx-auto bg-black/75" />
 
-        <section className="relative text-white bg-black">
+        <section className="relative text-white bg-[#050505]">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start justify-between gap-20">
             <h2
               ref={(el) => void (headingRefs.current[0] = el)}

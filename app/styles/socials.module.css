@@ -1,34 +1,34 @@
 .main {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    height: 100vh;
-    gap:100px ;
-    background-color: black;
-  }
-  
-  .main .container {
-    display: flex;
-    gap: 80px; /* Adds space between the icons */
-    justify-content: center; /* Ensures icons are centered horizontally */
-    align-items: center; /* Ensures icons are centered vertically */
-  }
-  
-  .main .container svg {
-    height: 50px; /* Adjust the icon size */
-    fill: #c8bdb0; /* Default color */
-    transition: fill 0.2s, transform 0.3s; /* Transition for hover effect */
-    cursor: pointer;
-  }
-  
-  .container img {
-    transition: fill 0.3s ease, transform 0.3s ease;
-  }
-  
-  .container a:hover img {
-    filter: brightness(0) saturate(100%) invert(72%) sepia(34%) saturate(1554%) hue-rotate(170deg) brightness(102%) contrast(101%);
-    transform: scale(1.1);
-    transition: 0.05s
-  }
-  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  gap: 100px;
+  background-color: #050505;
+}
+
+.main .container {
+  display: flex;
+  gap: 80px; /* Adds space between the icons */
+  justify-content: center; /* Ensures icons are centered horizontally */
+  align-items: center; /* Ensures icons are centered vertically */
+}
+
+.main .container svg {
+  height: 50px; /* Adjust the icon size */
+  fill: #c8bdb0; /* Default color */
+  transition: fill 0.2s, transform 0.3s; /* Transition for hover effect */
+  cursor: pointer;
+}
+
+.container img {
+  transition: fill 0.3s ease, transform 0.3s ease;
+}
+
+.container a:hover img {
+  filter: brightness(0) saturate(100%) invert(72%) sepia(34%) saturate(1554%)
+    hue-rotate(170deg) brightness(102%) contrast(101%);
+  transform: scale(1.1);
+  transition: 0.05s;
+}

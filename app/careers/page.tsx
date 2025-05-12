@@ -43,7 +43,7 @@ const CareersPage = () => {
       {/* First Section */}
       <motion.div
         ref={containerRef}
-        className="relative bg-black md:w-screen h-screen md:h-fit"
+        className="relative bg-[#050505] md:w-screen h-screen md:h-fit"
         initial={{ opacity: 1 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
@@ -99,7 +99,7 @@ const CareersPage = () => {
       {/* Card Section */}
       <div
         ref={cardSectionRef}
-        className="relative bg-black md:w-screen h-screen md:h-fit"
+        className="relative bg-[#050505] md:w-screen h-screen md:h-fit"
       >
         <Image
           src={bg2}
@@ -145,7 +145,12 @@ const CareersPage = () => {
         </motion.div>
       </div>
 
-      <Footer bgColor="bg-gradient-to-t from-[#1e222b] via-[#1B4453] to-[#1B4453]" />
+      {/* <Footer bgColor="bg-gradient-to-t from-[#1e222b] via-[#1B4453] to-[#1B4453]" /> */}
+      <Footer
+        bgColorBottom="#1e222b"
+        bgColorMid="#163F4F"
+        bgColorTop="#163F4F"
+      />
     </>
   );
 };

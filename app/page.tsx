@@ -21,7 +21,11 @@ export default function Home() {
       <Expertise />
       <WhyUs />
       <Socials />
-      <Footer bgColor={"bg-[#212121]"} />
+      <Footer
+        bgColorBottom="#141647"
+        bgColorMid="#06060f"
+        bgColorTop="#050505"
+      />
     </div>
   );
 }

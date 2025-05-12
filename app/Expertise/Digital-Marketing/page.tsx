@@ -173,7 +173,6 @@ const Page: React.FC = () => {
   return (
     <>
       <Nav />
-
       <main className={styles.main}>
         <div
           ref={imageRef}
@@ -218,8 +217,7 @@ const Page: React.FC = () => {
           </div>
         </div>
       </main>
-
-      <section className="relative text-white py-20 bg-black">
+      <section className="relative text-white py-20 bg-gradient-to-b from-black via-black to-[#050505]">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start justify-between gap-20">
           <h2
             ref={(el) => {
@@ -247,10 +245,8 @@ const Page: React.FC = () => {
           </div>
         </div>
       </section>
-
       <hr className="border-t-20 border-gray-800 w-[90%] mx-auto bg-black/75" />
-
-      <section className="min-h-content text-white px-6 md:px-20 py-20 bg-black">
+      <section className="min-h-content text-white px-6 md:px-20 py-20 bg-[#050505]">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-16">
           <div className="md:w-1/3">
             <div className="text-sm tracking-widest font-bold uppercase">
@@ -303,10 +299,8 @@ const Page: React.FC = () => {
           </div>
         </div>
       </section>
-
       <hr className="border-t-20 border-gray-800 w-[90%] mx-auto bg-black/75" />
-
-      <section className="min-h-content text-white px-6 md:px-20 py-20 bg-black">
+      <section className="min-h-content text-white px-6 md:px-20 py-20 bg-[#050505]">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-16">
           <div className="md:w-1/3">
             <div className="text-sm tracking-widest font-bold uppercase">
@@ -315,7 +309,6 @@ const Page: React.FC = () => {
           </div>
         </div>
       </section>
-
       <hr className="border-t-20 border-gray-800 w-[90%] mx-auto bg-black/75" />
       {/* 
       <section className="bg-black py-16 px-4">
@@ -325,9 +318,8 @@ const Page: React.FC = () => {
           ))}
         </div>
       </section> */}
-
       <CustomCursor hovering={hovering} />
-      <div className="max-w-7xl pt-20 pb-20 mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 cursor-none">
+      <div className="max-w-7xl pt-20 pb-20 mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 cursor-none bg-[#050505]">
         {worksData
           .filter((item: WorkItem) => item.tag.includes(filteredTag))
           .map((item: WorkItem, index: number) => (
@@ -371,7 +363,11 @@ const Page: React.FC = () => {
           ))}
       </div>
 
-      <Footer bgColor="bg-gradient-to-t from-[#0504AA] to-[#3b82f6]" />
+      <Footer
+        bgColorBottom="#3b82f6"
+        bgColorMid="#0a0a0a"
+        bgColorTop="#050505"
+      />
     </>
   );
 };
