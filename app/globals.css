@@ -35,20 +35,29 @@ body {
 @font-face {
   font-family: "AlberSans-Regular";
   src: url("../public/Fonts/HelveticaNowText-Regular.ttf") format("truetype");
-  font-weight: 400;
+  /* font-weight: 400; */
   font-style: normal;
 }
 
 @font-face {
   font-family: "AlberSans-Bold";
   src: url("../public/Fonts/HelveticaNowText-Bold.ttf") format("truetype");
-  font-weight: 700;
+  /* font-weight: 700; */
   font-style: normal;
 }
 @font-face {
   font-family: "AlberSans-Medium";
   src: url("../public/Fonts/HelveticaNowText-Medium.ttf") format("truetype");
-  font-weight: 500;
+  /* font-weight: 500; */
+  font-style: normal;
+}
+
+/* ligth font  */
+@font-face {
+  font-family: "AlberSans-Light";
+  src: url("../public/Fonts/helvetica-light-587ebe5a59211.ttf")
+    format("truetype");
+  font-weight: 200;
   font-style: normal;
 }
 
