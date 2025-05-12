@@ -17,7 +17,7 @@ export default function Home() {
       <Hero />
       <Bigfontloop />
       <WeSection />
-      <Works bgcolor="#fffff" />
+      <Works />
       <Expertise />
       <WhyUs />
       <Socials />
