@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Nav from "../Components/Nav";
-import Footer from "../Components/Footer";
+// import Footer from "../Components/Footer";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
