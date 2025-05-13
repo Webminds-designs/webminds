@@ -144,7 +144,7 @@ const Nav: React.FC<NavProps> = ({ bgColor, navTextColor }) => {
           className="flex items-center space-x-16 text-sm font-semibold tracking-wider"
           style={{ color: navTextColor || "#f6f6f6" }} // Default color if not provided
         >
-          {["Home", "Works", "Expertise", "Careers", "Contact"].map(
+          {["Home", "Works", "Expertise", /* "Careers", */ "Contact"].map(
             (item, index) => (
               <li key={index} className="group">
                 <Link
@@ -308,7 +308,7 @@ const Nav: React.FC<NavProps> = ({ bgColor, navTextColor }) => {
           style={{ transformOrigin: "top center", transform: "scaleY(0)" }} // Ensure scale starts from top
         >
           <ul className="space-y-3 text-white text-4xl font-bold text-start">
-            {["Home", "Works", "Experties", "Careers", "Contact"].map(
+            {["Home", "Works", "Experties", /* "Careers", */ "Contact"].map(
               (item, index) => (
                 <li key={index}>
                   <Link
