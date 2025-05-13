@@ -9,6 +9,7 @@ import emailjs from "@emailjs/browser";
 const Contact = () => {
   const [formData, setFormData] = useState({
     fullName: "",
+    email: "",
     mobileNumber: "",
     subject: "",
     message: "",
@@ -66,7 +67,13 @@ const Contact = () => {
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
       );
       setStatus("sent");
-      setFormData({ fullName: "", mobileNumber: "", subject: "", message: "" });
+      setFormData({
+        fullName: "",
+        email: "",
+        mobileNumber: "",
+        subject: "",
+        message: "",
+      });
     } catch (err) {
       console.error("EmailJS error:", err);
       setStatus("error");
@@ -112,6 +119,18 @@ const Contact = () => {
               onChange={handleChange}
               required
               placeholder="Your full name"
+              className="w-full px-4 py-2 bg-transparent border-b border-gray-600 outline-none"
+            />
+          </div>
+          <div>
+            <label className="block mb-2">Email</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              placeholder="Your email address"
               className="w-full px-4 py-2 bg-transparent border-b border-gray-600 outline-none"
             />
           </div>
