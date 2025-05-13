@@ -4,7 +4,7 @@
 import React, { useState, useRef } from "react";
 import Nav from "../Components/Nav";
 import Footer from "../Components/Footer";
-// import Footer from "../Components/Footer";
+import emailjs from "@emailjs/browser";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -13,17 +13,38 @@ const Contact = () => {
     subject: "",
     message: "",
   });
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
+    "idle"
+  );
+  const formRef = useRef<HTMLFormElement>(null);
 
-  // Refs for the container and the H1
+  // Mouse‐move glow setup (unchanged)
   const containerRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
-
-  // Your default glow
   const defaultShadow = `
     16px 4px 20px rgba(45, 95, 157,0.8),
     0px 0px 40px rgba(45, 95, 157,0.3)
   `;
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!containerRef.current || !headingRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = e.clientX - (rect.left + rect.width / 2);
+    const y = e.clientY - (rect.top + rect.height / 2);
+    const maxOffset = 40;
+    const offsetX = (x / (rect.width / 2)) * maxOffset;
+    const offsetY = (y / (rect.height / 2)) * maxOffset;
+    headingRef.current.style.textShadow = `
+      ${-offsetX}px ${-offsetY}px 20px rgba(45, 95, 157,0.8),
+      ${offsetX * 0.5}px ${offsetY * 0.5}px 40px rgba(45, 95, 157,0.3)
+    `;
+  };
+  const handleMouseLeave = () => {
+    if (headingRef.current) {
+      headingRef.current.style.textShadow = defaultShadow;
+    }
+  };
 
+  // Input handlers
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -31,35 +52,24 @@ const Contact = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // EmailJS submit
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
-  };
-
-  // Update text-shadow on mouse move
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!containerRef.current || !headingRef.current) return;
-
-    const rect = containerRef.current.getBoundingClientRect();
-    // coords relative to center of container
-    const x = e.clientX - (rect.left + rect.width / 2);
-    const y = e.clientY - (rect.top + rect.height / 2);
-
-    const maxOffset = 40; // max px from center
-    const offsetX = (x / (rect.width / 2)) * maxOffset;
-    const offsetY = (y / (rect.height / 2)) * maxOffset;
-
-    // apply dynamic glow
-    headingRef.current.style.textShadow = `
-      ${-offsetX}px ${-offsetY}px 20px rgba(45, 95, 157,0.8),
-      ${offsetX * 0.5}px ${offsetY * 0.5}px 40px rgba(45, 95, 157,0.3)
-    `;
-  };
-
-  // Snap back to default glow on leave
-  const handleMouseLeave = () => {
-    if (headingRef.current) {
-      headingRef.current.style.textShadow = defaultShadow;
+    if (!formRef.current) return;
+    setStatus("sending");
+    console.log(process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!);
+    try {
+      await emailjs.sendForm(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        formRef.current,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+      );
+      setStatus("sent");
+      setFormData({ fullName: "", mobileNumber: "", subject: "", message: "" });
+    } catch (err) {
+      console.error("EmailJS error:", err);
+      setStatus("error");
     }
   };
 
@@ -68,7 +78,7 @@ const Contact = () => {
       <Nav bgColor="#212121" />
 
       <div className="min-h-screen bg-gradient-to-b from-[#050505] to-[#010B19] text-white p-10 flex flex-col md:flex-row items-center justify-center font-poppins">
-        {/* Left Panel */}
+        {/* Left Panel with Glow Effect */}
         <div
           ref={containerRef}
           onMouseMove={handleMouseMove}
@@ -78,91 +88,92 @@ const Contact = () => {
           <h1
             ref={headingRef}
             style={{ textShadow: defaultShadow }}
-            className="relative z-10 text-[200px] md:text-[300px] font-bold text-[rgb(248,251,254)] leading-none font-Poppins"
+            className="relative z-10 text-[200px] md:text-[300px] font-bold text-[rgb(248,251,254)] leading-none"
           >
             Hey
           </h1>
-          <p className="relative z-10 mt-12 font-thin font-Poppins pr-32 text-4xl text-[#ded9cf] pl-6">
+          <p className="relative z-10 mt-12 font-thin pr-32 text-4xl text-[#ded9cf] pl-6">
             Let’s start something great together!
           </p>
         </div>
 
-        {/* Form */}
+        {/* Contact Form */}
         <form
+          ref={formRef}
           onSubmit={handleSubmit}
-          className="w-full md:w-1/2 p-4 space-y-8 font-Poppins"
+          className="w-full md:w-1/2 p-4 space-y-8"
         >
-          {/* Full Name */}
           <div>
-            <label className="block mb-5">Full Name</label>
+            <label className="block mb-2">Full Name</label>
             <input
               type="text"
               name="fullName"
               value={formData.fullName}
               onChange={handleChange}
-              placeholder="Enter your full name here"
-              className="w-full px-4 py-2 text-[#E2E2E2]  bg-transparent border-b border-b-gray-400 text-sm outline-none"
+              required
+              placeholder="Your full name"
+              className="w-full px-4 py-2 bg-transparent border-b border-gray-600 outline-none"
             />
           </div>
-
-          {/* Mobile Number */}
           <div>
-            <label className="block mb-5">Mobile Number</label>
+            <label className="block mb-2">Mobile Number</label>
             <input
-              type="text"
+              type="tel"
               name="mobileNumber"
               value={formData.mobileNumber}
               onChange={handleChange}
-              placeholder="Enter your mobile number here"
-              className="w-full px-4 py-2 text-[#E2E2E2]  bg-transparent border-b border-b-gray-400 text-sm outline-none"
+              required
+              placeholder="Your mobile number"
+              className="w-full px-4 py-2 bg-transparent border-b border-gray-600 outline-none"
             />
           </div>
-
-          {/* Subject */}
           <div>
-            <label className="block mb-5">Subject</label>
+            <label className="block mb-2">Subject</label>
             <input
               type="text"
               name="subject"
               value={formData.subject}
               onChange={handleChange}
-              placeholder="What is this about?"
-              className="w-full px-4 py-2 text-[#E2E2E2]  bg-transparent border-b border-b-gray-400 text-sm outline-none"
+              required
+              placeholder="Subject"
+              className="w-full px-4 py-2 bg-transparent border-b border-gray-600 outline-none"
             />
           </div>
-
-          {/* Message */}
-          <div className="relative w-full">
-            <label className="block mb-5">Message</label>
+          <div className="relative">
+            <label className="block mb-2">Message</label>
             <textarea
               name="message"
               value={formData.message}
               onChange={handleChange}
+              required
               rows={4}
-              placeholder="Tell us more about what you need?"
-              className="w-full px-4 pt-4 pb-2 bg-transparent border-b border-b-gray-400 text-sm  outline-none placeholder-transparent resize-none"
+              placeholder="Your message"
+              className="w-full px-4 py-2 bg-transparent border-b border-gray-600 outline-none resize-none"
             />
-            <span className="absolute bottom-4 left-4 text-[#E2E2E2] text-sm pointer-events-none ">
-              {formData.message === "" && "Tell us more about what you need?"}
-            </span>
           </div>
 
-          <div className="flex items-center justify-end mt-8">
-            {/* Submit Button */}
+          <div className="flex justify-end items-center space-x-4">
+            {status === "sending" && <span>Sending…</span>}
+            {status === "sent" && <span className="text-green-400">Sent!</span>}
+            {status === "error" && (
+              <span className="text-red-400">Failed.</span>
+            )}
 
             <button
               type="submit"
-              className="bg-[#ded9cf] text-black px-6 py-2 rounded hover:opacity-80 transition-all "
+              disabled={status === "sending"}
+              className="bg-[#ded9cf] text-black px-6 py-2 rounded hover:opacity-80 transition"
             >
               Send
             </button>
           </div>
         </form>
       </div>
+
       <Footer
         bgColorBottom="#02214d"
-        bgColorTop="#040719"
         bgColorMid="#07101E"
+        bgColorTop="#040719"
       />
     </>
   );
