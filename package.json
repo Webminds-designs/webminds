@@ -14,6 +14,7 @@
     "@splinetool/loader": "^1.9.59",
     "@splinetool/react-spline": "^4.0.0",
     "@studio-freight/lenis": "^1.0.42",
+    "emailjs": "^4.0.3",
     "framer-motion": "^12.0.5",
     "gsap": "^3.12.7",
     "lenis": "^1.1.20",
