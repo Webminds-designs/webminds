@@ -84,22 +84,22 @@ const Contact = () => {
     <>
       <Nav bgColor="#212121" />
 
-      <div className="min-h-screen bg-gradient-to-b from-[#050505] to-[#010B19] text-white p-10 flex flex-col md:flex-row items-center justify-center font-poppins">
+      <div className="min-h-screen bg-gradient-to-b from-[#050505] to-[#010B19] text-white md:px-10 md:py-10 px-4 py-10 flex flex-col md:flex-row items-center justify-center font-poppins">
         {/* Left Panel with Glow Effect */}
         <div
           ref={containerRef}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
-          className="w-full md:w-1/2 p-4 flex flex-col items-start text-left relative overflow-visible cursor-move"
+          className="w-full md:w-1/2 md:p-4 p-1 flex flex-col items-start text-left relative overflow-visible cursor-move"
         >
           <h1
             ref={headingRef}
             style={{ textShadow: defaultShadow }}
-            className="relative z-10 text-[200px] md:text-[300px] font-bold text-[rgb(248,251,254)] leading-none"
+            className="relative  text-[150px] md:text-[300px] font-bold text-[rgb(248,251,254)] leading-none"
           >
             Hey
           </h1>
-          <p className="relative z-10 mt-12 font-thin pr-32 text-4xl text-[#ded9cf] pl-6">
+          <p className="relative z-10 mt-12 font-thin md:pr-32 text-4xl text-[#ded9cf] md:pl-6 pl-3">
             Let’s start something great together!
           </p>
         </div>
@@ -108,7 +108,7 @@ const Contact = () => {
         <form
           ref={formRef}
           onSubmit={handleSubmit}
-          className="w-full md:w-1/2 p-4 space-y-8"
+          className="w-full md:w-1/2 md:px-4 md:py-4 py-8 px-3  space-y-8"
         >
           <div>
             <label className="block mb-2">Full Name</label>
