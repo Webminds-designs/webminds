@@ -99,7 +99,7 @@ const Contact = () => {
           >
             Hey
           </h1>
-          <p className="relative z-10 mt-12 font-thin md:pr-32 text-4xl text-[#ded9cf] md:pl-6 pl-3">
+          <p className="relative mt-12 font-thin md:pr-32 text-4xl text-[#ded9cf] md:pl-6 pl-3">
             Let’s start something great together!
           </p>
         </div>
