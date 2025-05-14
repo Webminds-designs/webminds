@@ -25,7 +25,7 @@ const Footer: React.FC<FooterProp> = ({
       }}
     >
       <div className="w-screen h-fit flex flex-col md:flex-row justify-between  md:p-24">
-        <div className="w-fit h-fit">
+        <div className="md:w-fit w-full h-fit flex md:justify-start justify-center items-center md:items-start">
           <div className="w-24 cursor-pointer z-40">
             <Image src={logo} alt="logo" />
           </div>
