@@ -19,8 +19,8 @@ const Section2 = ({scrollYProgress}) => {
           onClick={handleClick} 
           className="relative w-full h-screen bg-[#f0f0f0] text-[3.5vw] flex flex-col items-center justify-center text-white cursor-pointer"
         >
-      <p className="absolute left-10 bottom-5 text-[100px] font-semibold"
-      style={{ fontFamily: 'AlberSans-Bold, sans-serif', fontWeight: 400, fontStyle: 'normal' , lineHeight: '90px' }}
+      <p  
+      className="absolute left-10 bottom-0 font-normal pb-5 text-[48px] leading-none not-italic font-semibold sm:text-[50px] ml-[-20px] md:text-[80px] lg:text-[120px] cursor-pointer"
       >Social Media Management</p>
 
       <img

@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import Section1 from "./Section1";
 import Section2 from "./Section2";
 import Section3 from "./Section3";
-import Section4 from "./Section5";
+import Section4 from "./Section4";
 
 export default function Expertise() {
   const container = useRef(null);
@@ -44,9 +44,11 @@ export default function Expertise() {
     router.push(path);
   };
 
+    // className="relative bg-[#050505] pt-20 min-h-screen sm:min-h-[200vh] md:min-h-[300vh] lg:min-h-[405vh]"
+
   return (
     <>
-      <main ref={container} className="relative h-[405vh] bg-[#050505] pt-20">
+      <main ref={container} className="relative bg-[#050505] pt-20 min-h-screen sm:min-h-[200vh] md:min-h-[300vh] lg:min-h-[405vh]">
         <Section1 scrollYProgress={scrollYProgress} />
         <Section2 scrollYProgress={scrollYProgress} />
         <Section3 scrollYProgress={scrollYProgress} />
