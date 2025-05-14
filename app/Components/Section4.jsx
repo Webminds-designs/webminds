@@ -28,7 +28,7 @@ const Section2 = ({ scrollYProgress }) => {
 
       <img
         src="/Brand3.jpg"
-        alt="img"
+        alt="Creative branding and design concept with logo sketches, typography samples, and color palette swatches"
         className="w-full h-full object-cover"
       />
       </div>

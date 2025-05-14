@@ -25,7 +25,7 @@ const Section2 = ({scrollYProgress}) => {
 
       <img
         src="/Social-Media2.jpg"
-        alt="img"
+        alt="Social media management dashboard with scheduled posts, engagement metrics, and platform icons"
         className="w-full h-full object-cover"
       />
       </div>

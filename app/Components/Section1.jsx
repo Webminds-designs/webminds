@@ -29,7 +29,8 @@ const Section1 = ({ scrollYProgress }) => {
             >
             Web Development
           </p>
-          <img src="/Website.jpg" alt="img" className="w-full h-full object-cover" />
+          <img src="/Website.jpg" alt="Modern website homepage design showcasing clean UI, responsive layout, and professional web development best practices"
+ className="w-full h-full object-cover" />
         </div>
       </div>
     </motion.div>

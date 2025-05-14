@@ -28,7 +28,7 @@ const Section2 = ({ scrollYProgress }) => {
 
       <img
         src="/DigitalMarketing.jpg"
-        alt="img"
+        alt="Digital marketing strategy concept with social media icons, analytics graphs, and content planning visuals"
         className="w-full h-full object-cover"
       />
       </div>
