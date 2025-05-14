@@ -25,6 +25,8 @@ interface WorkItem {
 
 const filteredTag = "Digital Marketing";
 
+console.log("පාලූ පැලේ මා");
+
 const services = [
   {
     title: "Brand Strategy & Positioning",
@@ -185,7 +187,7 @@ const Page: React.FC = () => {
         >
           <Image
             src="/DigitalMarketing.jpg"
-            alt="Digital Marketing"
+            alt="Top view of digital marketing strategy layout with charts and analytics"            
             fill
             style={{ objectFit: "cover", objectPosition: "top" }}
           />
@@ -218,7 +220,7 @@ const Page: React.FC = () => {
         </div>
       </main>
       <section className="relative text-white py-20 bg-gradient-to-b from-black via-black to-[#050505]">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start justify-between gap-20">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row w-[90%] items-start justify-between gap-20">
           <h2
             ref={(el) => {
               headingRefs.current[0] = el;

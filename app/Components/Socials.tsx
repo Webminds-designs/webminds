@@ -132,31 +132,13 @@ const Page: React.FC<PageProps> = () => {
       <main className={styles.main}>
         <h1
           ref={(el) => void (headingRefs.current[0] = el)}
-          className="text-7xl pl-20 w-full md:text-[100px] lg:text-[220px] opacity-80 font-AlbertSans_Bold text-start mt-6 md:mt-10 text-text bg-[#050505]"
+          className="text-7xl pl-20 w-full sm:mt-100px md:text-[200px] mt-[100px] lg:text-[170px] opacity-80 font-AlbertSans_Bold text-start md:mt-10 text-text bg-[#050505] "
         >
           Our Socials
-          <span className="block text-sm md:text-base lg:text-lg mt-2 ml-6 opacity-60 font-normal">
+          <span className="block text-sm mt-2 ml-6 opacity-60 font-normal md:hidden">
             hover the icons please!
           </span>
         </h1>
-
-        {/* GSAP Animated Scrolling Text */}
-        <div className="overflow-hidden w-full mt-10 mb-10">
-          <div ref={slider} className="flex whitespace-nowrap w-fit">
-            <p
-              ref={firstText}
-              className="text-[80px] md:text-[150px] font-bold uppercase text-white whitespace-nowrap mr-10"
-            >
-              Follow us on socials —
-            </p>
-            <p
-              ref={secondText}
-              className="text-[80px] md:text-[150px] font-bold uppercase text-white whitespace-nowrap"
-            >
-              Follow us on socials —
-            </p>
-          </div>
-        </div>
 
         {/* Icon Grid */}
         <div className={styles.container}>
@@ -184,19 +166,19 @@ const Page: React.FC<PageProps> = () => {
           ].map((icon, index) => (
             <MagneticIcons key={index}>
               <a href={icon.href} target="_blank" rel="noopener noreferrer">
-                <img src={icon.img} alt={icon.alt} />
+                <img className="h-[150px] block" src={icon.img} alt={icon.alt} />
               </a>
             </MagneticIcons>
           ))}
         </div>
 
-        <hr className="border-t-20 border-gray-800 w-[90%] mx-auto bg-black/75" />
+        <hr className="border-gray-800 w-[90%] mx-auto bg-black/75" />
 
         <section className="relative text-white bg-[#050505]">
-          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start justify-between gap-20">
+          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start justify-between gap-20 lg:mt-[-60px]">
             <h2
               ref={(el) => void (headingRefs.current[0] = el)}
-              className="text-lg md:text-xl font-semibold"
+              className="text-lg md:text-xl font-semibold ml-[20px]"
             >
               We Speak
               <br />
@@ -205,7 +187,7 @@ const Page: React.FC<PageProps> = () => {
 
             <div
               ref={(el) => void (headingRefs.current[0] = el)}
-              className="md:w-3/5 text-2xl font-light leading-relaxed"
+              className="md:w-3/5 ml-[20px] text-2xl font-light leading-relaxed"
             >
               <p>
                 Vibes and a whole lot of personality — your brand, but make it

@@ -23,6 +23,8 @@ interface WorkItem {
   tag: string[];
 }
 
+console.log("හුකන වෙලේ...");
+
 const filteredTag = "Branding & Design";
 
 const services = [
@@ -191,8 +193,7 @@ const Page: React.FC = () => {
         >
           <Image
             src="/Brand3.jpg"
-            alt="Web Development"
-            fill
+            alt="Top section of branding concept design for web development project"            fill
             style={{ objectFit: "cover", objectPosition: "top" }} // crop from bottom
           />
           <div
@@ -227,7 +228,7 @@ const Page: React.FC = () => {
       {/* <WhyUs /> */}
 
       <section className="relative text-white py-20 bg-gradient-to-b from-black via-black to-[#050505]">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start justify-between gap-20">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row w-[90%] items-start justify-between gap-20">
           <h2
             ref={(el) => {
               headingRefs.current[0] = el;

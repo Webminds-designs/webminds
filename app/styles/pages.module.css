@@ -54,3 +54,22 @@
 .body span {
   color: #393cec;
 }
+
+/* Optional media queries for fine-tuning */
+@media (max-width: 768px) {
+  .mask,
+  .body {
+    font-size: 5vw;
+    margin-top: 3vw;
+    padding: 2vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .mask,
+  .body {
+    font-size: 7vw;
+    margin-top: 3vw;
+    padding:2vw;
+  }
+}
