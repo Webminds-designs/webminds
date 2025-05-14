@@ -132,10 +132,10 @@ const Page: React.FC<PageProps> = () => {
       <main className={styles.main}>
         <h1
           ref={(el) => void (headingRefs.current[0] = el)}
-          className="text-7xl pl-20 w-full md:text-[100px] lg:text-[170px] opacity-80 font-AlbertSans_Bold text-start md:mt-10 text-text bg-[#050505]"
+          className="text-7xl pl-20 w-full sm:mt-100px md:text-[200px] mt-[100px] lg:text-[170px] opacity-80 font-AlbertSans_Bold text-start md:mt-10 text-text bg-[#050505] "
         >
           Our Socials
-          <span className="block text-sm md:text-base lg:text-lg mt-2 ml-6 opacity-60 font-normal">
+          <span className="block text-sm mt-2 ml-6 opacity-60 font-normal md:hidden">
             hover the icons please!
           </span>
         </h1>
@@ -178,7 +178,7 @@ const Page: React.FC<PageProps> = () => {
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start justify-between gap-20 lg:mt-[-60px]">
             <h2
               ref={(el) => void (headingRefs.current[0] = el)}
-              className="text-lg md:text-xl font-semibold"
+              className="text-lg md:text-xl font-semibold ml-[20px]"
             >
               We Speak
               <br />
@@ -187,7 +187,7 @@ const Page: React.FC<PageProps> = () => {
 
             <div
               ref={(el) => void (headingRefs.current[0] = el)}
-              className="md:w-3/5 text-2xl font-light leading-relaxed"
+              className="md:w-3/5 ml-[20px] text-2xl font-light leading-relaxed"
             >
               <p>
                 Vibes and a whole lot of personality — your brand, but make it
