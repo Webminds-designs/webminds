@@ -55,13 +55,21 @@
   color: #393cec;
 }
 
-/* Optional media queries for fine-tuning */
 @media (max-width: 768px) {
   .mask,
   .body {
     font-size: 5vw;
     margin-top: 3vw;
-    padding: 2vw;
+    padding: 1vw;
+  }
+
+  .body p {
+    width: 80%;
+    padding: 1px;
+  }
+
+  .mask{
+    display: none;
   }
 }
 
@@ -70,6 +78,10 @@
   .body {
     font-size: 7vw;
     margin-top: 3vw;
-    padding:2vw;
+    padding:0.5vw;
+  }
+
+  .mask{
+    display: none;
   }
 }
