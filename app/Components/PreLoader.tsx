@@ -96,7 +96,11 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
           opacity: 0,
           duration: 0.8,
           ease: "power2.out",
-          onComplete: onFinish,
+          onComplete: () => {
+            setTimeout(() => {
+              onFinish();
+            }, 2000); // 2-second extra wait
+          },
         });
     };
 
