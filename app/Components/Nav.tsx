@@ -156,7 +156,7 @@ const Nav: React.FC<NavProps> = ({ bgColor, navTextColor }) => {
   };
 
   return (
-    <div className="w-screen font-AlbertSans_Regular flex justify-between items-center px-6 lg:px-20 py-6 top-0 z-10 overflow-hidden fixed">
+    <div className="w-screen font-AlbertSans_Regular flex justify-between items-center px-6 lg:px-20 py-6 top-0 z-10 overflow-hidden fixed md:bg-transparent bg-[#212121] bg-opacity-50 ">
       {/* Logo */}
       <div
         className="font-bold text-2xl leading-none tracking-wide flex items-start z-20"
@@ -267,9 +267,15 @@ const Nav: React.FC<NavProps> = ({ bgColor, navTextColor }) => {
           className="text-white text-2xl focus:outline-none transition-transform duration-300"
         >
           {isMobileMenuOpen ? (
-            <IoClose className="transform rotate-180" />
+            <IoClose
+              className="transform rotate-180"
+              style={{ color: navTextColor || "#f6f6f6" }}
+            />
           ) : (
-            <HiMenuAlt1 className="transform rotate-0" />
+            <HiMenuAlt1
+              className="transform rotate-0"
+              style={{ color: navTextColor || "#f6f6f6" }}
+            />
           )}
         </button>
       </div>
