@@ -2,7 +2,8 @@
 
 import Nav from "./Components/Nav";
 import WeSection from "./Components/WeSection";
-import Socials from "./Components/Socials";
+// import Socials from "./Components/Socials";
+import { RevealLinks } from "./Components/SocialsLinks";
 import WhyUs from "./Components/WhyUs";
 import Hero from "./Components/Hero";
 import Bigfontloop from "./Components/Bigfontloop";
@@ -20,7 +21,7 @@ export default function Home() {
       <Works />
       <Expertise />
       <WhyUs />
-      <Socials />
+      <RevealLinks />
       <Footer
         bgColorBottom="#141647"
         bgColorMid="#06060f"
