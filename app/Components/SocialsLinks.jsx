@@ -13,20 +13,16 @@ export const RevealLinks = () => {
     <>
       <section className="grid place-content-center gap-2 px-8 py-24 text-[#f6f6f6] bg-[#050505]">
         <FlipLink href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer">
-          Tiktok
-        </FlipLink>
-        <FlipLink href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">
-          Youtube
+          Behance
         </FlipLink>
         <FlipLink href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
           Facebook
         </FlipLink>
-        <FlipLink
-          href="https://www.instagram.com/webminds.designs?igsh=ZHVhaXdmNGY1emFz"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <FlipLink href="https://www.instagram.com/webminds.designs?igsh=ZHVhaXdmNGY1emFz" target="_blank" rel="noopener noreferrer">
           Instagram
+        </FlipLink>
+        <FlipLink href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">
+          LinkedIn
         </FlipLink>
       </section>
 
@@ -43,7 +39,7 @@ const FlipLink = ({ children, href, ...props }) => {
       whileHover="hovered"
       href={href}
       {...props}
-      className="relative block overflow-hidden whitespace-nowrap text-4xl font-black uppercase sm:text-7xl md:text-8xl lg:text-9xl"
+      className="group relative block overflow-hidden whitespace-nowrap text-6xl font-black uppercase text-[#f6f6f6] hover:text-[#00FFA3] sm:text-7xl md:text-8xl lg:text-9xl "
       style={{ lineHeight: 0.8 }}
     >
       <div>
@@ -58,7 +54,7 @@ const FlipLink = ({ children, href, ...props }) => {
               ease: "easeInOut",
               delay: STAGGER * i,
             }}
-            className="inline-block"
+            className="inline-block group-hover:text-[#393cec]"
             key={`top-${i}`}
           >
             {l}
@@ -77,7 +73,7 @@ const FlipLink = ({ children, href, ...props }) => {
               ease: "easeInOut",
               delay: STAGGER * i,
             }}
-            className="inline-block"
+            className="inline-block group-hover:text-[#393cec]"
             key={`bottom-${i}`}
           >
             {l}
