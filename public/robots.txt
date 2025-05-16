@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.webminds.com
+
+# Sitemaps
+Sitemap: https://www.webminds.com/sitemap.xml
