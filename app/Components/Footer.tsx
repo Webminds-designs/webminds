@@ -19,7 +19,7 @@ const Footer: React.FC<FooterProp> = ({
 }) => {
   return (
     <div
-      className="w-screen h-fit  z-10 relative font-AlbertSans_Regular "
+      className="w-screen h-fit pt-4 z-10 relative font-AlbertSans_Regular "
       style={{
         background: `linear-gradient(to bottom,${bgColorTop} 0%, ${bgColorMid} 20%, ${bgColorBottom} 100%)`,
       }}
