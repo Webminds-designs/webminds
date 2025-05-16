@@ -1,7 +1,9 @@
+// import { text } from "stream/consumers";
+
 const worksData = [
   {
     id: 1,
-    img: "/assets/articianLand.png",
+    img: "/assets/articianLand.jpg",
     imgPor: "/assets/works/ArA.jpg",
     name: "Artisan Antiques",
     textOverlay: "Pieces that bring stories to life",
@@ -24,14 +26,14 @@ const worksData = [
       "Digital Marketing",
       "Social Media",
     ],
-    navBgColor: "bg-[#ffffff]",
-    navTextColor: "#683b21",
+    navBgColor: "#111111",
+    navTextColor: "#CAC1B4",
     footerTextColor: "text-green-500",
-    footerBgColor: "#422f21",
+    footerBgColor: "#CAC1B4",
   },
   {
     id: 2,
-    img: "/assets/besLand.jpg",
+    img: "/assets/BespokeFurniture.jpg",
     imgPor: "/assets/works/ArB.jpg",
     name: "Bespoke Furniture",
     textOverlay: "Where Heritage Meets Elegance",
@@ -64,12 +66,12 @@ const worksData = [
   },
   {
     id: 3,
-    img: "/assets/OdLand.jpg",
+    img: "/assets/Odessa.jpg",
     imgPor: "/assets/works/Od.jpg",
     name: "Odessa",
     textOverlay: "Crafting Your Unique Diamond Jowelry",
     description:
-      "At Odyssey, we believe that every piece of jewelry tells a unique story of elegance and craftsmanship. Specializing in sustainable luxury, Odyssey combines timeless artistry with modern design to create exclusive collections.",
+      "For Odessa, we crafted a high-end digital experience that reflects their commitment to sustainable luxury and fine craftsmanship. Our team handled the full spectrum of development—from responsive frontend architecture using Next.js and TailwindCSS to seamless UI design in Figma. We built a custom website that not only showcases their premium jewelry collections but also enhances brand storytelling through strategic content structuring, optimized SEO, and social media integration.",
     technology: {
       frontendDevelopment: ["Next.js", "TailwindCSS"],
       designTools: ["Figma"],
@@ -84,14 +86,14 @@ const worksData = [
     ],
 
     tag: ["Web Development", "Branding & Desing"],
-    navBgColor: "#C98A59",
-    navTextColor: "#fffdfc",
+    navBgColor: "#656766",
+    navTextColor: "#EAC6A3",
     footerTextColor: "text-green-500",
-    footerBgColor: "#C98A59",
+    footerBgColor: "#EAC6A3",
   },
   {
     id: 4,
-    img: "/assets/BZLand.jpg",
+    img: "/assets/BioZone.jpg",
     imgPor: "/assets/works/BZ.jpg",
     name: "BioZone",
     textOverlay: "Unleashing Your Potential in Biology",
@@ -114,14 +116,14 @@ const worksData = [
     ],
 
     tag: ["Web Development", "Branding & Desing"],
-    navBgColor: "#1B8093",
-    navTextColor: "#fffdfc",
+    navBgColor: "#7475B2",
+    navTextColor: "#3BCACE",
     footerTextColor: "text-green-500",
-    footerBgColor: "#1B8093",
+    footerBgColor: "#3BCACE",
   },
   {
     id: 5,
-    img: "/assets/lolinsLand.jpg",
+    img: "/assets/Lolins.jpg",
     imgPor: "/assets/works/LL.jpg",
     name: "Lolins",
     textOverlay: "Redefining Beauty, One Style at a Time",
@@ -148,12 +150,12 @@ const worksData = [
   },
   {
     id: 6,
-    img: "/assets/lolinsLand.png",
+    img: "/assets/TrafficToursSL.jpg",
     imgPor: "/assets/works/STT.jpg",
-    name: "Odyssey",
-    textOverlay: "Crafting Your Unique Diamond Jowelry",
+    name: "Sri Lanka Traffic Tours",
+    textOverlay: "Your Gateway to Unforgettable Journeys",
     description:
-      "At Odyssey, we believe that every piece of jewelry tells a unique story of elegance and craftsmanship. Specializing in sustainable luxury, Odyssey combines timeless artistry with modern design to create exclusive collections.",
+      "We built the Sri Lanka Traffic Tours website using Next.js and Tailwind CSS, delivering a fast, modern platform with flawless responsiveness. The UI/UX was prototyped in Figma and meticulously translated into an intuitive interface with a vibrant color palette and clean typography reflecting the brand’s identity. We also integrated smooth, interactive animations (leveraging modern libraries like GSAP and Framer Motion) to enhance user engagement without compromising performance. Key features include an SEO-optimized service showcase, an intuitive booking flow, and seamlessly integrated social media links — all contributing to an attractive, user-friendly experience.",
     technology: {
       frontendDevelopment: ["Next.js", "TailwindCSS"],
       designTools: ["Figma"],
@@ -168,20 +170,20 @@ const worksData = [
     ],
 
     tag: ["Web Development", "Branding & Desing"],
-    navBgColor: "bg-[#ffffff]",
-    navTextColor: "#683b21",
+    navBgColor: "#3D3E72",
+    navTextColor: "#A0E0E1",
     footerTextColor: "text-green-500",
-    footerBgColor: "#683b21",
+    footerBgColor: "#A0E0E1",
   },
 
   {
     id: 7,
-    img: "/assets/IGLLand.jpg",
+    img: "/assets/IGL.jpg",
     imgPor: "/assets/works/IGL.jpg",
-    name: "Bijou",
-    textOverlay: "Jewels That Define Elegance",
+    name: "IGL",
+    textOverlay: "Your Trusted Partner in Global Education",
     description:
-      "At Bijou, we believe that every piece of jewelry tells a unique story of elegance and craftsmanship. Specializing in sustainable luxury, Bijou combines timeless artistry with modern design to create exclusive collections.",
+      "We partnered with IGL Sri Lanka to build a dynamic digital platform that reflects their leadership in migration and overseas education services. Using React.js and TailwindCSS, we developed a responsive, user-friendly interface designed in Figma. The site highlights their expertise in student guidance, visa support, and global university placements, while SEO and social media integration ensure strong visibility and engagement.",
     technology: {
       frontendDevelopment: ["React.js", "TailwindCSS"],
       designTools: ["Figma"],
@@ -197,14 +199,14 @@ const worksData = [
     ],
 
     tag: ["Web Development", "Branding & Desing", "Digital Marketing"],
-    navBgColor: "#0EA576",
-    navTextColor: "white",
+    navBgColor: "#5C314F",
+    navTextColor: "#5FC8D2",
     footerTextColor: "text-green-500",
-    footerBgColor: "#0EA576",
+    footerBgColor: "#5FC8D2",
   },
   {
     id: 8,
-    img: "/assets/jimLand.jpg",
+    img: "/assets/Jimmu.jpg",
     imgPor: "/assets/works/JIM.jpg",
     name: "Jimmu",
     textOverlay: "Empowering Journeys, One Insight at a Time",
