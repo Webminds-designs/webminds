@@ -19,6 +19,7 @@ interface WorkItem {
   textOverlay: string;
   description: string;
   img: string;
+  imgPor?: string;
   technology: {
     frontendDevelopment?: string[];
     backendDevelopment?: string[];
@@ -52,8 +53,6 @@ const ProjectPage = () => {
     );
   }
 
-  console.log("Project bg color:", project.navBgColor);
-
   return (
     <>
       <Nav bgColor={project.navBgColor} navTextColor={project.navTextColor} />
@@ -71,44 +70,63 @@ const ProjectPage = () => {
             ref={imageRef}
             className="w-screen h-screen overflow-hidden shadow-lg"
           >
+            {/* Landscape image for larger screens */}
             <Image
-              key={project.id}
+              key={`${project.id}-landscape`}
               src={project.img}
-              alt={project.name}
+              alt={`${project.name} Landscape`}
               width={0}
               height={0}
               sizes="100%"
-              className="w-full h-screen md:h-full object-cover object-right md:object-cover md:object-bottom"
-              loading="lazy" // ✅ Remove index check, load eagerly
-              placeholder="blur" // Optional: Blur effect before loading
-              blurDataURL="/placeholder.jpg" // Placeholder image (low-quality version)
+              className="hidden md:block w-full h-screen object-cover"
+              loading="lazy"
+              placeholder="blur"
+              blurDataURL="/placeholder.jpg"
+            />
+
+            {/* Portrait image for smaller (mobile) screens */}
+            <Image
+              key={`${project.id}-portrait`}
+              src={project.imgPor || project.img}
+              alt={`${project.name} Portrait`}
+              width={0}
+              height={0}
+              sizes="100%"
+              className="block md:hidden w-full h-screen object-cover object-bottom"
+              loading="lazy"
+              placeholder="blur"
+              blurDataURL="/placeholder.jpg"
             />
           </motion.div>
         </div>
-        <div className="w-screen h-screen flex bg-[#0a0a0a]">
+
+        <div className="w-screen md:h-screen h-full flex flex-col md:flex-row bg-[#0a0a0a]">
           {/* Project Description */}
-          <div className="w-2/3 h-screen flex justify-center items-center text-start p-6  md:p-12 lg:p-24">
-            <p className="mt-6 text-xl md:text-2xl lg:text-4xl text-text  text-start font-AlbertSans_Regular leading-loose">
+          <div className="w-full md:w-2/3 h-full flex justify-center items-center text-start p-6 md:p-12 lg:p-24">
+            <p className="mt-6 text-xl md:text-2xl lg:text-4xl text-text font-AlbertSans_Regular leading-loose">
               {project.description}
             </p>
           </div>
-          <div className="w-1/3 h-screen bg-[#212121] md:p-12 flex justify-between items-center">
-            <div className="w-full h-full flex flex-col justify-center items-center font-AlbertSans_Regular">
+
+          {/* Tech + Services */}
+          {/* Tech + Services */}
+          <div className="w-full md:w-1/3 bg-[#212121] md:p-12 p-6 flex justify-center items-center">
+            <div className="w-full flex flex-col justify-start items-center font-AlbertSans_Regular gap-8">
               {/* Technologies Used */}
-              <div className="mt-6 w-full flex-col justify-between items-center max-w-3xl ">
+              <div className="w-full max-w-3xl">
                 <h3 className="text-xl font-bold mb-2">Technologies Used:</h3>
-                <div className="flex flex-col  pl-4 gap-3">
+                <div className="flex flex-col pl-4 gap-4">
                   {Object.entries(project.technology).map(
                     ([category, techList]) => (
                       <div key={category}>
                         <h4 className="text-md font-semibold text-gray-400 mb-1">
                           {category.replace(/([A-Z])/g, " $1").trim()}
                         </h4>
-                        <div className="flex flex-warp gap-2 ">
+                        <div className="flex flex-wrap gap-2">
                           {techList?.map((tech, index) => (
                             <motion.span
                               key={index}
-                              className="px-4 py-2  bg-opacity-80 rounded-md text-sm"
+                              className="px-4 py-2 bg-opacity-80 rounded-md text-sm bg-[#333]"
                               initial={{ scale: 0.8, opacity: 0 }}
                               animate={{ scale: 1, opacity: 1 }}
                               transition={{
@@ -127,9 +145,9 @@ const ProjectPage = () => {
               </div>
 
               {/* Services */}
-              <div className="mt-6 w-full max-w-3xl">
+              <div className="w-full max-w-3xl">
                 <h3 className="text-xl font-bold mb-2">Services:</h3>
-                <ul className="list-none flex flex-col pl-4 list-inside text-gray-300 gap-2">
+                <ul className="list-none flex flex-col pl-4 text-gray-300 gap-2">
                   {project.services.map((service, index) => (
                     <li key={index}>{service}</li>
                   ))}
