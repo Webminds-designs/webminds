@@ -291,7 +291,13 @@ const Nav: React.FC<NavProps> = ({ bgColor, navTextColor }) => {
             {["Home", "Works", "Contact"].map((item, index) => (
               <li key={index}>
                 <Link
-                  href={`/${item.toLowerCase()}`}
+                  href={
+                    item === "Home"
+                      ? "/"
+                      : item === "Expertise"
+                      ? "#"
+                      : `/${item.toLowerCase()}`
+                  }
                   onClick={toggleMenu}
                   className="hover:opacity-70 block"
                 >
