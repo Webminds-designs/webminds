@@ -28,8 +28,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 64px;
   cursor: none;
+  font-size: clamp(1.25rem, 4vw, 4rem);
 }
 
 .body {
@@ -39,15 +39,15 @@
   align-items: center;
   justify-content: center;
   color: #f6f6f6;
-  font-size: 64px;
   cursor: none;
+  font-size: clamp(1.25rem, 4vw, 4rem);
 }
 
-/* Specific styles for text inside .mask and .body */
+/* Shared text styling */
 .mask p,
 .body p {
   width: 90%;
-  padding: 40px;
+  padding: 2rem;
 }
 
 .mask span,
@@ -55,33 +55,21 @@
   color: #393cec;
 }
 
+/* Responsive overrides */
 @media (max-width: 768px) {
-  .mask,
-  .body {
-    font-size: 5vw;
-    margin-top: 3vw;
-    padding: 1vw;
+  .mask {
+    display: none;
   }
 
   .body p {
-    width: 80%;
-    padding: 1px;
-  }
-
-  .mask{
-    display: none;
+    width: 85%;
+    padding: 1rem;
   }
 }
 
 @media (max-width: 480px) {
-  .mask,
-  .body {
-    font-size: 7vw;
-    margin-top: 3vw;
-    padding:0.5vw;
-  }
-
-  .mask{
-    display: none;
+  .body p {
+    width: 90%;
+    padding: 0.5rem;
   }
 }
