@@ -71,7 +71,7 @@ const Works: React.FC = () => {
         </div>
       </div>
 
-      <hr className="border-t-20 border-gray-800 w-[90%] mx-auto bg-black/75" />
+      <hr className="border-t-20 border-gray-800 w-[90%] mx-auto5" />
 
       <section className="min-h-content text-white px-6 md:px-20 py-20 bg-[#050505]">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-16">
@@ -83,7 +83,7 @@ const Works: React.FC = () => {
         </div>
       </section>
 
-      <hr className="border-t-20 border-gray-800 w-[90%] mx-auto bg-black/75" />
+      <hr className="border-t-20 border-gray-800 w-[90%] mx-auto" />
     </>
   );
 };

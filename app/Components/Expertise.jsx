@@ -44,17 +44,20 @@ export default function Expertise() {
     router.push(path);
   };
 
-    // className="relative bg-[#050505] pt-20 min-h-screen sm:min-h-[200vh] md:min-h-[300vh] lg:min-h-[405vh]"
+  // className="relative bg-[#050505] pt-20 min-h-screen sm:min-h-[200vh] md:min-h-[300vh] lg:min-h-[405vh]"
 
   return (
     <>
-      <main ref={container} className="relative bg-[#050505] pt-20 min-h-screen sm:min-h-[200vh] md:min-h-[300vh] lg:min-h-[405vh]">
+      <main
+        ref={container}
+        className="relative bg-[#050505] pt-20 min-h-screen sm:min-h-[200vh] md:min-h-[300vh] lg:min-h-[405vh]"
+      >
         <Section1 scrollYProgress={scrollYProgress} />
         <Section2 scrollYProgress={scrollYProgress} />
         <Section3 scrollYProgress={scrollYProgress} />
         <Section4 scrollYProgress={scrollYProgress} />
 
-        <hr className="border-t-20 border-gray-800 w-[90%] mx-auto bg-black/75" />
+        <hr className="border-t-20 border-gray-800 w-[90%] mx-auto" />
       </main>
     </>
   );
