@@ -2,10 +2,10 @@
 
 import Head from "next/head";
 import Image from "next/image";
-import Nav from "./Components/Nav";
-import ParallaxText from "./Components/ParallaxText";
+import ParallaxText from "../Components/ParallaxText";
+import Nav from "../Components/Nav";
 
-export default function NotFound() {
+export default function ComingSoon() {
   return (
     <>
       <Head>
@@ -27,13 +27,14 @@ export default function NotFound() {
 
         {/* Content */}
         <div className="relative text-center flex flex-col justify-end min-h-screen px-4">
-          <h2 className="text-4xl font-bold  text-[#a3cffa]">404</h2>
-          <h1 className="text-5xl font-bold  text-[#a3cffa]">We are sorry!</h1>
+          <h1 className="text-5xl font-bold mb-8 text-[#a3cffa]">
+            Not available yet
+          </h1>
           <ParallaxText
             baseVelocity={-0.6}
-            fontSize="md:text-[250px] text-[150px]"
+            fontSize="md:text-[300px] text-[150px]"
           >
-            - Page Not Available -
+            - Coming Soon -
           </ParallaxText>
         </div>
       </main>

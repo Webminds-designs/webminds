@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React, { useRef } from "react";
 import { motion } from "framer-motion";
@@ -12,22 +12,37 @@ export const RevealLinks = () => {
   return (
     <>
       <section className="grid place-content-center gap-2 px-8 py-24 text-[#f6f6f6] bg-[#050505]">
-        <FlipLink href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer">
+        <FlipLink
+          href="/notAvailable"
+          // target="_blank"
+          rel="noopener noreferrer"
+        >
           Behance
         </FlipLink>
-        <FlipLink href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+        <FlipLink
+          href="https://www.facebook.com/share/1L3fUquxz1/?mibextid=wwXIfr"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Facebook
         </FlipLink>
-        <FlipLink href="https://www.instagram.com/webminds.designs?igsh=ZHVhaXdmNGY1emFz" target="_blank" rel="noopener noreferrer">
+        <FlipLink
+          href="https://www.instagram.com/webminds.designs?igsh=ZHVhaXdmNGY1emFz"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Instagram
         </FlipLink>
-        <FlipLink href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">
+        <FlipLink
+          href="https://www.linkedin.com/company/webmindsuk/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           LinkedIn
         </FlipLink>
       </section>
 
       <hr className="border-t-20 border-gray-800 w-[90%] mx-auto bg-black/75" />
-
     </>
   );
 };
