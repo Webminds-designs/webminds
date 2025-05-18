@@ -57,7 +57,7 @@ export default function Expertise() {
         <Section3 scrollYProgress={scrollYProgress} />
         <Section4 scrollYProgress={scrollYProgress} />
 
-        <hr className="border-t-20 border-gray-800 w-[90%] mx-auto" />
+        <hr className="border-t-20 border-gray-800 w-[90%] mx-auto bg-black/75" />
       </main>
     </>
   );
