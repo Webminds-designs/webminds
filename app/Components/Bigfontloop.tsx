@@ -10,9 +10,8 @@ const Bigfontloop = () => {
           <div className=" white">ordinary</div>
           <div className="white">minds</div>
         </div>
-        <ParallaxText baseVelocity={-0.4} fontSize="text-[200px]">
-          Crafting Beyond Ordinary Minds - Crafting Beyond Ordinary Minds -
-          Crafting Beyond Ordinary Minds -
+        <ParallaxText baseVelocity={-0.6} fontSize="text-[200px]">
+          - Crafting Beyond Ordinary Minds -
         </ParallaxText>
       </main>
       {/* space for other content */}
