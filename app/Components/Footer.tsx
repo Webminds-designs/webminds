@@ -158,7 +158,7 @@ const Footer: React.FC<FooterProp> = ({
               </a>
               <a
                 className="cursor-pointer hover:underline"
-                href="/notAvailable"
+                href="https://www.tiktok.com/@webmindsuk?_t=ZS-8wSvYiG6gXS&_r=1"
                 target="_blank"
                 rel="noopener noreferrer"
               >
