@@ -14,7 +14,7 @@ export const RevealLinks = () => {
       <section className="grid place-content-center gap-2 px-8 py-24 text-[#f6f6f6] bg-[#050505]">
         <FlipLink
           href="/notAvailable"
-          // target="_blank"
+          target="_blank"
           rel="noopener noreferrer"
         >
           Behance
