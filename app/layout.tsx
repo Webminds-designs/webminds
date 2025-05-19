@@ -17,6 +17,48 @@ export const metadata: Metadata = {
   keywords: [
     "WebMinds",
     "digital agency",
+    "WebMinds designs",
+    "web development",
+    "web design agency",
+    "web design studio",
+    "web design company",
+    "web design services",
+    "web development agency",
+    "web development studio",
+    "software development",
+    "software development company",
+    "software development services",
+    "software development agency",
+    "digital marketing",
+    "digital marketing agency",
+    "digital marketing services",
+    "digital marketing company",
+    "branding",
+    "branding agency",
+    "branding services",
+    "branding company",
+    "graphic design",
+    "graphic design agency",
+    "graphic design services",
+    "low budget web design",
+    "affordable web design",
+    "cheap web design",
+    "custom web design",
+    "responsive web design",
+    "ecommerce web design",
+    "wordpress web design",
+    "ui design",
+    "ux design",
+    "user experience design",
+    "user interface design",
+    "luxury web design",
+    "minimalist web design",
+    "modern web design",
+    "creative web design",
+    "professional web design",
+    "social media marketing",
+    "search engine optimization",
+    "SEO",
     "web design",
     "creative studio",
     "next.js",
@@ -50,7 +92,6 @@ export const metadata: Metadata = {
     icon: "/favicon.png",
   },
 };
-
 export default function RootLayout({
   children,
 }: {
@@ -61,6 +102,18 @@ export default function RootLayout({
       <head>
         <link rel="stylesheet" href="https://use.typekit.net/gfv5wee.css" />
         <link rel="icon" href="/favicon.png" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.addEventListener('error', function(e) {
+                var chunkFailedMessage = /ChunkLoadError/;
+                if (e.message && chunkFailedMessage.test(e.message)) {
+                  window.location.reload();
+                }
+              });
+            `,
+          }}
+        />
       </head>
       <body className={`${FunnelDisplay.variable} antialiased`}>
         <ClientLayout>{children}</ClientLayout>

@@ -132,10 +132,38 @@ const Footer: React.FC<FooterProp> = ({
               Follow Us
             </div>
             <ul className="list-none text-text flex flex-col gap-2 text-sm items-center md:items-start">
-              <li className="cursor-pointer hover:underline">Instagran</li>
-              <li className="cursor-pointer hover:underline">Youtube</li>
-              <li className="cursor-pointer hover:underline">Facebook</li>
-              <li className="cursor-pointer hover:underline">Tiktok</li>
+              <a
+                className="cursor-pointer hover:underline"
+                href="https://www.linkedin.com/company/webmindsuk/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Instagran
+              </a>
+              <a
+                className="cursor-pointer hover:underline"
+                href="/notAvailable"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Youtube
+              </a>
+              <a
+                className="cursor-pointer hover:underline"
+                href="https://www.facebook.com/share/1L3fUquxz1/?mibextid=wwXIfr"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Facebook
+              </a>
+              <a
+                className="cursor-pointer hover:underline"
+                href="https://www.tiktok.com/@webmindsuk?_t=ZS-8wSvYiG6gXS&_r=1"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Tiktok
+              </a>
             </ul>
           </div>
         </div>
