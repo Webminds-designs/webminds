@@ -50,7 +50,6 @@ export const metadata: Metadata = {
     icon: "/favicon.png",
   },
 };
-
 export default function RootLayout({
   children,
 }: {
@@ -61,6 +60,18 @@ export default function RootLayout({
       <head>
         <link rel="stylesheet" href="https://use.typekit.net/gfv5wee.css" />
         <link rel="icon" href="/favicon.png" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.addEventListener('error', function(e) {
+                var chunkFailedMessage = /ChunkLoadError/;
+                if (e.message && chunkFailedMessage.test(e.message)) {
+                  window.location.reload();
+                }
+              });
+            `,
+          }}
+        />
       </head>
       <body className={`${FunnelDisplay.variable} antialiased`}>
         <ClientLayout>{children}</ClientLayout>
