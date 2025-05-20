@@ -18,10 +18,10 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
   const logoRef = useRef<HTMLDivElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
 
-  // We'll mirror the current progress here so our load-handler sees updates
   const progressRef = useRef(0);
+  const fallbackFinishRef = useRef<number | undefined>(undefined);
 
-  // 1️⃣ Smooth progress interpolation (runs whenever targetProgress changes)
+  // Smooth progress interpolation
   useEffect(() => {
     let rafId: number;
     const tick = () => {
@@ -38,16 +38,16 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
     return () => cancelAnimationFrame(rafId);
   }, [targetProgress]);
 
-  // 2️⃣ Update the “stage” text based on progress
+  // Update stage text
   useEffect(() => {
     if (progress < 25) setStageText("Hydrating app...");
     else if (progress < 50) setStageText("Loading fonts...");
-    else if (progress < 90) setStageText("Loading images...");
+    else if (progress < 90) setStageText("Loading assets...");
     else if (progress < 100) setStageText("Finalizing...");
     else setStageText("Complete!");
   }, [progress]);
 
-  // 3️⃣ Glow follows the cursor
+  // Glow follows cursor
   useEffect(() => {
     const move = (e: MouseEvent) => {
       if (glowRef.current) {
@@ -58,18 +58,14 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
     return () => window.removeEventListener("mousemove", move);
   }, []);
 
-  // 4️⃣ Main loader logic (runs once on mount)
+  // Main loader logic
   useEffect(() => {
-    // — network-speed check
-    // Define NetworkInformation type if not present
-    type NetworkInformation = {
-      effectiveType?: string;
-    };
-
+    // Network speed check
+    type NetInfo = { effectiveType?: string };
     const nav = navigator as Navigator & {
-      connection?: NetworkInformation;
-      mozConnection?: NetworkInformation;
-      webkitConnection?: NetworkInformation;
+      connection?: NetInfo;
+      mozConnection?: NetInfo;
+      webkitConnection?: NetInfo;
     };
     const conn = nav.connection || nav.mozConnection || nav.webkitConnection;
     if (
@@ -79,16 +75,14 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
       setIsSlowNetwork(true);
     }
 
-    // — chunk-error fallback
+    // Chunk load error fallback
     const errorHandler = (e: ErrorEvent) => {
       if (e.message?.includes("ChunkLoadError")) setIsSlowNetwork(true);
     };
     window.addEventListener("error", errorHandler);
 
-    // kick off at 25%
+    // Start progress and logo animation
     setTargetProgress(25);
-
-    // logo intro
     gsap.to(logoRef.current, {
       scale: 1,
       opacity: 1,
@@ -96,47 +90,25 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
       ease: "power2.out",
     });
 
-    // fonts →
-    document.fonts.ready.then(() => setTargetProgress(50));
-
-    // images + fallback
-    const images = Array.from(document.images);
-    let loadedCount = 0;
-    const total = images.length;
-    let fallbackTriggered = false;
-    const fallbackTimeout = setTimeout(() => {
-      fallbackTriggered = true;
-      console.warn("Some images didn’t load in time—continuing anyway.");
+    // Fonts loaded -> 50%, then assets -> 90%
+    document.fonts.ready.then(() => {
+      setTargetProgress(50);
+      // move to 90% quickly
       setTargetProgress(90);
-    }, 7000);
+      // fallback finish after 2s
+      fallbackFinishRef.current = window.setTimeout(() => {
+        if (progressRef.current < 100) onFinish();
+      }, 2000);
+    });
 
-    const markDone = () => {
-      loadedCount++;
-      if (loadedCount === total && !fallbackTriggered) {
-        clearTimeout(fallbackTimeout);
-        setTargetProgress(90);
-      }
-    };
-
-    if (total === 0) {
-      clearTimeout(fallbackTimeout);
-      setTargetProgress(90);
-    } else {
-      images.forEach((img) => {
-        if (img.complete) markDone();
-        else {
-          img.onload = markDone;
-          img.onerror = markDone;
-        }
-      });
-    }
-
-    // final window.load → 100% + exit anim
+    // Final window load -> 100% + exit
     const handleLoad = () => {
       setTargetProgress(100);
-      const chk = setInterval(() => {
+      const chk = window.setInterval(() => {
         if (progressRef.current >= 99.9) {
           clearInterval(chk);
+          if (fallbackFinishRef.current)
+            clearTimeout(fallbackFinishRef.current);
           gsap
             .timeline()
             .to(logoRef.current, {
@@ -154,11 +126,12 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
       }, 100);
     };
     window.addEventListener("load", handleLoad);
+    if (document.readyState === "complete") handleLoad();
 
     return () => {
       window.removeEventListener("load", handleLoad);
       window.removeEventListener("error", errorHandler);
-      clearTimeout(fallbackTimeout);
+      if (fallbackFinishRef.current) clearTimeout(fallbackFinishRef.current);
     };
   }, [onFinish]);
 
@@ -166,7 +139,7 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
     <>
       <div
         ref={wrapperRef}
-        className="preloader-wrapper fixed inset-0 z-[9999] flex flex-col items-center justify-center text-white overflow-hidden bg-gradient transition-opacity duration-500"
+        className="preloader-wrapper fixed inset-0 z-[9999] flex flex-col items-center justify-center text-white bg-gradient overflow-hidden transition-opacity duration-500"
       >
         <div
           ref={glowRef}
@@ -174,19 +147,17 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
             position: "fixed",
             top: 0,
             left: 0,
-            width: "250px",
-            height: "250px",
+            width: 250,
+            height: 250,
             borderRadius: "9999px",
-            backgroundColor: "rgba(59, 130, 246, 0.2)",
+            backgroundColor: "rgba(59,130,246,0.2)",
             filter: "blur(60px)",
             pointerEvents: "none",
-            transform: "translate(-50%, -50%)",
+            transform: "translate(-50%,-50%)",
             transition: "transform 0.1s ease",
             zIndex: 0,
           }}
         />
-
-        {/* Logo */}
         <div
           ref={logoRef}
           className="font-bold md:text-6xl text-3xl tracking-wider scale-50 opacity-0 transition-all duration-500 z-10"
@@ -197,25 +168,18 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
             ™
           </span>
         </div>
-
-        {/* % */}
         <p className="mt-12 text-lg tracking-widest font-mono z-10">
           Loading... {Math.round(progress)}%
         </p>
-
-        {/* Stage */}
         <p className="mt-2 text-xs text-gray-400 animate-pulse z-10">
           {stageText}
         </p>
-
-        {/* Slow-network warning */}
         {isSlowNetwork && (
           <p className="mt-4 text-xs text-red-400 text-center max-w-xs z-10">
             Your network seems slow. Please wait while we load the app.
           </p>
         )}
       </div>
-
       <style jsx global>{`
         @keyframes gradientFlow {
           0%,
