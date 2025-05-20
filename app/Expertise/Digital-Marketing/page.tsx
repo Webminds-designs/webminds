@@ -187,9 +187,13 @@ const Page: React.FC = () => {
         >
           <Image
             src="/DigitalMarketing.jpg"
-            alt="Top view of digital marketing strategy layout with charts and analytics"            
+            alt="Top view of digital marketing strategy layout with charts and analytics"
             fill
             style={{ objectFit: "cover", objectPosition: "top" }}
+            loading="eager"
+            priority
+            placeholder="blur"
+            blurDataURL="/DigitalMarketing.jpg"
           />
           <div
             style={{
@@ -353,6 +357,10 @@ const Page: React.FC = () => {
                     width={400}
                     height={600}
                     className="object-cover cursor-none"
+                    loading="eager"
+                    priority
+                    placeholder="blur"
+                    blurDataURL={item.imgPor}
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center transition-opacity duration-300 opacity-0 hover:opacity-100">
                     <div className="text-black text-2xl font-bold cursor-none h-12 w-12 bg-white rounded-full text-center flex justify-center items-center">

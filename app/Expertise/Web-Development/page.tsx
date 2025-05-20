@@ -61,7 +61,6 @@ const Page: React.FC = () => {
 
   const [openStates, setOpenStates] = useState<boolean[]>(
     services.map(() => false)
-    
   );
 
   console.log("චන්ද්‍රපාල හුත්තෝ");
@@ -179,7 +178,6 @@ const Page: React.FC = () => {
       <Nav />
 
       <main className={styles.main}>
-
         <div
           ref={imageRef}
           style={{
@@ -194,6 +192,10 @@ const Page: React.FC = () => {
             alt="Lolins mockup design showcasing responsive web development layout"
             fill
             style={{ objectFit: "cover", objectPosition: "top" }} // crop from bottom
+            loading="eager"
+            priority
+            placeholder="blur"
+            blurDataURL="/assets/LolinsMockup2.jpg"
           />
           <div
             style={{
