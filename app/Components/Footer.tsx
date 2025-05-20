@@ -134,11 +134,11 @@ const Footer: React.FC<FooterProp> = ({
             <ul className="list-none text-text flex flex-col gap-2 text-sm items-center md:items-start">
               <a
                 className="cursor-pointer hover:underline"
-                href="https://www.linkedin.com/company/webmindsuk/"
+                href="https://www.instagram.com/webminds.designs?igsh=ZHVhaXdmNGY1emFz"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Instagran
+                Instagram
               </a>
               <a
                 className="cursor-pointer hover:underline"
