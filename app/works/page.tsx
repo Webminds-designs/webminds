@@ -36,7 +36,7 @@ const Workspage = () => {
     "Web Development",
     "Social Media",
     "Digital Marketing",
-    "Branding & Desing",
+    "Branding & Design",
   ];
 
   const handleImageClick = (projectId: number) => {
