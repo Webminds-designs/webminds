@@ -25,8 +25,6 @@ interface WorkItem {
 
 const filteredTag = "Social Media";
 
-console.log("වෙලේ ගියා...");
-
 const services = [
   {
     title: "Content Strategy & Planning",
