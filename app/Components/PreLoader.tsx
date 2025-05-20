@@ -1,3 +1,4 @@
+// app/Components/PreLoader.tsx
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -12,18 +13,24 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
   const [targetProgress, setTargetProgress] = useState(0);
   const [stageText, setStageText] = useState("Initializing...");
   const [isSlowNetwork, setIsSlowNetwork] = useState(false);
+
   const wrapperRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
 
-  // Smooth progress logic
+  const progressRef = useRef(0);
+  const fallbackFinishRef = useRef<number | undefined>(undefined);
+
+  // Smooth progress interpolation
   useEffect(() => {
     let rafId: number;
     const tick = () => {
       setProgress((prev) => {
         const delta = targetProgress - prev;
         const step = Math.max(0.3, delta * 0.05);
-        return Math.min(prev + step, targetProgress);
+        const next = Math.min(prev + step, targetProgress);
+        progressRef.current = next;
+        return next;
       });
       rafId = requestAnimationFrame(tick);
     };
@@ -31,11 +38,11 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
     return () => cancelAnimationFrame(rafId);
   }, [targetProgress]);
 
-  // Stage text logic
+  // Update stage text
   useEffect(() => {
     if (progress < 25) setStageText("Hydrating app...");
     else if (progress < 50) setStageText("Loading fonts...");
-    else if (progress < 90) setStageText("Loading images...");
+    else if (progress < 90) setStageText("Loading assets...");
     else if (progress < 100) setStageText("Finalizing...");
     else setStageText("Complete!");
   }, [progress]);
@@ -51,37 +58,31 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
     return () => window.removeEventListener("mousemove", move);
   }, []);
 
-  // Preloader logic + slow network
+  // Main loader logic
   useEffect(() => {
-    interface NetworkInformation {
-      effectiveType?: string;
-    }
+    // Network speed check
+    type NetInfo = { effectiveType?: string };
     const nav = navigator as Navigator & {
-      connection?: NetworkInformation;
-      mozConnection?: NetworkInformation;
-      webkitConnection?: NetworkInformation;
+      connection?: NetInfo;
+      mozConnection?: NetInfo;
+      webkitConnection?: NetInfo;
     };
-    const connection =
-      nav.connection || nav.mozConnection || nav.webkitConnection;
-
-    if (connection && typeof connection.effectiveType === "string") {
-      const slowTypes = ["slow-2g", "2g", "3g", "4g"];
-      if (slowTypes.includes(connection.effectiveType)) {
-        setIsSlowNetwork(true);
-      }
+    const conn = nav.connection || nav.mozConnection || nav.webkitConnection;
+    if (
+      conn?.effectiveType &&
+      ["slow-2g", "2g", "3g", "4g"].includes(conn.effectiveType)
+    ) {
+      setIsSlowNetwork(true);
     }
 
+    // Chunk load error fallback
     const errorHandler = (e: ErrorEvent) => {
-      if (e.message?.includes("ChunkLoadError")) {
-        setIsSlowNetwork(true);
-      }
+      if (e.message?.includes("ChunkLoadError")) setIsSlowNetwork(true);
     };
     window.addEventListener("error", errorHandler);
 
-    // Begin loading progress
+    // Start progress and logo animation
     setTargetProgress(25);
-
-    // Animate logo in
     gsap.to(logoRef.current, {
       scale: 1,
       opacity: 1,
@@ -89,48 +90,48 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
       ease: "power2.out",
     });
 
-    // Fonts
-    document.fonts.ready.then(() => setTargetProgress(50));
+    // Fonts loaded -> 50%, then assets -> 90%
+    document.fonts.ready.then(() => {
+      setTargetProgress(50);
+      // move to 90% quickly
+      setTargetProgress(90);
+      // fallback finish after 2s
+      fallbackFinishRef.current = window.setTimeout(() => {
+        if (progressRef.current < 100) onFinish();
+      }, 2000);
+    });
 
-    // Images
-    const images = Array.from(document.images);
-    let loaded = 0;
-    const total = images.length;
-    const done = () => {
-      loaded++;
-      if (loaded === total) setTargetProgress(90);
-    };
-
-    if (total === 0) setTargetProgress(90);
-    else {
-      images.forEach((img) => {
-        if (img.complete) done();
-        else img.onload = img.onerror = done;
-      });
-    }
-
+    // Final window load -> 100% + exit
     const handleLoad = () => {
       setTargetProgress(100);
-
-      gsap
-        .timeline()
-        .to(logoRef.current, { scale: 1.2, duration: 0.5, ease: "power3.out" })
-        .to(wrapperRef.current, {
-          opacity: 0,
-          duration: 0.8,
-          ease: "power2.out",
-          onComplete: () => {
-            setTimeout(() => {
-              onFinish();
-            }, 2000);
-          },
-        });
+      const chk = window.setInterval(() => {
+        if (progressRef.current >= 99.9) {
+          clearInterval(chk);
+          if (fallbackFinishRef.current)
+            clearTimeout(fallbackFinishRef.current);
+          gsap
+            .timeline()
+            .to(logoRef.current, {
+              scale: 1.2,
+              duration: 0.5,
+              ease: "power3.out",
+            })
+            .to(wrapperRef.current, {
+              opacity: 0,
+              duration: 0.8,
+              ease: "power2.out",
+              onComplete: onFinish,
+            });
+        }
+      }, 100);
     };
-
     window.addEventListener("load", handleLoad);
+    if (document.readyState === "complete") handleLoad();
+
     return () => {
       window.removeEventListener("load", handleLoad);
       window.removeEventListener("error", errorHandler);
+      if (fallbackFinishRef.current) clearTimeout(fallbackFinishRef.current);
     };
   }, [onFinish]);
 
@@ -138,7 +139,7 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
     <>
       <div
         ref={wrapperRef}
-        className="preloader-wrapper fixed top-0 left-0 w-screen h-screen z-[9999] flex flex-col items-center justify-center text-white transition-opacity duration-500 overflow-hidden bg-gradient"
+        className="preloader-wrapper fixed inset-0 z-[9999] flex flex-col items-center justify-center text-white bg-gradient overflow-hidden transition-opacity duration-500"
       >
         <div
           ref={glowRef}
@@ -146,19 +147,17 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
             position: "fixed",
             top: 0,
             left: 0,
-            width: "250px",
-            height: "250px",
+            width: 250,
+            height: 250,
             borderRadius: "9999px",
-            backgroundColor: "rgba(59, 130, 246, 0.2)",
+            backgroundColor: "rgba(59,130,246,0.2)",
             filter: "blur(60px)",
             pointerEvents: "none",
-            transform: "translate(-50%, -50%)",
+            transform: "translate(-50%,-50%)",
             transition: "transform 0.1s ease",
             zIndex: 0,
           }}
         />
-
-        {/* Logo */}
         <div
           ref={logoRef}
           className="font-bold md:text-6xl text-3xl tracking-wider scale-50 opacity-0 transition-all duration-500 z-10"
@@ -169,26 +168,18 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
             ™
           </span>
         </div>
-
-        {/* Progress */}
         <p className="mt-12 text-lg tracking-widest font-mono z-10">
           Loading... {Math.round(progress)}%
         </p>
-
-        {/* Stage text */}
         <p className="mt-2 text-xs text-gray-400 animate-pulse z-10">
           {stageText}
         </p>
-
-        {/* Slow Network Message */}
         {isSlowNetwork && (
           <p className="mt-4 text-xs text-red-400 text-center max-w-xs z-10">
             Your network seems slow. Please wait while we load the app.
           </p>
         )}
       </div>
-
-      {/* Background animation */}
       <style jsx global>{`
         @keyframes gradientFlow {
           0%,
@@ -199,7 +190,6 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
             background-position: 100% 50%;
           }
         }
-
         .bg-gradient {
           background: linear-gradient(to top, #1e222b, #0a0a0a, #0e0e0f);
           background-size: 400% 400%;

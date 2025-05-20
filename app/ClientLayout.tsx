@@ -26,9 +26,7 @@ export default function ClientLayout({
 
     window.addEventListener("error", onChunkError);
 
-    const timer = setTimeout(() => setLoading(false), 100); // Or let Preloader handle real loading
     return () => {
-      clearTimeout(timer);
       window.removeEventListener("error", onChunkError);
     };
   }, []);

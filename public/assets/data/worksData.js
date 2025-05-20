@@ -1,5 +1,3 @@
-// import { text } from "stream/consumers";
-
 const worksData = [
   {
     id: 1,
@@ -7,6 +5,7 @@ const worksData = [
     imgPor: "/assets/works/ArA.jpg",
     name: "Artisan Antiques",
     textOverlay: "Pieces that bring stories to life",
+    link: "https://artisanantique.com/",
     description:
       "With 'Artisan Antique', we redefine the charm of antique furniture by blending timeless craftsmanship with modern design aesthetics. Our team created a visually captivating platform that reflects the brand's unique identity while delivering a seamless user experience. From branding to digital storytelling, we ensured Artisan Antique became the go-to destination for those seeking furniture that tells a story.",
     technology: {
@@ -37,6 +36,7 @@ const worksData = [
     imgPor: "/assets/works/ArB.jpg",
     name: "Bespoke Furniture",
     textOverlay: "Where Heritage Meets Elegance",
+    link: "https://artisanbespokefurniture.com/",
     description:
       "With 'Bespoke Furniture by Artisan', we celebrate the art of collaboration between U.K. citizens and Sri Lankan artisans. Our platform showcases exquisite antique furniture that blends traditional craftsmanship with modern elegance. From concept to completion, we designed a visually engaging website that reflects Bespoke's mission to create furniture resonating with history and beauty.",
     technology: {
@@ -70,6 +70,7 @@ const worksData = [
     imgPor: "/assets/works/Od.jpg",
     name: "Odessa",
     textOverlay: "Crafting Your Unique Diamond Jowelry",
+    link: "https://www.odessajewellery.com/",
     description:
       "For Odessa, we crafted a high-end digital experience that reflects their commitment to sustainable luxury and fine craftsmanship. Our team handled the full spectrum of development—from responsive frontend architecture using Next.js and TailwindCSS to seamless UI design in Figma. We built a custom website that not only showcases their premium jewelry collections but also enhances brand storytelling through strategic content structuring, optimized SEO, and social media integration.",
     technology: {
@@ -97,6 +98,7 @@ const worksData = [
     imgPor: "/assets/works/BZ.jpg",
     name: "BioZone",
     textOverlay: "Unleashing Your Potential in Biology",
+    link: "https://www.charithamunasinghe.lk/",
     description:
       "With 'BioZone', we created a dynamic platform tailored for advanced-level biology education. Designed to support both English and Sinhala medium students, BioZone seamlessly integrates physical and online learning experiences. The platform offers comprehensive educational resources and tools for students to thrive.",
     technology: {
@@ -127,6 +129,7 @@ const worksData = [
     imgPor: "/assets/works/LL.jpg",
     name: "Lolins",
     textOverlay: "Redefining Beauty, One Style at a Time",
+    link: "https://lolins.netlify.app/",
     description:
       "Lolins Hair Salon is dedicated to creating exceptional, personalized hair care experiences for every client. With a dynamic team of passionate professionals, we combine artistry and expertise to craft styles that celebrate individuality.",
     technology: {
@@ -154,6 +157,7 @@ const worksData = [
     imgPor: "/assets/works/STT.jpg",
     name: "Sri Lanka Traffic Tours",
     textOverlay: "Your Gateway to Unforgettable Journeys",
+    link: "https://srilankatraffictours.com/",
     description:
       "We built the Sri Lanka Traffic Tours website using Next.js and Tailwind CSS, delivering a fast, modern platform with flawless responsiveness. The UI/UX was prototyped in Figma and meticulously translated into an intuitive interface with a vibrant color palette and clean typography reflecting the brand’s identity. We also integrated smooth, interactive animations (leveraging modern libraries like GSAP and Framer Motion) to enhance user engagement without compromising performance. Key features include an SEO-optimized service showcase, an intuitive booking flow, and seamlessly integrated social media links — all contributing to an attractive, user-friendly experience.",
     technology: {
@@ -182,6 +186,7 @@ const worksData = [
     imgPor: "/assets/works/IGL.jpg",
     name: "IGL",
     textOverlay: "Your Trusted Partner in Global Education",
+    link: "https://igltest.netlify.app/",
     description:
       "We partnered with IGL Sri Lanka to build a dynamic digital platform that reflects their leadership in migration and overseas education services. Using React.js and TailwindCSS, we developed a responsive, user-friendly interface designed in Figma. The site highlights their expertise in student guidance, visa support, and global university placements, while SEO and social media integration ensure strong visibility and engagement.",
     technology: {
@@ -210,6 +215,7 @@ const worksData = [
     imgPor: "/assets/works/JIM.jpg",
     name: "Jimmu",
     textOverlay: "Empowering Journeys, One Insight at a Time",
+    link: "https://jimmu.global/",
     description:
       "Jimmu Global Trusted Resources is dedicated to providing unparalleled support during life’s most challenging moments. From protecting your financial interests with clear, actionable solutions to offering strategies that safeguard your wealth and reputation, we ensure you’re never navigating complexities alone.",
     technology: {

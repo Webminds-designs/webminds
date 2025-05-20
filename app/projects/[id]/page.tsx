@@ -79,9 +79,10 @@ const ProjectPage = () => {
               height={0}
               sizes="100%"
               className="hidden md:block w-full h-screen object-cover"
-              loading="lazy"
+              loading="eager"
+              priority
               placeholder="blur"
-              blurDataURL="/placeholder.jpg"
+              blurDataURL={project.img}
             />
 
             {/* Portrait image for smaller (mobile) screens */}
@@ -93,7 +94,8 @@ const ProjectPage = () => {
               height={0}
               sizes="100%"
               className="block md:hidden w-full h-screen object-cover object-bottom"
-              loading="lazy"
+              loading="eager"
+              priority
               placeholder="blur"
               blurDataURL="/placeholder.jpg"
             />

@@ -193,8 +193,13 @@ const Page: React.FC = () => {
         >
           <Image
             src="/Brand3.jpg"
-            alt="Top section of branding concept design for web development project"            fill
+            alt="Top section of branding concept design for web development project"
+            fill
             style={{ objectFit: "cover", objectPosition: "top" }} // crop from bottom
+            loading="eager"
+            priority
+            placeholder="blur"
+            blurDataURL="/Brand3.jpg"
           />
           <div
             style={{
