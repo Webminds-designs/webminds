@@ -61,7 +61,16 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
   // 4️⃣ Main loader logic (runs once on mount)
   useEffect(() => {
     // — network-speed check
-    const nav = navigator as any;
+    // Define NetworkInformation type if not present
+    type NetworkInformation = {
+      effectiveType?: string;
+    };
+
+    const nav = navigator as Navigator & {
+      connection?: NetworkInformation;
+      mozConnection?: NetworkInformation;
+      webkitConnection?: NetworkInformation;
+    };
     const conn = nav.connection || nav.mozConnection || nav.webkitConnection;
     if (
       conn?.effectiveType &&
@@ -95,7 +104,7 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
     let loadedCount = 0;
     const total = images.length;
     let fallbackTriggered = false;
-    let fallbackTimeout = setTimeout(() => {
+    const fallbackTimeout = setTimeout(() => {
       fallbackTriggered = true;
       console.warn("Some images didn’t load in time—continuing anyway.");
       setTargetProgress(90);
@@ -139,7 +148,7 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
               opacity: 0,
               duration: 0.8,
               ease: "power2.out",
-              onComplete: () => setTimeout(onFinish, 2000),
+              onComplete: onFinish,
             });
         }
       }, 100);
