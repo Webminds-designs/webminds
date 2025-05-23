@@ -74,7 +74,8 @@ export const metadata: Metadata = {
     siteName: "WebMinds",
     images: [
       {
-        url: "/assets/logo-WM.svg", // Use a real image path
+        url: "https://www.webmindsdesigns.com/favicon.png",
+
         width: 1200,
         height: 630,
         alt: "WebMinds Hero Image",
