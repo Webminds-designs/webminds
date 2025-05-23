@@ -1,8 +1,7 @@
-"use client";
+// app/page.tsx
 
 import Nav from "./Components/Nav";
 import WeSection from "./Components/WeSection";
-// import Socials from "./Components/Socials";
 import { RevealLinks } from "./Components/SocialsLinks";
 import WhyUs from "./Components/WhyUs";
 import Hero from "./Components/Hero";
@@ -11,7 +10,11 @@ import Expertise from "./Components/Expertise";
 import Works from "./Components/Works";
 import Footer from "./Components/Footer";
 
-export default function Home() {
+// ✅ This forces static generation
+export const dynamic = "force-static";
+export const revalidate = false;
+
+export default async function Home() {
   return (
     <div>
       <Nav bgColor="" />

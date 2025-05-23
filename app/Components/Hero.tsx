@@ -1,3 +1,4 @@
+"use client";
 import React, { useRef, useEffect, useState } from "react";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import animationweb from "../../public/animation2.json";

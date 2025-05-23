@@ -1,3 +1,4 @@
+"use client";
 import styles from "../styles/pages.module.css";
 import { useState } from "react";
 import { motion } from "framer-motion";
