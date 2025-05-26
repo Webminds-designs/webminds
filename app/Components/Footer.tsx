@@ -49,7 +49,7 @@ const Footer: React.FC<FooterProp> = ({
           </div>
           <div className="w-fit h-fit flex-col justify-center items-center md:items-start mt-6">
             <div className="text-sm text-bold text-white text-center md:text-start mb-4 font-bold">
-              Experties
+              Our Experties
             </div>
             <ul className="list-none text-text flex flex-col gap-2 text-sm items-center md:items-start">
               <li>
@@ -98,7 +98,7 @@ const Footer: React.FC<FooterProp> = ({
               </li>
               <li>
                 <Link href="/works" className="cursor-pointer hover:underline">
-                  Works
+                  Our Project
                 </Link>
               </li>
               {/* <li>
