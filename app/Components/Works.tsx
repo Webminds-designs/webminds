@@ -77,7 +77,7 @@ const Works: React.FC = () => {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-16">
           <div className="md:w-1/3">
             <div className="text-sm tracking-widest font-bold uppercase">
-              We Expertises In...
+              we are experts in...
             </div>
           </div>
         </div>
