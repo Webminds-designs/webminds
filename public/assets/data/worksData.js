@@ -7,7 +7,7 @@ const worksData = [
     textOverlay: "Pieces that bring stories to life",
     link: "https://artisanantique.com/",
     description:
-      "With 'Artisan Antique', we redefine the charm of antique furniture by blending timeless craftsmanship with modern design aesthetics. Our team created a visually captivating platform that reflects the brand's unique identity while delivering a seamless user experience. From branding to digital storytelling, we ensured Artisan Antique became the go-to destination for those seeking furniture that tells a story.",
+      "With Artisan Antique website , we redefine the charm of antique furniture by blending timeless craftsmanship with modern web design aesthetics. Our team created a visually captivating platform that reflects the brand's unique identity while delivering a seamless user experience. From branding to digital storytelling, we ensured Artisan Antique became the go-to destination for those seeking furniture that tells a story.",
     technology: {
       frontendDevelopment: ["React.js", "TailwindCSS"],
       designTools: ["Figma"],
@@ -72,7 +72,7 @@ const worksData = [
     textOverlay: "Crafting Your Unique Diamond Jowelry",
     link: "https://www.odessajewellery.com/",
     description:
-      "For Odessa, we crafted a high-end digital experience that reflects their commitment to sustainable luxury and fine craftsmanship. Our team handled the full spectrum of development—from responsive frontend architecture using Next.js and TailwindCSS to seamless UI design in Figma. We built a custom website that not only showcases their premium jewelry collections but also enhances brand storytelling through strategic content structuring, optimized SEO, and social media integration.",
+      "For Odessa, we crafted a high-end digital experience that reflects their commitment to sustainable luxury and fine craftsmanship. Our team handled the full spectrum of development from responsive frontend architecture using Next.js and TailwindCSS to seamless UI design in Figma. We built a custom website that not only showcases their premium jewelry collections but also enhances brand storytelling through strategic content structuring, optimized SEO, and social media integration.",
     technology: {
       frontendDevelopment: ["Next.js", "TailwindCSS"],
       designTools: ["Figma"],
@@ -131,7 +131,7 @@ const worksData = [
     textOverlay: "Redefining Beauty, One Style at a Time",
     link: "https://lolins.netlify.app/",
     description:
-      "Lolins Hair Salon is dedicated to creating exceptional, personalized hair care experiences for every client. With a dynamic team of passionate professionals, we combine artistry and expertise to craft styles that celebrate individuality.",
+      "The website we created for Lolins Hair Salon perfectly reflects the brand’s visual narrative. From showcasing personalized hair care and styling services to making appointment booking effortless for clients, our team designed a platform that reflects the salon’s unique identity, combining aesthetics with functionality.",
     technology: {
       frontendDevelopment: ["React.js", "TailwindCSS"],
       designTools: ["Figma"],
@@ -159,7 +159,7 @@ const worksData = [
     textOverlay: "Your Gateway to Unforgettable Journeys",
     link: "https://srilankatraffictours.com/",
     description:
-      "We built the Sri Lanka Traffic Tours website using Next.js and Tailwind CSS, delivering a fast, modern platform with flawless responsiveness. The UI/UX was prototyped in Figma and meticulously translated into an intuitive interface with a vibrant color palette and clean typography reflecting the brand’s identity. We also integrated smooth, interactive animations (leveraging modern libraries like GSAP and Framer Motion) to enhance user engagement without compromising performance. Key features include an SEO-optimized service showcase, an intuitive booking flow, and seamlessly integrated social media links — all contributing to an attractive, user-friendly experience.",
+      "With Sri Lanka Traffic Tours, we designed a vibrant and engaging digital platform that brings the spirit of travel to life. From showcasing services to enabling a smooth booking experience, every detail was crafted with the user in mind. The website combines bold visuals, seamless navigation, and subtle animations to create a dynamic yet easy-to-use experience. By reflecting the brand’s personality through thoughtful design and storytelling, we made Sri Lanka Traffic Tours a standout destination for travel inspiration and planning.",
     technology: {
       frontendDevelopment: ["Next.js", "TailwindCSS"],
       designTools: ["Figma"],
@@ -217,7 +217,7 @@ const worksData = [
     textOverlay: "Empowering Journeys, One Insight at a Time",
     link: "https://jimmu.global/",
     description:
-      "Jimmu Global Trusted Resources is dedicated to providing unparalleled support during life’s most challenging moments. From protecting your financial interests with clear, actionable solutions to offering strategies that safeguard your wealth and reputation, we ensure you’re never navigating complexities alone.",
+      "With Jimmu Global Trusted Resources, we created a refined digital presence that reflects the discretion and expertise behind their high net worth divorce advisory services. The website clearly presents their offerings while maintaining a tone of trust and professionalism, ensuring clients can easily understand their support and get in touch when it matters most.",
     technology: {
       frontendDevelopment: ["React.js", "TailwindCSS"],
       designTools: ["Figma"],

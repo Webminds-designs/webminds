@@ -172,91 +172,95 @@ const Nav: React.FC<NavProps> = ({ bgColor, navTextColor }) => {
           className="flex items-center space-x-16 text-sm font-semibold tracking-wider"
           style={{ color: navTextColor || "#f6f6f6" }}
         >
-          {["Home", "Works", "Expertise", "Contact"].map((item, index) => (
-            <li key={index} className="group">
-              <Link
-                href={
-                  item === "Home"
-                    ? "/"
-                    : item === "Expertise"
-                    ? "#"
-                    : `/${item.toLowerCase()}`
-                }
-                onMouseEnter={(e) => {
-                  handleMouseEnter(e);
-                  if (item === "Expertise") setExpertiesHovered(true);
-                }}
-                onMouseLeave={() => {
-                  if (item === "Expertise") setExpertiesHovered(false);
-                }}
-                className="relative overflow-hidden flex items-center hover:opacity-50 gap-2 z-40"
-              >
-                <span className="block">{item}</span>
-                {item === "Expertise" && (
-                  <div className="flex items-center rounded-full bg-[#fffdfc] bg-opacity-20 p-1">
-                    <FaArrowDown className="w-2 h-2" />
-                  </div>
-                )}
-              </Link>
-              {item === "Expertise" && isExpertiesHovered && (
-                <div
-                  className="fixed top-0 left-0 w-screen"
-                  ref={menuRef}
-                  style={{
-                    transformOrigin: "top center",
-                    transform: "scaleY(0)",
-                    backgroundColor: bgColor || "#2D2D2D",
+          {["Home", "Our Projects", "Expertise", "Contact"].map(
+            (item, index) => (
+              <li key={index} className="group">
+                <Link
+                  href={
+                    item === "Home"
+                      ? "/"
+                      : item === "Expertise"
+                      ? "#"
+                      : item === "Our Projects"
+                      ? "/works"
+                      : `/${item.toLowerCase()}`
+                  }
+                  onMouseEnter={(e) => {
+                    handleMouseEnter(e);
+                    if (item === "Expertise") setExpertiesHovered(true);
                   }}
-                  onMouseEnter={() => setExpertiesHovered(true)}
-                  onMouseLeave={toggleCloseDrop}
+                  onMouseLeave={() => {
+                    if (item === "Expertise") setExpertiesHovered(false);
+                  }}
+                  className="relative overflow-hidden flex items-center hover:opacity-50 gap-2 z-40"
                 >
+                  <span className="block">{item}</span>
+                  {item === "Expertise" && (
+                    <div className="flex items-center rounded-full bg-[#fffdfc] bg-opacity-20 p-1">
+                      <FaArrowDown className="w-2 h-2" />
+                    </div>
+                  )}
+                </Link>
+                {item === "Expertise" && isExpertiesHovered && (
                   <div
-                    className="mt-28 px-24 mb-20 w-full flex justify-between"
-                    ref={contentRef}
+                    className="fixed top-0 left-0 w-screen"
+                    ref={menuRef}
+                    style={{
+                      transformOrigin: "top center",
+                      transform: "scaleY(0)",
+                      backgroundColor: bgColor || "#2D2D2D",
+                    }}
+                    onMouseEnter={() => setExpertiesHovered(true)}
+                    onMouseLeave={toggleCloseDrop}
                   >
-                    <div>Our Expertise</div>
-                    <ul className="md:text-3xl lg:text-4xl flex flex-col gap-8 font-AlbertSans_Bold">
-                      <li onMouseEnter={() => hoverHandel("marketing")}>
-                        <Link href="/Expertise/Digital-Marketing">
-                          Digital Marketing
-                        </Link>
-                      </li>
-                      <li onMouseEnter={() => hoverHandel("web")}>
-                        <Link href="/Expertise/Web-Development">
-                          Website Development
-                        </Link>
-                      </li>
-                      <li onMouseEnter={() => hoverHandel("social")}>
-                        <Link href="/Expertise/Social-Media-Management">
-                          Social Media Management
-                        </Link>
-                      </li>
-                      <li onMouseEnter={() => hoverHandel("brand")}>
-                        <Link href="/Expertise/Branding-n-Design">
-                          Branding & Design
-                        </Link>
-                      </li>
-                    </ul>
-                    <div className="w-96 h-fit">
-                      <Image
-                        src={
-                          Hovered === "web"
-                            ? im2
-                            : Hovered === "marketing"
-                            ? im1
-                            : Hovered === "social"
-                            ? im3
-                            : im4
-                        }
-                        alt="expertise preview"
-                        className="w-full h-auto"
-                      />
+                    <div
+                      className="mt-28 px-24 mb-20 w-full flex justify-between"
+                      ref={contentRef}
+                    >
+                      <div>Our Expertise</div>
+                      <ul className="md:text-3xl lg:text-4xl flex flex-col gap-8 font-AlbertSans_Bold">
+                        <li onMouseEnter={() => hoverHandel("marketing")}>
+                          <Link href="/Expertise/Digital-Marketing">
+                            Digital Marketing
+                          </Link>
+                        </li>
+                        <li onMouseEnter={() => hoverHandel("web")}>
+                          <Link href="/Expertise/Web-Development">
+                            Website Development
+                          </Link>
+                        </li>
+                        <li onMouseEnter={() => hoverHandel("social")}>
+                          <Link href="/Expertise/Social-Media-Management">
+                            Social Media Management
+                          </Link>
+                        </li>
+                        <li onMouseEnter={() => hoverHandel("brand")}>
+                          <Link href="/Expertise/Branding-n-Design">
+                            Branding & Design
+                          </Link>
+                        </li>
+                      </ul>
+                      <div className="w-96 h-fit">
+                        <Image
+                          src={
+                            Hovered === "web"
+                              ? im2
+                              : Hovered === "marketing"
+                              ? im1
+                              : Hovered === "social"
+                              ? im3
+                              : im4
+                          }
+                          alt="expertise preview"
+                          className="w-full h-auto"
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
-            </li>
-          ))}
+                )}
+              </li>
+            )
+          )}
         </ul>
       </nav>
 
@@ -288,7 +292,7 @@ const Nav: React.FC<NavProps> = ({ bgColor, navTextColor }) => {
           style={{ transformOrigin: "top center", transform: "scaleY(0)" }}
         >
           <ul className="space-y-3 text-white text-4xl font-bold text-start w-full">
-            {["Home", "Works", "Contact"].map((item, index) => (
+            {["Home", "Our Projects", "Contact"].map((item, index) => (
               <li key={index}>
                 <Link
                   href={
@@ -296,6 +300,8 @@ const Nav: React.FC<NavProps> = ({ bgColor, navTextColor }) => {
                       ? "/"
                       : item === "Expertise"
                       ? "#"
+                      : item === "Our Projects"
+                      ? "/works"
                       : `/${item.toLowerCase()}`
                   }
                   onClick={toggleMenu}
