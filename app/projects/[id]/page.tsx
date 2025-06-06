@@ -116,7 +116,7 @@ const ProjectPage = () => {
               {/* Portrait for small screens */}
               <Image
                 key={`${project.id}-portrait`}
-                src={project.imgPor || project.img}
+                src={project.img || project.img}
                 alt={`${project.name} Portrait`}
                 width={1080}
                 height={1920}
