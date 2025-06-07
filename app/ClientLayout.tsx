@@ -13,21 +13,28 @@ export default function ClientLayout({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // ✅ Auto-reload on chunk load failure
-    const onChunkError = (e: ErrorEvent) => {
-      if (
-        e?.message?.includes("Loading chunk") ||
-        e?.filename?.includes(".js")
-      ) {
-        console.warn("Chunk load failed, reloading...");
-        window.location.reload();
+    // Fallback timeout for preloader
+    const timeout = setTimeout(() => {
+      setLoading(false);
+    }, 10000); // Max 7 seconds
+
+    // Chunk load error fallback
+    const handleChunkError = (e: ErrorEvent) => {
+      if (/ChunkLoadError/.test(e.message)) {
+        document.body.innerHTML = `
+          <div style="color:white;text-align:center;padding-top:20%;background:black;height:100vh">
+            <h2 style="font-family:sans-serif;">Connection is slow or interrupted.</h2>
+            <button onclick="location.reload()" style="margin-top:20px;padding:10px 20px;font-size:16px;cursor:pointer;">Retry</button>
+          </div>
+        `;
       }
     };
 
-    window.addEventListener("error", onChunkError);
+    window.addEventListener("error", handleChunkError);
 
     return () => {
-      window.removeEventListener("error", onChunkError);
+      clearTimeout(timeout);
+      window.removeEventListener("error", handleChunkError);
     };
   }, []);
 
