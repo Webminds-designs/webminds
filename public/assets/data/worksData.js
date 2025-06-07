@@ -32,7 +32,7 @@ const worksData = [
   },
   {
     id: 2,
-    img: "/assets/BespokeFurniture.jpg",
+    img: "/assets/BespokeFurniture.webp",
     imgPor: "/assets/works/ArB.jpg",
     name: "Bespoke Furniture",
     textOverlay: "Where Heritage Meets Elegance",
@@ -66,7 +66,7 @@ const worksData = [
   },
   {
     id: 3,
-    img: "/assets/Odessa.jpg",
+    img: "/assets/Odessa.webp",
     imgPor: "/assets/works/Od.jpg",
     name: "Odessa",
     textOverlay: "Crafting Your Unique Diamond Jowelry",
