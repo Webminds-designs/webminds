@@ -13,7 +13,7 @@ export default function ClientLayout({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // ✅ Auto-reload on chunk load failure
+    // ✅ Handle chunk load errors
     const onChunkError = (e: ErrorEvent) => {
       if (
         e?.message?.includes("Loading chunk") ||
@@ -26,8 +26,15 @@ export default function ClientLayout({
 
     window.addEventListener("error", onChunkError);
 
+    // ✅ Failsafe: Automatically finish preloader after 60 seconds
+    const timeout = setTimeout(() => {
+      setLoading(false);
+      console.warn("Preloader timeout — forcing page load after 60s.");
+    }, 60000); // ⏱ 60,000ms = 60 seconds
+
     return () => {
       window.removeEventListener("error", onChunkError);
+      clearTimeout(timeout);
     };
   }, []);
 
