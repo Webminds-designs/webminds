@@ -1,8 +1,8 @@
 "use client";
 import React, { useRef, useEffect, useState } from "react";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
-import animationweb from "../../public/animation2.json";
-import animationmob from "../../public/animation2mobi.json";
+import animationweb from "../../public/animation3.json";
+import animationmob from "../../public/animation3mobi.json";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
