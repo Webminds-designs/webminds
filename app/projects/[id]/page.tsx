@@ -107,7 +107,7 @@ const ProjectPage = () => {
                 width={1920}
                 height={1080}
                 className="hidden md:block w-full h-screen object-cover cursor-none"
-                loading="eager"
+                loading="lazy"
                 priority
                 placeholder="blur"
                 blurDataURL={project.img}
@@ -121,8 +121,7 @@ const ProjectPage = () => {
                 width={1080}
                 height={1920}
                 className="block md:hidden w-full h-screen object-cover object-bottom cursor-pointer"
-                loading="eager"
-                priority
+                loading="lazy" // this is the default, but you can make it explicit
                 placeholder="blur"
                 blurDataURL="/placeholder.jpg"
               />
