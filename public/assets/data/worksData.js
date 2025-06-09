@@ -94,7 +94,7 @@ const worksData = [
   },
   {
     id: 4,
-    img: "/assets/BioZone.jpg",
+    img: "/assets/BioZone.webp",
     imgPor: "/assets/works/BZ.jpg",
     name: "BioZone",
     textOverlay: "Unleashing Your Potential in Biology",
