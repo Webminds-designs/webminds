@@ -46,6 +46,7 @@ const ProjectPage = () => {
   const containerRef = useRef(null);
   const imageRef = useRef(null);
   const [isHoverImage, setIsHoverImage] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // Track image loading state
 
   if (!project) {
     return (
@@ -99,6 +100,13 @@ const ProjectPage = () => {
               rel="noopener noreferrer"
               passHref
             >
+              {/* Spinner while image loads */}
+              {isLoading && (
+                <div className="absolute inset-0 z-20 flex items-center justify-center bg-black bg-opacity-30">
+                  <div className="w-10 h-10 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+                </div>
+              )}
+
               {/* Landscape for larger screens */}
               <Image
                 key={`${project.id}-landscape`}
@@ -106,23 +114,29 @@ const ProjectPage = () => {
                 alt={`${project.name} Landscape`}
                 width={1920}
                 height={1080}
-                className="hidden md:block w-full h-screen object-cover cursor-none"
+                className={`hidden md:block w-full h-screen object-cover cursor-none transition-opacity duration-300 ${
+                  isLoading ? "opacity-0" : "opacity-100"
+                }`}
                 loading="lazy"
                 placeholder="blur"
                 blurDataURL={project.img}
+                onLoad={() => setIsLoading(false)}
               />
 
               {/* Portrait for small screens */}
               <Image
                 key={`${project.id}-portrait`}
-                src={project.img || project.img}
+                src={project.img}
                 alt={`${project.name} Portrait`}
                 width={1080}
                 height={1920}
-                className="block md:hidden w-full h-screen object-cover object-bottom cursor-pointer"
-                loading="lazy" // this is the default, but you can make it explicit
+                className={`block md:hidden w-full h-screen object-cover object-bottom cursor-pointer transition-opacity duration-300 ${
+                  isLoading ? "opacity-0" : "opacity-100"
+                }`}
+                loading="lazy"
                 placeholder="blur"
                 blurDataURL="/placeholder.jpg"
+                onLoad={() => setIsLoading(false)}
               />
             </Link>
           </motion.div>
@@ -132,7 +146,7 @@ const ProjectPage = () => {
         <div className="w-screen md:h-screen h-full flex flex-col md:flex-row bg-[#0a0a0a]">
           {/* Description */}
           <div className="w-full md:w-2/3 h-full flex flex-col justify-center items-center p-6 md:p-12 lg:p-24">
-            <div className="w-full  h-fit flex justify-center items-center text-start ">
+            <div className="w-full h-fit flex justify-center items-center text-start">
               <p className="mt-6 text-xl md:text-2xl lg:text-4xl text-text font-AlbertSans_Regular leading-loose">
                 {project.description}
               </p>
