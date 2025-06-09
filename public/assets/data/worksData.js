@@ -2,7 +2,7 @@ const worksData = [
   {
     id: 1,
     img: "/assets/articianLand.jpg",
-    imgPor: "/assets/works/ArA.jpg",
+    imgPor: "/assets/works/ArA.webp",
     name: "Artisan Antiques",
     textOverlay: "Pieces that bring stories to life",
     link: "https://artisanantique.com/",
@@ -66,7 +66,7 @@ const worksData = [
   },
   {
     id: 3,
-    img: "/assets/Odessa.webp",
+    img: "/assets/Odessa.jpg",
     imgPor: "/assets/works/Od.jpg",
     name: "Odessa",
     textOverlay: "Crafting Your Unique Diamond Jowelry",
