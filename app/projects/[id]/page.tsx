@@ -107,7 +107,7 @@ const ProjectPage = () => {
                   alt={`${project.name} Preview`}
                   fill
                   sizes="100vw"
-                  className="object-cover w-full h-full filter blur-md scale-105"
+                  className="object-cover w-full h-full filter blur-sm scale-105"
                 />
 
                 {/* Spinner overlay */}
@@ -124,7 +124,7 @@ const ProjectPage = () => {
                   fill
                   sizes="100vw"
                   className={`object-cover w-full h-full transition-opacity duration-700 ${
-                    isLoading ? "opacity-0" : "opacity-100"
+                    isLoading ? "opacity-50" : "opacity-100"
                   }`}
                   loading="lazy"
                   onLoad={() => setIsLoading(false)}
