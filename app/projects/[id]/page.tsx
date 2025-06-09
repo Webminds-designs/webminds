@@ -22,6 +22,7 @@ interface WorkItem {
   description: string;
   img: string;
   imgPor?: string;
+  lowqualityImg?: string;
   technology: {
     frontendDevelopment?: string[];
     backendDevelopment?: string[];
@@ -118,8 +119,8 @@ const ProjectPage = () => {
                   isLoading ? "opacity-0" : "opacity-100"
                 }`}
                 loading="lazy"
-                placeholder="blur"
-                blurDataURL={project.img}
+                // placeholder="blur"
+                blurDataURL={project.lowqualityImg}
                 onLoad={() => setIsLoading(false)}
               />
 
@@ -134,8 +135,8 @@ const ProjectPage = () => {
                   isLoading ? "opacity-0" : "opacity-100"
                 }`}
                 loading="lazy"
-                placeholder="blur"
-                blurDataURL="/placeholder.jpg"
+                // placeholder="blur"
+                blurDataURL={project.lowqualityImg}
                 onLoad={() => setIsLoading(false)}
               />
             </Link>
