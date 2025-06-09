@@ -108,7 +108,6 @@ const ProjectPage = () => {
                 height={1080}
                 className="hidden md:block w-full h-screen object-cover cursor-none"
                 loading="lazy"
-                priority
                 placeholder="blur"
                 blurDataURL={project.img}
               />
