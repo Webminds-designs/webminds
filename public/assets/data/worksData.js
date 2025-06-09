@@ -2,7 +2,7 @@ const worksData = [
   {
     id: 1,
     img: "/assets/articianLand.jpg",
-    imgPor: "/assets/works/ArA.webp",
+    imgPor: "/assets/works/ArA.jpg",
     name: "Artisan Antiques",
     textOverlay: "Pieces that bring stories to life",
     link: "https://artisanantique.com/",
@@ -32,7 +32,7 @@ const worksData = [
   },
   {
     id: 2,
-    img: "/assets/BespokeFurniture.webp",
+    img: "/assets/BespokeFurniture.jpg",
     imgPor: "/assets/works/ArB.jpg",
     name: "Bespoke Furniture",
     textOverlay: "Where Heritage Meets Elegance",
@@ -94,7 +94,7 @@ const worksData = [
   },
   {
     id: 4,
-    img: "/assets/BioZone.webp",
+    img: "/assets/BioZone.jpg",
     imgPor: "/assets/works/BZ.jpg",
     name: "BioZone",
     textOverlay: "Unleashing Your Potential in Biology",
