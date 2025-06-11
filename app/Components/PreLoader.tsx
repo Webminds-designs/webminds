@@ -17,7 +17,7 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
   const glowRef = useRef<HTMLDivElement>(null);
 
   const progressRef = useRef(0);
-  const fallbackFinishRef = useRef<number | undefined>(undefined);
+  const animationStartedRef = useRef(false);
 
   // Smooth progress interpolation
   useEffect(() => {
@@ -47,7 +47,6 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
     return () => window.removeEventListener("mousemove", move);
   }, []);
 
-  // Preloader logic
   useEffect(() => {
     // Detect slow network
     type NetInfo = { effectiveType?: string };
@@ -64,13 +63,13 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
       setIsSlowNetwork(true);
     }
 
-    // Detect JS chunk load errors
+    // Detect chunk errors
     const errorHandler = (e: ErrorEvent) => {
       if (e.message?.includes("ChunkLoadError")) setIsSlowNetwork(true);
     };
     window.addEventListener("error", errorHandler);
 
-    // Animate logo
+    // Animate logo on start
     setTargetProgress(25);
     gsap.to(logoRef.current, {
       scale: 1,
@@ -79,28 +78,18 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
       ease: "power2.out",
     });
 
-    // Parallel loading: fonts, page load, timeout fallback
-    const fontReady = document.fonts.ready.then(() => setTargetProgress(50));
-    const pageLoaded = new Promise<void>((resolve) => {
-      if (document.readyState === "complete") return resolve();
-      window.addEventListener("load", () => resolve(), { once: true });
-    }).then(() => setTargetProgress(100));
-    const timeout = new Promise<void>((resolve) => {
-      fallbackFinishRef.current = window.setTimeout(() => {
-        if (progressRef.current < 100) {
-          setTargetProgress(100);
-          resolve();
-        }
-      }, 3000);
-    });
+    // Hybrid load: wait for fonts or 3s (whichever is earlier)
+    Promise.race([
+      document.fonts.ready, // wait for fonts
+      new Promise((res) => setTimeout(res, 3000)), // or max 3s
+    ]).then(() => {
+      setTargetProgress(100);
+      const waitInterval = setInterval(() => {
+        if (progressRef.current >= 99.9 && !animationStartedRef.current) {
+          animationStartedRef.current = true;
+          clearInterval(waitInterval);
 
-    // When all (or timeout) complete
-    Promise.allSettled([fontReady, pageLoaded, timeout]).then(() => {
-      const interval = setInterval(() => {
-        if (progressRef.current >= 99.9) {
-          clearInterval(interval);
-          if (fallbackFinishRef.current)
-            clearTimeout(fallbackFinishRef.current);
+          // Final exit animation
           gsap
             .timeline()
             .to(logoRef.current, {
@@ -120,7 +109,6 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
 
     return () => {
       window.removeEventListener("error", errorHandler);
-      if (fallbackFinishRef.current) clearTimeout(fallbackFinishRef.current);
     };
   }, [onFinish]);
 
