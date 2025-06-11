@@ -11,7 +11,7 @@ interface PreloaderProps {
 const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
   const [progress, setProgress] = useState(0);
   const [targetProgress, setTargetProgress] = useState(0);
-  const [stageText, setStageText] = useState("Initializing...");
+
   const [isSlowNetwork, setIsSlowNetwork] = useState(false);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -38,15 +38,6 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
     return () => cancelAnimationFrame(rafId);
   }, [targetProgress]);
 
-  // Update stage text
-  useEffect(() => {
-    if (progress < 25) setStageText("Hydrating app...");
-    else if (progress < 50) setStageText("Loading fonts...");
-    else if (progress < 90) setStageText("Loading assets...");
-    else if (progress < 100) setStageText("Finalizing...");
-    else setStageText("Complete!");
-  }, [progress]);
-
   // Glow follows cursor
   useEffect(() => {
     const move = (e: MouseEvent) => {
@@ -70,7 +61,7 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
     const conn = nav.connection || nav.mozConnection || nav.webkitConnection;
     if (
       conn?.effectiveType &&
-      ["slow-2g", "2g", "3g", "4g"].includes(conn.effectiveType)
+      ["slow-2g", "2g", "3g"].includes(conn.effectiveType)
     ) {
       setIsSlowNetwork(true);
     }
@@ -139,8 +130,9 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
     <>
       <div
         ref={wrapperRef}
-        className="preloader-wrapper fixed inset-0 z-[9999] flex flex-col items-center justify-center text-white bg-gradient overflow-hidden transition-opacity duration-500"
+        className="preloader-wrapper fixed inset-0 z-[9999] flex items-center justify-center text-white bg-gradient overflow-hidden transition-opacity duration-500"
       >
+        {/* Glow Follows Cursor */}
         <div
           ref={glowRef}
           style={{
@@ -158,6 +150,8 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
             zIndex: 0,
           }}
         />
+
+        {/* Centered Logo */}
         <div
           ref={logoRef}
           className="font-bold md:text-6xl text-3xl tracking-wider scale-50 opacity-0 transition-all duration-500 z-10"
@@ -168,18 +162,19 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
             ™
           </span>
         </div>
-        <p className="mt-12 text-lg tracking-widest font-mono z-10">
+
+        {/* Bottom-left Progress */}
+        <div className="absolute bottom-6 left-6 text-xs sm:text-sm tracking-wide font-mono z-10 text-white">
           Loading... {Math.round(progress)}%
-        </p>
-        <p className="mt-2 text-xs text-gray-400 animate-pulse z-10">
-          {stageText}
-        </p>
-        {isSlowNetwork && (
-          <p className="mt-4 text-xs text-red-400 text-center max-w-xs z-10">
-            Your network seems slow. Please wait while we load the app.
-          </p>
-        )}
+          {isSlowNetwork && (
+            <p className="mt-1 text-[10px] text-blue-400 max-w-[200px] leading-snug">
+              Your network seems slow. Please wait while we load the app.
+            </p>
+          )}
+        </div>
       </div>
+
+      {/* Background animation */}
       <style jsx global>{`
         @keyframes gradientFlow {
           0%,
@@ -199,5 +194,4 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
     </>
   );
 };
-
 export default Preloader;
