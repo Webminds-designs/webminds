@@ -106,22 +106,6 @@ export default function RootLayout({
       <head>
         <link rel="stylesheet" href="https://use.typekit.net/gfv5wee.css" />
         <link rel="icon" href="/favicon.png" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-      window.addEventListener("error", function (e) {
-        if (/ChunkLoadError/.test(e.message)) {
-          document.body.innerHTML = \`
-            <div style="color:white;text-align:center;padding-top:20%;background:black;height:100vh">
-              <h2 style="font-family:sans-serif;">Connection is slow or interrupted.</h2>
-              <button onclick="location.reload()" style="margin-top:20px;padding:10px 20px;font-size:16px;cursor:pointer;">Retry</button>
-            </div>
-          \`;
-        }
-      });
-    `,
-          }}
-        />
       </head>
       <body className={`${FunnelDisplay.variable} antialiased`}>
         <ClientLayout>{children}</ClientLayout>

@@ -1,4 +1,3 @@
-// app/Components/PreLoader.tsx
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -11,7 +10,6 @@ interface PreloaderProps {
 const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
   const [progress, setProgress] = useState(0);
   const [targetProgress, setTargetProgress] = useState(0);
-
   const [isSlowNetwork, setIsSlowNetwork] = useState(false);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -38,7 +36,7 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
     return () => cancelAnimationFrame(rafId);
   }, [targetProgress]);
 
-  // Glow follows cursor
+  // Cursor-following glow effect
   useEffect(() => {
     const move = (e: MouseEvent) => {
       if (glowRef.current) {
@@ -49,9 +47,9 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
     return () => window.removeEventListener("mousemove", move);
   }, []);
 
-  // Main loader logic
+  // Preloader logic
   useEffect(() => {
-    // Network speed check
+    // Detect slow network
     type NetInfo = { effectiveType?: string };
     const nav = navigator as Navigator & {
       connection?: NetInfo;
@@ -66,13 +64,13 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
       setIsSlowNetwork(true);
     }
 
-    // Chunk load error fallback
+    // Detect JS chunk load errors
     const errorHandler = (e: ErrorEvent) => {
       if (e.message?.includes("ChunkLoadError")) setIsSlowNetwork(true);
     };
     window.addEventListener("error", errorHandler);
 
-    // Start progress and logo animation
+    // Animate logo
     setTargetProgress(25);
     gsap.to(logoRef.current, {
       scale: 1,
@@ -81,23 +79,26 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
       ease: "power2.out",
     });
 
-    // Fonts loaded -> 50%, then assets -> 90%
-    document.fonts.ready.then(() => {
-      setTargetProgress(50);
-      // move to 90% quickly
-      setTargetProgress(90);
-      // fallback finish after 2s
+    // Parallel loading: fonts, page load, timeout fallback
+    const fontReady = document.fonts.ready.then(() => setTargetProgress(50));
+    const pageLoaded = new Promise<void>((resolve) => {
+      if (document.readyState === "complete") return resolve();
+      window.addEventListener("load", () => resolve(), { once: true });
+    }).then(() => setTargetProgress(100));
+    const timeout = new Promise<void>((resolve) => {
       fallbackFinishRef.current = window.setTimeout(() => {
-        if (progressRef.current < 100) onFinish();
-      }, 2000);
+        if (progressRef.current < 100) {
+          setTargetProgress(100);
+          resolve();
+        }
+      }, 3000);
     });
 
-    // Final window load -> 100% + exit
-    const handleLoad = () => {
-      setTargetProgress(100);
-      const chk = window.setInterval(() => {
+    // When all (or timeout) complete
+    Promise.allSettled([fontReady, pageLoaded, timeout]).then(() => {
+      const interval = setInterval(() => {
         if (progressRef.current >= 99.9) {
-          clearInterval(chk);
+          clearInterval(interval);
           if (fallbackFinishRef.current)
             clearTimeout(fallbackFinishRef.current);
           gsap
@@ -115,12 +116,9 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
             });
         }
       }, 100);
-    };
-    window.addEventListener("load", handleLoad);
-    if (document.readyState === "complete") handleLoad();
+    });
 
     return () => {
-      window.removeEventListener("load", handleLoad);
       window.removeEventListener("error", errorHandler);
       if (fallbackFinishRef.current) clearTimeout(fallbackFinishRef.current);
     };
@@ -132,7 +130,7 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
         ref={wrapperRef}
         className="preloader-wrapper fixed inset-0 z-[9999] flex items-center justify-center text-white bg-gradient overflow-hidden transition-opacity duration-500"
       >
-        {/* Glow Follows Cursor */}
+        {/* Cursor glow */}
         <div
           ref={glowRef}
           style={{
@@ -151,7 +149,7 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
           }}
         />
 
-        {/* Centered Logo */}
+        {/* Center logo */}
         <div
           ref={logoRef}
           className="font-bold md:text-6xl text-3xl tracking-wider scale-50 opacity-0 transition-all duration-500 z-10"
@@ -163,7 +161,7 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
           </span>
         </div>
 
-        {/* Bottom-left Progress */}
+        {/* Bottom-left progress */}
         <div className="absolute bottom-6 left-6 text-xs sm:text-sm tracking-wide font-mono z-10 text-white">
           Loading... {Math.round(progress)}%
           {isSlowNetwork && (
@@ -174,7 +172,7 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
         </div>
       </div>
 
-      {/* Background animation */}
+      {/* Gradient background animation */}
       <style jsx global>{`
         @keyframes gradientFlow {
           0%,
@@ -194,4 +192,5 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
     </>
   );
 };
+
 export default Preloader;
