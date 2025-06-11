@@ -16,9 +16,10 @@ export default function ClientLayout({
   useEffect(() => {
     // ✅ Failsafe to stop preloader after 60s
     const timeout = setTimeout(() => {
-      setLoading(false);
-      console.warn("Preloader timed out after 60 seconds.");
-    }, 60000);
+  setLoading(false);
+  console.warn("Preloader timed out after 60 seconds.");
+}, 60000);
+
 
     // ✅ Handle JS chunk loading errors (e.g., on 3G)
     const onChunkError = (e: ErrorEvent) => {
