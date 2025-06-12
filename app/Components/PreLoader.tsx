@@ -48,69 +48,78 @@ const Preloader: React.FC<PreloaderProps> = ({ onFinish }) => {
   }, []);
 
   useEffect(() => {
-    // Detect slow network
-    type NetInfo = { effectiveType?: string };
-    const nav = navigator as Navigator & {
-      connection?: NetInfo;
-      mozConnection?: NetInfo;
-      webkitConnection?: NetInfo;
-    };
-    const conn = nav.connection || nav.mozConnection || nav.webkitConnection;
-    if (
-      conn?.effectiveType &&
-      ["slow-2g", "2g", "3g"].includes(conn.effectiveType)
-    ) {
-      setIsSlowNetwork(true);
-    }
+  // Detect slow network
+  type NetInfo = { effectiveType?: string };
+  const nav = navigator as Navigator & {
+    connection?: NetInfo;
+    mozConnection?: NetInfo;
+    webkitConnection?: NetInfo;
+  };
+  const conn = nav.connection || nav.mozConnection || nav.webkitConnection;
+  if (conn?.effectiveType && ["slow-2g", "2g", "3g"].includes(conn.effectiveType)) {
+    setIsSlowNetwork(true);
+  }
 
-    // Detect chunk errors
-    const errorHandler = (e: ErrorEvent) => {
-      if (e.message?.includes("ChunkLoadError")) setIsSlowNetwork(true);
-    };
-    window.addEventListener("error", errorHandler);
+  // Detect chunk load errors
+  const errorHandler = (e: ErrorEvent) => {
+    if (e.message?.includes("ChunkLoadError")) setIsSlowNetwork(true);
+  };
+  window.addEventListener("error", errorHandler);
 
-    // Animate logo on start
-    setTargetProgress(25);
-    gsap.to(logoRef.current, {
-      scale: 1,
-      opacity: 1,
-      duration: 1.2,
-      ease: "power2.out",
-    });
+  // Animate logo at start
+  setTargetProgress(25);
+  gsap.to(logoRef.current, {
+    scale: 1,
+    opacity: 1,
+    duration: 1.2,
+    ease: "power2.out",
+  });
 
-    // Hybrid load: wait for fonts or 3s (whichever is earlier)
-    Promise.race([
-      document.fonts.ready, // wait for fonts
-      new Promise((res) => setTimeout(res, 3000)), // or max 3s
-    ]).then(() => {
-      setTargetProgress(100);
-      const waitInterval = setInterval(() => {
-        if (progressRef.current >= 99.9 && !animationStartedRef.current) {
-          animationStartedRef.current = true;
-          clearInterval(waitInterval);
+  // Combined asset loader
+  const fontReady = document.fonts.ready;
+  const pageLoaded = new Promise<void>((resolve) => {
+    if (document.readyState === "complete") return resolve();
+    window.addEventListener("load", () => resolve(), { once: true });
+  });
 
-          // Final exit animation
-          gsap
-            .timeline()
-            .to(logoRef.current, {
-              scale: 1.2,
-              duration: 0.5,
-              ease: "power3.out",
-            })
-            .to(wrapperRef.current, {
-              opacity: 0,
-              duration: 0.8,
-              ease: "power2.out",
-              onComplete: onFinish,
-            });
-        }
-      }, 100);
-    });
+  // Max wait fallback: 5 seconds
+  const timeoutFallback = new Promise<void>((resolve) =>
+    setTimeout(resolve, 5000)
+  );
 
-    return () => {
-      window.removeEventListener("error", errorHandler);
-    };
-  }, [onFinish]);
+  // Wait for either full asset load or 5s timeout
+  Promise.race([
+    Promise.all([fontReady, pageLoaded]),
+    timeoutFallback,
+  ]).then(() => {
+    setTargetProgress(100);
+    const waitInterval = setInterval(() => {
+      if (progressRef.current >= 99.9 && !animationStartedRef.current) {
+        animationStartedRef.current = true;
+        clearInterval(waitInterval);
+
+        gsap
+          .timeline()
+          .to(logoRef.current, {
+            scale: 1.2,
+            duration: 0.5,
+            ease: "power3.out",
+          })
+          .to(wrapperRef.current, {
+            opacity: 0,
+            duration: 0.8,
+            ease: "power2.out",
+            onComplete: onFinish,
+          });
+      }
+    }, 100);
+  });
+
+  return () => {
+    window.removeEventListener("error", errorHandler);
+  };
+}, [onFinish]);
+
 
   return (
     <>
