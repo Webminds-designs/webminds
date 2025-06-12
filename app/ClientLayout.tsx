@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Preloader from "./Components/PreLoader";
 import ScrollToTop from "./Components/ScrollToTop";
 import LiveNoise from "./Components/LiveNoise";
-import ErrorBoundary from "./Components/ErrorBoundary"; // ⬅️ You’ll need to create this component
+import ErrorBoundary from "./Components/ErrorBoundary";
 
 export default function ClientLayout({
   children,
@@ -20,7 +20,7 @@ export default function ClientLayout({
       console.warn("Preloader timed out after 3 seconds.");
     }, 3000);
 
-    // ✅ Handle JS chunk loading errors (e.g., on 3G)
+    // ✅ Handle JS chunk loading errors
     const onChunkError = (e: ErrorEvent) => {
       if (
         e?.message?.includes("Loading chunk") ||
