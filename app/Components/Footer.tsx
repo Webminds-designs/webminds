@@ -31,7 +31,7 @@ const Footer: React.FC<FooterProp> = ({
           </div>
         </div>
 
-        <div className="md:w-1/2 h-fill flex flex-col md:flex-row justify-center items-center md:justify-between md:items-start">
+        <div className="md:w-fit w-full h-fill flex flex-col md:flex-row justify-center items-center md:justify-between md:items-start md:gap-12 gap-2">
           <div className="w-fit h-fit flex-col justify-center items-center md:items-start mt-6">
             <div className="text-sm text-bold text-white text-center md:text-start mb-4 font-bold">
               Contact Us
