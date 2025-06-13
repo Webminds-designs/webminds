@@ -84,7 +84,7 @@ const Contact = () => {
     <>
       <Nav bgColor="#212121" />
 
-      <div className="min-h-screen bg-gradient-to-b from-[#050505] to-[#010B19] text-white md:px-10 md:py-10 px-4 py-10 flex flex-col md:flex-row items-center justify-center font-poppins">
+      <div className="min-h-screen bg-gradient-to-b from-[#050505] to-[#010B19] text-white md:px-10 md:py-10 px-4 py-10 flex flex-col lg:flex-row items-center justify-center font-poppins">
         {/* Left Panel with Glow Effect */}
         <div
           ref={containerRef}
