@@ -19,14 +19,18 @@ const Contact = () => {
   );
   const formRef = useRef<HTMLFormElement>(null);
 
-  // Mouse‐move glow setup (unchanged)
+  // Mouse-move glow setup (unchanged but optimized for mobile)
   const containerRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const defaultShadow = `
     16px 4px 20px rgba(45, 95, 157,0.8),
     0px 0px 40px rgba(45, 95, 157,0.3)
   `;
+
   const handleMouseMove = (e: React.MouseEvent) => {
+    // Disable glow effect on mobile for better performance
+    if (window.innerWidth < 768) return;
+
     if (!containerRef.current || !headingRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const x = e.clientX - (rect.left + rect.width / 2);
@@ -39,6 +43,7 @@ const Contact = () => {
       ${offsetX * 0.5}px ${offsetY * 0.5}px 40px rgba(45, 95, 157,0.3)
     `;
   };
+
   const handleMouseLeave = () => {
     if (headingRef.current) {
       headingRef.current.style.textShadow = defaultShadow;
@@ -84,109 +89,143 @@ const Contact = () => {
     <>
       <Nav bgColor="#212121" />
 
-      <div className="min-h-screen bg-gradient-to-b from-[#050505] to-[#010B19] text-white md:px-10 md:py-10 px-4 py-10 flex flex-col lg:flex-row items-center justify-center font-poppins">
-        {/* Left Panel with Glow Effect */}
-        <div
-          ref={containerRef}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
-          className="w-full md:w-1/2 md:p-4 p-1 flex flex-col items-start text-left relative overflow-visible cursor-move"
-        >
-          <h1
-            ref={headingRef}
-            style={{ textShadow: defaultShadow }}
-            className="relative  text-[150px] md:text-[300px] font-bold text-[rgb(248,251,254)] leading-none"
-          >
-            Hey
-          </h1>
-          <p className="relative mt-12 font-thin md:pr-32 text-4xl text-[#ded9cf] md:pl-6 pl-3">
-            Let’s start something great together!
-          </p>
+      <div className="min-h-screen bg-gradient-to-b from-[#050505] to-[#010B19] text-white font-poppins">
+        <div className="px-4 py-8 sm:px-6 md:px-10 lg:py-16">
+          <div className="max-w-7xl mx-auto mt-12">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 lg:gap-16">
+              {/* Left Panel with Glow Effect */}
+              <div
+                ref={containerRef}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+                className="w-full lg:w-1/2 flex flex-col items-start text-left relative overflow-visible lg:cursor-move "
+              >
+                <h1
+                  ref={headingRef}
+                  style={{ textShadow: defaultShadow }}
+                  className="relative text-6xl sm:text-8xl md:text-9xl lg:text-[200px] xl:text-[300px] font-bold text-[rgb(248,251,254)] leading-none mb-4 lg:mb-8"
+                >
+                  Hey
+                </h1>
+                <p className="relative font-thin text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-[#ded9cf] lg:pr-16 max-w-md lg:max-w-none ml-0 lg:ml-6 mt-4">
+                  Let&apos;s start something great together!
+                </p>
+              </div>
+
+              {/* Contact Form */}
+              <div className="w-full lg:w-1/2 lg:max-w-xl mt-4">
+                <form
+                  ref={formRef}
+                  onSubmit={handleSubmit}
+                  className="space-y-6 sm:space-y-8"
+                >
+                  <div>
+                    <label className="block mb-2 text-sm sm:text-base text-gray-300">
+                      Full Name
+                    </label>
+                    <input
+                      type="text"
+                      name="fullName"
+                      value={formData.fullName}
+                      onChange={handleChange}
+                      required
+                      placeholder="Your full name"
+                      className="w-full px-0 py-3 bg-transparent border-0 border-b border-gray-600 outline-none focus:border-[#ded9cf] transition-colors text-white placeholder-gray-500 text-sm sm:text-base"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block mb-2 text-sm sm:text-base text-gray-300">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      placeholder="Your email address"
+                      className="w-full px-0 py-3 bg-transparent border-0 border-b border-gray-600 outline-none focus:border-[#ded9cf] transition-colors text-white placeholder-gray-500 text-sm sm:text-base"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block mb-2 text-sm sm:text-base text-gray-300">
+                      Mobile Number
+                    </label>
+                    <input
+                      type="tel"
+                      name="mobileNumber"
+                      value={formData.mobileNumber}
+                      onChange={handleChange}
+                      required
+                      placeholder="Your mobile number"
+                      className="w-full px-0 py-3 bg-transparent border-0 border-b border-gray-600 outline-none focus:border-[#ded9cf] transition-colors text-white placeholder-gray-500 text-sm sm:text-base"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block mb-2 text-sm sm:text-base text-gray-300">
+                      Subject
+                    </label>
+                    <input
+                      type="text"
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      required
+                      placeholder="Subject"
+                      className="w-full px-0 py-3 bg-transparent border-0 border-b border-gray-600 outline-none focus:border-[#ded9cf] transition-colors text-white placeholder-gray-500 text-sm sm:text-base"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block mb-2 text-sm sm:text-base text-gray-300">
+                      Message
+                    </label>
+                    <textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      required
+                      rows={4}
+                      placeholder="Your message"
+                      className="w-full px-0 py-3 bg-transparent border-0 border-b border-gray-600 outline-none focus:border-[#ded9cf] transition-colors resize-none text-white placeholder-gray-500 text-sm sm:text-base"
+                    />
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row sm:justify-end sm:items-center gap-4 sm:gap-4 pt-4">
+                    <div className="flex items-center justify-center sm:justify-start">
+                      {status === "sending" && (
+                        <span className="text-blue-400 text-sm sm:text-base">
+                          Sending…
+                        </span>
+                      )}
+                      {status === "sent" && (
+                        <span className="text-green-400 text-sm sm:text-base">
+                          Message sent successfully!
+                        </span>
+                      )}
+                      {status === "error" && (
+                        <span className="text-red-400 text-sm sm:text-base">
+                          Failed to send message.
+                        </span>
+                      )}
+                    </div>
+
+                    <button
+                      type="submit"
+                      disabled={status === "sending"}
+                      className="w-full sm:w-auto bg-[#ded9cf] text-black px-8 py-3 rounded hover:opacity-80 transition-opacity disabled:opacity-50 font-medium text-sm sm:text-base min-w-[120px]"
+                    >
+                      {status === "sending" ? "Sending..." : "Send"}
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
-
-        {/* Contact Form */}
-        <form
-          ref={formRef}
-          onSubmit={handleSubmit}
-          className="w-full md:w-1/2 md:px-4 md:py-4 py-8 px-3  space-y-8"
-        >
-          <div>
-            <label className="block mb-2">Full Name</label>
-            <input
-              type="text"
-              name="fullName"
-              value={formData.fullName}
-              onChange={handleChange}
-              required
-              placeholder="Your full name"
-              className="w-full px-4 py-2 bg-transparent border-b border-gray-600 outline-none"
-            />
-          </div>
-          <div>
-            <label className="block mb-2">Email</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              placeholder="Your email address"
-              className="w-full px-4 py-2 bg-transparent border-b border-gray-600 outline-none"
-            />
-          </div>
-          <div>
-            <label className="block mb-2">Mobile Number</label>
-            <input
-              type="tel"
-              name="mobileNumber"
-              value={formData.mobileNumber}
-              onChange={handleChange}
-              required
-              placeholder="Your mobile number"
-              className="w-full px-4 py-2 bg-transparent border-b border-gray-600 outline-none"
-            />
-          </div>
-          <div>
-            <label className="block mb-2">Subject</label>
-            <input
-              type="text"
-              name="subject"
-              value={formData.subject}
-              onChange={handleChange}
-              required
-              placeholder="Subject"
-              className="w-full px-4 py-2 bg-transparent border-b border-gray-600 outline-none"
-            />
-          </div>
-          <div className="relative">
-            <label className="block mb-2">Message</label>
-            <textarea
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              required
-              rows={4}
-              placeholder="Your message"
-              className="w-full px-4 py-2 bg-transparent border-b border-gray-600 outline-none resize-none"
-            />
-          </div>
-
-          <div className="flex justify-end items-center space-x-4">
-            {status === "sending" && <span>Sending…</span>}
-            {status === "sent" && <span className="text-green-400">Sent!</span>}
-            {status === "error" && (
-              <span className="text-red-400">Failed.</span>
-            )}
-
-            <button
-              type="submit"
-              disabled={status === "sending"}
-              className="bg-[#ded9cf] text-black px-6 py-2 rounded hover:opacity-80 transition"
-            >
-              Send
-            </button>
-          </div>
-        </form>
       </div>
 
       <Footer
