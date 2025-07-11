@@ -67,33 +67,32 @@ const worksData = [
     footerBgColor: "#422f21",
   },
   {
-    id: 3,
-    img: "/assets/Odessa.jpg",
-    imgPor: "/assets/works/Od.jpg",
-    lowqualityImg: "/assets/Odessalow.webp",
-    name: "Odessa",
-    textOverlay: "Crafting Your Unique Diamond Jowelry",
-    link: "https://www.odessajewellery.com/",
-    description:
-      "For Odessa, we crafted a high-end digital experience that reflects their commitment to sustainable luxury and fine craftsmanship. Our team handled the full spectrum of development from responsive frontend architecture using Next.js and TailwindCSS to seamless UI design in Figma. We built a custom website that not only showcases their premium jewelry collections but also enhances brand storytelling through strategic content structuring, optimized SEO, and social media integration.",
-    technology: {
-      frontendDevelopment: ["Next.js", "TailwindCSS"],
-      designTools: ["Figma"],
-    },
-    services: [
-      "Communication Strategy",
-      "Web Design and Development",
-      "Branding and Visual Identity",
-      "Service Showcase Structuring",
-      "SEO and Content Marketing",
-      "Social Media Integration",
-    ],
-
-    tag: ["Web Development", "Branding & Desing"],
-    navBgColor: "#656766",
-    navTextColor: "#EAC6A3",
-    footerTextColor: "text-green-500",
-    footerBgColor: "#EAC6A3",
+  id: 3,
+  img: "/assets/RideHigh.jpg",
+  imgPor: "/assets/works/RIdeP.jpg",
+  lowqualityImg: "/assets/RideLow.jpg",
+  name: "RIDE",
+  textOverlay: "Fuel Your Movement, Ignite Your Day",
+  link: "https://ride-sample.netlify.app/",
+  description:
+  "RIDE Energy Drink is more than just a beverage — it’s a mindset. This sample project captures the raw momentum of movement, crafted for those who thrive on energy and don’t slow down. From intense workouts to creative all-nighters, RIDE powers every moment with clean, lasting fuel. Through bold 3D visuals, GSAP-powered transitions, and seamless digital storytelling, we brought the brand to life in a way that speaks to real performance, real ingredients, and unstoppable drive.",
+  technology: {
+    frontendDevelopment: ["Three.js", "Next.js","GSAP", "TailwindCSS"],
+    designTools: ["Figma", "Blender"],
+  },
+  services: [
+    "3D Interaction Design",
+    "Web Design and Development",
+    "Creative Direction",
+    "Brand Identity Extension",
+    "Performance Optimization",
+    "Mobile Responsiveness",
+  ],
+  tag: ["Web Development", "Branding & Desing"],
+  navBgColor: "#ffffff",
+  navTextColor: "#0007d4",
+  footerTextColor: "text-orange-400",
+  footerBgColor: "#0007d4",
   },
   {
     id: 4,
@@ -193,7 +192,7 @@ const worksData = [
     lowqualityImg: "/assets/IGLlow.webp",
     name: "IGL",
     textOverlay: "Your Trusted Partner in Global Education",
-    link: "https://igltest.netlify.app/",
+    link: "https://igl2.netlify.app/",
     description:
       "We partnered with IGL Sri Lanka to build a dynamic digital platform that reflects their leadership in migration and overseas education services. Using React.js and TailwindCSS, we developed a responsive, user-friendly interface designed in Figma. The site highlights their expertise in student guidance, visa support, and global university placements, while SEO and social media integration ensure strong visibility and engagement.",
     technology: {
@@ -245,6 +244,34 @@ const worksData = [
     footerTextColor: "text-green-500",
     footerBgColor: "#212121",
   },
+  {
+  id: 9,
+  img: "/assets/StarCatcherHigh.jpg",
+  imgPor: "/assets/works/StarCatcherP.jpg",
+  lowqualityImg: "/assets/StarCatcherLow.jpg",
+  name: "Star Catcher",
+  textOverlay: "A Magical 3D Storybook Adventure",
+  link: "https://starcatcher-wm.netlify.app/",
+  description:
+  "Star Catcher is a 3D children's storybook that follows the whimsical journey of a young dreamer who sets out to catch a falling star. Designed with vibrant visuals and gentle storytelling, the project blends imagination, narrative, and design into an immersive experience for curious young minds. Special thanks to Janith, Uvindu, Yasith, and Mithula for entrusting us with bringing this magical vision to life.",
+  technology: {
+    frontendDevelopment: ["Three.js","React Three Fiber", "Next.js","GSAP"],
+    designTools: ["Blender", "Figma"],
+  },
+  services: [
+    "3D Illustration & Animation",
+    "Children’s Storytelling",
+    "Interactive Design",
+    "Visual Development",
+    "Character Design",
+    "Narrative Art Direction",
+  ],
+  tag: ["Web Development", "Branding & Desing"],
+  navBgColor: "#0b0c2a",
+  navTextColor: "white",
+  footerTextColor: "text-yellow-400",
+  footerBgColor: "#0b0c2a",
+}
 ];
 
 export default worksData;
