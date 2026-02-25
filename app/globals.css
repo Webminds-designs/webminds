@@ -25,7 +25,7 @@ body {
 ::-webkit-scrollbar {
   display: none;
 }
-/* Prevent layout shift during animation */
+
 .lineChild {
   display: inline-block;
   overflow: hidden;
